@@ -20,7 +20,7 @@ Acceptance: `python -m unittest discover -s tests -v` passes and
 `docs/UPSTREAM_AUDIT.md` distinguishes observed behavior from repository
 claims.
 
-## M1 — Typed trace ingestion and dataset boundaries
+## M1 — Typed trace ingestion and dataset boundaries (complete)
 
 Deliverables:
 

@@ -1,5 +1,11 @@
 # Trace Format Specification
 
+> **Upstream legacy format.** This file documents the original AutoCompile
+> representation at the audited baseline. Trace2Flow uses the strict,
+> type-preserving format in [trace2flow-trace-v1.md](trace2flow-trace-v1.md).
+> In particular, the upstream compiler does not directly parse the JSON shown
+> below; Trace2Flow's adapter validates normalized JSON and emits ASP facts.
+
 autocompile accepts execution traces in two formats: JSON and ASP (Logic Programming facts).
 
 ## JSON Format

@@ -1,4 +1,16 @@
-# autocompile
+# Trace2Flow
+
+Trace2Flow is a safety- and evidence-focused evolution of the upstream
+[AutoCompile](https://github.com/mirkokiefer/autocompile) project. The current
+Trace2Flow contribution adds strict, typed JSON trace ingestion, complete-run
+dataset boundaries, and a reversible adapter into the original ASP compiler.
+See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
+[upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
+
+The original AutoCompile overview follows. Its broad product claims describe
+upstream intent; verified behavior and known gaps are recorded in the audit.
+
+## Upstream AutoCompile overview
 
 AI agents spend most of their compute re-deriving decisions that were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
 

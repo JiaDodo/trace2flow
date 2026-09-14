@@ -2,9 +2,65 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M0 complete
+Current milestone: M1 complete
 
-Working branch: `feat/m0-baseline`
+Working branch: `feat/m1-trace-ingestion`
+
+## M1 update
+
+M1 establishes a typed authority boundary in `src/trace2flow/` without
+rewriting the audited upstream compiler:
+
+- Added strict Pydantic models for schema version `1.0`, complete task runs,
+  distinct tool-call occurrences, provenance, statuses, explicit references,
+  side-effect metadata, task inputs, outputs, and state snapshots.
+- Added deterministic canonical JSON serialization and stable validation
+  diagnostics. Duplicate JSON keys, non-finite numbers, unknown fields,
+  duplicate IDs, missing/self references, and dependency cycles are rejected.
+- Added explicit run-level splitting. Compile/test overlap is rejected by both
+  run ID and provenance fingerprint, so renaming a copied run does not bypass
+  the guard.
+- Added a reversible ASP parameter encoding based on canonical JSON and
+  Base64URL. Values such as `1`, `1.0`, `true`, `null`, and `"1"` remain
+  distinct even though the upstream ASP interface accepts strings.
+- Added local `validate`, `split`, and `to-asp` CLI commands. They transform
+  data only and do not execute trace content or contact external services.
+- Added an explicitly synthetic customer-support fixture with 3 runs and 18
+  call occurrences. Each run calls `lookup_order` twice to protect occurrence
+  identity at the typed/adapter boundary.
+- Added Pydantic to `pyproject.toml` and refreshed `uv.lock`.
+
+Actual M1 CLI verification:
+
+```text
+validate: 3 runs, 18 steps, valid=true
+split: 2 complete compile runs, 1 complete test run
+ASP adapter: canonical-json-base64url-v1
+upstream compile: 2 source runs, 5 core tool types
+```
+
+Actual M1 automated verification:
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 17 tests
+OK
+
+$ ruff check src/trace2flow tests
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests
+completed with exit code 0
+
+$ uv lock --check --offline
+completed with exit code 0
+```
+
+The 17 tests include the 3 M0 upstream smoke tests. The new tests cover nested
+JSON values, booleans, nulls, integers versus floats/strings, repeated tools,
+canonical round trips, invalid references/cycles, leakage by ID/provenance,
+CLI artifacts, reversible parameter encoding, and real invocation of the
+pinned upstream compiler.
 
 ## Repository setup
 
@@ -74,7 +130,7 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M1, but the upstream boundary cannot satisfy the MVP by
+There is no blocker to M2, but the upstream boundary cannot satisfy the MVP by
 itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
@@ -99,7 +155,8 @@ See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M1: implement typed, versioned JSON ingestion and run-level dataset-boundary
-checks, then adapt the validated trace subset to upstream ASP without treating
-the lossy ASP representation as the source of truth. No UI work is planned for
-M1.
+M2: align repeated call occurrences across runs, invoke the upstream miner as
+one evidence source, and build a candidate DAG whose edges retain supporting
+and conflicting run/call evidence. Call order alone must not create an edge,
+and ambiguous alignments must remain unresolved. No Prefect or UI work is
+planned for M2.

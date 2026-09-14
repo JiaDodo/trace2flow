@@ -51,12 +51,20 @@ claim.
 
 ## Validation commands
 
-The core smoke path needs Python 3.12 and Clingo 5.8.0. It intentionally uses
+The core smoke path needs Python 3.12 and Clingo 5.8.0. Trace2Flow's typed path
+also needs the Pydantic version recorded in `uv.lock`. Tests intentionally use
 the standard-library `unittest` runner:
 
 ```bash
-python -m unittest discover -s tests -v
-python -m compileall -q src tests
+PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python -m compileall -q src tests
+```
+
+The normalized Trace2Flow format is specified in
+`spec/trace2flow-trace-v1.md`. Validate a trace without executing it:
+
+```bash
+PYTHONPATH=src python -m trace2flow validate traces.json
 ```
 
 To reproduce the audited upstream example without overwriting tracked example

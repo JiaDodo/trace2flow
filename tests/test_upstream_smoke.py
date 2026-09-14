@@ -9,7 +9,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 TRAIN_TRACES = ROOT / "tests" / "fixtures" / "smoke_train.lp"
 HOLDOUT_TRACES = ROOT / "tests" / "fixtures" / "smoke_holdout.json"
