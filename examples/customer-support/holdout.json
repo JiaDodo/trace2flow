@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "synthetic_customer_support_holdout_v1",
+  "partition": "test",
+  "metadata": {"synthetic": true, "scenario": "local_customer_support"},
+  "runs": [
+    {
+      "id": "holdout_delivery_delay",
+      "provenance": {"kind": "synthetic", "source": "trace2flow/customer-support-v1", "source_run_id": "holdout_case_101"},
+      "inputs": {"customer_id": "C-101", "order_id": "O-101", "ticket_id": "T-101", "ticket_text": "The order is still processing"},
+      "steps": [
+        {"id": "lookup_customer", "tool": "lookup_customer", "params": {"customer_id": "C-101"}, "output": {"customer_id": "C-101", "name": "Synthetic Holdout A", "tier": "gold"}, "status": "completed", "side_effects": [{"kind": "read", "target": "mock.customers"}]},
+        {"id": "lookup_order", "tool": "lookup_order", "params": {"order_id": "O-101", "customer_id": "C-101"}, "output": {"order_id": "O-101", "customer_id": "C-101", "status": "processing", "delivered": false, "damaged": false, "duplicate_charge": false}, "depends_on": ["lookup_customer"], "status": "completed", "side_effects": [{"kind": "read", "target": "mock.orders"}]},
+        {"id": "classify_issue", "tool": "classify_issue", "params": {"ticket_text": "The order is still processing", "order_status": "processing", "delivered": false, "damaged": false, "duplicate_charge": false}, "output": {"issue_type": "delivery_delay", "eligible": false}, "depends_on": ["lookup_order"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "recommend_action", "tool": "recommend_action", "params": {"issue_type": "delivery_delay", "eligible": false, "policy_version": "v1"}, "output": {"issue_type": "delivery_delay", "eligible": false, "policy_version": "v1", "recommendation": "carrier_investigation", "status": "pending_carrier"}, "depends_on": ["classify_issue"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "update_ticket", "tool": "update_ticket", "params": {"ticket_id": "T-101", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}, "output": {"ticket_id": "T-101", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}, "depends_on": ["classify_issue", "recommend_action"], "status": "completed", "side_effects": [{"kind": "write", "target": "mock.tickets", "reversible": true}]}
+      ],
+      "status": "completed",
+      "final_output": {"ticket_id": "T-101", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"},
+      "state_before": {"tickets": {"T-101": {"ticket_id": "T-101", "status": "open"}}},
+      "state_after": {"tickets": {"T-101": {"ticket_id": "T-101", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}}}
+    },
+    {
+      "id": "holdout_damaged_item",
+      "provenance": {"kind": "synthetic", "source": "trace2flow/customer-support-v1", "source_run_id": "holdout_case_102"},
+      "inputs": {"customer_id": "C-102", "order_id": "O-102", "ticket_id": "T-102", "ticket_text": "The parcel is damaged"},
+      "steps": [
+        {"id": "lookup_customer", "tool": "lookup_customer", "params": {"customer_id": "C-102"}, "output": {"customer_id": "C-102", "name": "Synthetic Holdout B", "tier": "standard"}, "status": "completed", "side_effects": [{"kind": "read", "target": "mock.customers"}]},
+        {"id": "lookup_order", "tool": "lookup_order", "params": {"order_id": "O-102", "customer_id": "C-102"}, "output": {"order_id": "O-102", "customer_id": "C-102", "status": "delivered", "delivered": true, "damaged": true, "duplicate_charge": false}, "depends_on": ["lookup_customer"], "status": "completed", "side_effects": [{"kind": "read", "target": "mock.orders"}]},
+        {"id": "classify_issue", "tool": "classify_issue", "params": {"ticket_text": "The parcel is damaged", "order_status": "delivered", "delivered": true, "damaged": true, "duplicate_charge": false}, "output": {"issue_type": "damaged_item", "eligible": true}, "depends_on": ["lookup_order"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "recommend_action", "tool": "recommend_action", "params": {"issue_type": "damaged_item", "eligible": true, "policy_version": "v1"}, "output": {"issue_type": "damaged_item", "eligible": true, "policy_version": "v1", "recommendation": "replacement_offer", "status": "replacement_offered"}, "depends_on": ["classify_issue"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "update_ticket", "tool": "update_ticket", "params": {"ticket_id": "T-102", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}, "output": {"ticket_id": "T-102", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}, "depends_on": ["classify_issue", "recommend_action"], "status": "completed", "side_effects": [{"kind": "write", "target": "mock.tickets", "reversible": true}]}
+      ],
+      "status": "completed",
+      "final_output": {"ticket_id": "T-102", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"},
+      "state_before": {"tickets": {"T-102": {"ticket_id": "T-102", "status": "open"}}},
+      "state_after": {"tickets": {"T-102": {"ticket_id": "T-102", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}}}
+    }
+  ]
+}

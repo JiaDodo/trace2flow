@@ -97,6 +97,10 @@ Prefect export must go through `trace2flow.prefect_export.export_prefect` and
 the generated flow must dispatch through `ToolRegistry`. Do not add dynamic
 imports, `eval`, `exec`, shell execution, or a fallback for unknown tools.
 
+Customer-support equivalence claims must come from `verify_workflow` against a
+disjoint `test` partition and fresh simulator state. A structural replay must
+remain labeled partial and must never set an execution-equivalence claim.
+
 To reproduce the audited upstream example without overwriting tracked example
 outputs, write all generated files to a temporary directory:
 

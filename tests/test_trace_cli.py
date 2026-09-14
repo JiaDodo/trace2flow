@@ -12,6 +12,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "typed_customer_support.json"
+DEMO_COMPILE = ROOT / "examples" / "customer-support" / "compile.json"
+DEMO_HOLDOUT = ROOT / "examples" / "customer-support" / "holdout.json"
+DEMO_RESOLUTION = ROOT / "examples" / "customer-support" / "resolution.json"
 
 
 class TraceCliTest(unittest.TestCase):
@@ -162,6 +165,52 @@ class TraceCliTest(unittest.TestCase):
             self.assertEqual(exported.returncode, 2)
             self.assertIn("workflow is not executable", exported.stderr)
             self.assertFalse(export_path.exists())
+
+    def test_customer_support_cli_pipeline_verifies_held_out_runs(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="trace2flow-cli-demo-") as tempdir:
+            root = Path(tempdir)
+            candidate_path = root / "candidate.json"
+            workflow_path = root / "workflow.json"
+            report_path = root / "report.json"
+            self.run_cli("mine", str(DEMO_COMPILE), "--output", str(candidate_path))
+            built = self.run_cli(
+                "build-ir",
+                str(DEMO_COMPILE),
+                "--candidate",
+                str(candidate_path),
+                "--resolution",
+                str(DEMO_RESOLUTION),
+                "--output",
+                str(workflow_path),
+            )
+            self.assertEqual(json.loads(built.stdout)["blockers"], 0)
+            verified = self.run_cli(
+                "verify",
+                str(workflow_path),
+                "--compile",
+                str(DEMO_COMPILE),
+                "--test",
+                str(DEMO_HOLDOUT),
+                "--output",
+                str(report_path),
+            )
+            self.assertEqual(
+                json.loads(verified.stdout),
+                {
+                    "cases": 2,
+                    "passed": True,
+                    "passed_cases": 2,
+                    "validation_scope": "independent_local_simulation",
+                },
+            )
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            self.assertTrue(report["synthetic_data"])
+            self.assertTrue(
+                all(
+                    case["final_output_match"] and case["state_match"]
+                    for case in report["cases"]
+                )
+            )
 
 
 if __name__ == "__main__":

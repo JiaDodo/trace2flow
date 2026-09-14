@@ -80,7 +80,7 @@ Acceptance: generated code passes static checks, executes the controlled
 fixture, and negative tests prove arbitrary trace code and unregistered tools
 cannot run.
 
-## M5 — Independent local simulation and verification
+## M5 — Independent local simulation and verification (complete)
 
 Deliverables:
 

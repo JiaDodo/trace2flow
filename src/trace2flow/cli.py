@@ -19,6 +19,7 @@ from .ir import (
     workflow_ir_json,
 )
 from .prefect_export import PrefectExportError, export_prefect
+from .simulation import verification_report_json, verify_workflow
 from .upstream import RuleProfile, UpstreamCompilationError
 
 
@@ -77,6 +78,15 @@ def _build_parser() -> argparse.ArgumentParser:
     prefect.add_argument("input", type=Path, help="workflow-ir/1.0 JSON")
     prefect.add_argument("--registered-tool", action="append", required=True)
     prefect.add_argument("--output", type=Path, required=True)
+
+    verify = subparsers.add_parser(
+        "verify",
+        help="verify a resolved workflow in the independent local simulator",
+    )
+    verify.add_argument("input", type=Path, help="workflow-ir/1.0 JSON")
+    verify.add_argument("--compile", type=Path, required=True)
+    verify.add_argument("--test", type=Path, required=True)
+    verify.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -99,6 +109,27 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             )
             return 0
+
+        if args.command == "verify":
+            workflow = loads_workflow_ir(args.input.read_text(encoding="utf-8"))
+            compile_dataset = load_trace_dataset(args.compile)
+            test_dataset = load_trace_dataset(args.test)
+            report = verify_workflow(workflow, compile_dataset, test_dataset)
+            args.output.write_text(verification_report_json(report), encoding="utf-8")
+            print(
+                json.dumps(
+                    {
+                        "cases": len(report.cases),
+                        "passed": report.passed,
+                        "passed_cases": sum(
+                            case.status == "passed" for case in report.cases
+                        ),
+                        "validation_scope": report.validation_scope,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if report.passed else 1
 
         dataset = load_trace_dataset(args.input)
         if args.command == "validate":

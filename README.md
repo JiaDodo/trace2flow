@@ -21,6 +21,9 @@ PYTHONPATH=src python -m trace2flow build-ir \
 Resolved workflows can be exported to Prefect only with an explicit tool
 allowlist. See [the safe export guide](docs/PREFECT_EXPORT.md).
 
+The complete synthetic customer-support compile and held-out simulation path
+is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
+
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 

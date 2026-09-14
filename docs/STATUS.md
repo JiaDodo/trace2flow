@@ -2,9 +2,58 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M4 complete
+Current milestone: M5 complete
 
-Working branch: `feat/m4-prefect-export`
+Working branch: `feat/m5-local-verification`
+
+## M5 update
+
+M5 adds independent, in-memory verification for the customer-support story:
+
+- Added local registered implementations of customer lookup, order lookup,
+  issue classification, action recommendation, and mock ticket update.
+- Added a framework-independent local IR executor with the same blocker and
+  registry preflight requirements as Prefect export.
+- Added deterministic state diffs and `verification-report/1.0`, comparing both
+  sink output and complete mutable ticket state.
+- Added three synthetic compile runs and two provenance-disjoint held-out runs,
+  plus an explicit reviewed resolution plan. The compile data produces five
+  aligned nodes, five evidence-bearing edges, and no unresolved dependencies.
+- Added structural replay with the fixed label
+  `recorded_response_replay_partial` and
+  `equivalent_execution_claimed=false`.
+- Added `trace2flow verify` and an end-to-end CLI regression.
+
+Actual end-to-end CLI result:
+
+```text
+compile: 3 synthetic complete runs
+holdout: 2 synthetic complete runs
+workflow: 5 nodes, 5 edges, 0 blockers
+verification scope: independent_local_simulation
+passed cases: 2/2
+final output matches: 2/2
+state matches: 2/2
+```
+
+An intentional expected-output and expected-state corruption produced a failed
+case with both match flags false. These controlled synthetic results establish
+only the demo behavior; they are not a success-rate or business-benefit claim.
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 44 tests in 9.660s
+OK
+
+$ ruff check src/trace2flow tests
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 170 packages in 2ms
+```
 
 ## M4 update
 
@@ -276,7 +325,7 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M5. The upstream boundary still cannot satisfy the MVP
+There is no blocker to M6. The upstream boundary still cannot satisfy the MVP
 by itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
@@ -294,19 +343,20 @@ by itself:
 - Daslab codegen embeds runtime bindings and conditions as annotations rather
   than executable semantics. There is no Prefect target or registered-tool
   execution gate.
-- The root dependency set mixes core and optional experimental packages; only
-  the minimal core dependency was installed for M0.
+- The root dependency set still mixes core and optional experimental packages;
+  the isolated environment contains the core M0 dependencies plus Prefect for
+  verified M4 execution.
 
 Trace2Flow now supplies a validated IR, declaration-gated typed bindings,
-explicit branch/side-effect resolution, safe Prefect export, and a runtime tool
-registry. It does not yet execute and compare held-out cases against an
-independent customer-support simulator.
+explicit branch/side-effect resolution, safe Prefect export, a runtime tool
+registry, and independent held-out simulation. It does not yet provide the
+Streamlit inspection/demo layer or final release audit.
 
 See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M5: implement the independent in-memory customer-support simulator and
-verification report. Compile and held-out runs must remain disjoint; checks
-must compare both final outputs and state diffs, with intentional mismatch
-coverage. Recorded-response replay remains labeled as partial only.
+M6: add a lightweight Streamlit UI over the tested library pipeline, including
+trace upload/default demo, DAG and evidence inspection, resolution editing,
+Prefect export, and simulation results. Then run a clean demo and final
+safety/licensing/attribution audit.
