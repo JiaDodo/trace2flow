@@ -15,6 +15,8 @@ FIXTURE = ROOT / "tests" / "fixtures" / "typed_customer_support.json"
 DEMO_COMPILE = ROOT / "examples" / "customer-support" / "compile.json"
 DEMO_HOLDOUT = ROOT / "examples" / "customer-support" / "holdout.json"
 DEMO_RESOLUTION = ROOT / "examples" / "customer-support" / "resolution.json"
+TAU_RESULTS = ROOT / "tests" / "fixtures" / "tau_retail_results.json"
+TAU_REVIEW = ROOT / "tests" / "fixtures" / "tau_retail_review.json"
 
 
 class TraceCliTest(unittest.TestCase):
@@ -81,6 +83,68 @@ class TraceCliTest(unittest.TestCase):
             facts = asp_path.read_text(encoding="utf-8")
             self.assertIn('job("support_run_1")', facts)
             self.assertNotIn('job("support_run_3")', facts)
+
+    def test_tau_import_and_group_split_are_review_gated(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="trace2flow-cli-tau-") as tempdir:
+            root = Path(tempdir)
+            quarantine_path = root / "quarantine.json"
+            reviewed_path = root / "reviewed.json"
+            compile_path = root / "compile.json"
+            test_path = root / "test.json"
+
+            quarantined = self.run_cli(
+                "import-tau",
+                str(TAU_RESULTS),
+                "--dataset-id",
+                "tau_quarantine",
+                "--task-id",
+                "address-change",
+                "--successful-only",
+                "--output",
+                str(quarantine_path),
+            )
+            self.assertEqual(
+                json.loads(quarantined.stdout)["import_review_status"], "required"
+            )
+            blocked = self.run_cli(
+                "mine",
+                str(quarantine_path),
+                "--output",
+                str(root / "must_not_exist.json"),
+                check=False,
+            )
+            self.assertEqual(blocked.returncode, 2)
+            self.assertIn("require complete dependency", blocked.stderr)
+
+            imported = self.run_cli(
+                "import-tau",
+                str(TAU_RESULTS),
+                "--dataset-id",
+                "tau_reviewed",
+                "--all",
+                "--review",
+                str(TAU_REVIEW),
+                "--output",
+                str(reviewed_path),
+            )
+            summary = json.loads(imported.stdout)
+            self.assertEqual(summary["runs"], 3)
+            self.assertEqual(summary["steps"], 9)
+            self.assertEqual(summary["import_review_status"], "complete")
+
+            split = self.run_cli(
+                "split",
+                str(reviewed_path),
+                "--test-group-id",
+                "address-change-holdout",
+                "--compile-output",
+                str(compile_path),
+                "--test-output",
+                str(test_path),
+            )
+            self.assertEqual(
+                json.loads(split.stdout), {"compile_runs": 2, "test_runs": 1}
+            )
 
     def test_mine_writes_evidence_bearing_candidate_dag(self) -> None:
         with tempfile.TemporaryDirectory(prefix="trace2flow-cli-test-") as tempdir:

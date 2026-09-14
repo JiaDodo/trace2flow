@@ -21,6 +21,7 @@ from .datasets import (
     DatasetLeakageError,
     DatasetSplit,
     assert_disjoint,
+    split_by_test_group_ids,
     split_by_test_run_ids,
 )
 from .io import (
@@ -74,6 +75,17 @@ from .simulation import (
     verification_report_json,
     verify_workflow,
 )
+from .tau_import import (
+    TAU_IMPORT_SCHEMA,
+    TAU_REPOSITORY,
+    TauCallReview,
+    TauImportError,
+    TauImportReview,
+    TauSimulationReview,
+    import_tau_results,
+    load_tau_results,
+    load_tau_review,
+)
 from .upstream import (
     UPSTREAM_BASELINE_COMMIT,
     RuleProfile,
@@ -84,6 +96,8 @@ from .upstream import (
 
 __all__ = [
     "PARAM_ENCODING",
+    "TAU_IMPORT_SCHEMA",
+    "TAU_REPOSITORY",
     "UPSTREAM_BASELINE_COMMIT",
     "AlignmentStatus",
     "AspTraceBundle",
@@ -112,6 +126,10 @@ __all__ = [
     "StepStatus",
     "TaskInputBinding",
     "TaskInputBindingSpec",
+    "TauCallReview",
+    "TauImportError",
+    "TauImportReview",
+    "TauSimulationReview",
     "ToolOutputBinding",
     "ToolOutputBindingSpec",
     "ToolRegistry",
@@ -141,11 +159,15 @@ __all__ = [
     "execute_local",
     "export_prefect",
     "get_path",
+    "import_tau_results",
+    "load_tau_results",
+    "load_tau_review",
     "load_trace_dataset",
     "loads_trace_dataset",
     "loads_workflow_ir",
     "mine_candidate_dag",
     "replay_structure",
+    "split_by_test_group_ids",
     "split_by_test_run_ids",
     "state_diff",
     "to_asp",

@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from trace2flow.datasets import (
     DatasetLeakageError,
     assert_disjoint,
+    split_by_test_group_ids,
     split_by_test_run_ids,
 )
 from trace2flow.io import load_trace_dataset
@@ -69,6 +70,10 @@ class DatasetBoundaryTest(unittest.TestCase):
                 self.dataset,
                 [run.id for run in self.dataset.runs],
             )
+
+    def test_group_split_requires_grouped_provenance(self) -> None:
+        with self.assertRaisesRegex(ValueError, "task_group_id on every run"):
+            split_by_test_group_ids(self.dataset, ["held-out-task"])
 
 
 if __name__ == "__main__":

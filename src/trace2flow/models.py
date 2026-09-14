@@ -80,6 +80,15 @@ class RunProvenance(StrictModel):
     kind: Literal["synthetic", "recorded"]
     source: Identifier
     source_run_id: Identifier
+    source_revision: Identifier | None = None
+    task_group_id: Identifier | None = None
+    execution_context: Literal[
+        "hand_authored",
+        "benchmark_simulator",
+        "local_simulator",
+        "production",
+    ] | None = None
+    contains_real_customer_data: bool | None = None
 
     def fingerprint(self) -> str:
         payload = json.dumps(

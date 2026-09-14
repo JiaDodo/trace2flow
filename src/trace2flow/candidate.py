@@ -307,12 +307,21 @@ def _can_reach(
     return False
 
 
+def _require_import_review(dataset: TraceDataset) -> None:
+    if dataset.metadata.get("import_review_status") == "required":
+        raise ValueError(
+            "imported traces require complete dependency, side-effect, and "
+            "redaction review before candidate mining"
+        )
+
+
 def build_candidate_dag(
     dataset: TraceDataset,
     upstream: UpstreamSignals,
 ) -> CandidateDag:
     """Align occurrences conservatively and aggregate only explicit dependencies."""
 
+    _require_import_review(dataset)
     if dataset.partition is not DatasetPartition.COMPILE:
         raise ValueError("candidate mining requires a dataset partitioned as 'compile'")
     source_sha256 = hashlib.sha256(canonical_json(dataset).encode("utf-8")).hexdigest()
@@ -539,5 +548,6 @@ def mine_candidate_dag(
     dataset: TraceDataset,
     rule_profile: RuleProfile = RuleProfile.STRICT,
 ) -> CandidateDag:
+    _require_import_review(dataset)
     upstream = compile_with_upstream(dataset, rule_profile)
     return build_candidate_dag(dataset, upstream.signals)

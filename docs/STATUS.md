@@ -2,9 +2,62 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M6 complete — MVP complete
+Current milestone: M7 complete — recorded benchmark intake ready
 
-Working branch: `feat/m6-streamlit-demo`
+Working branch: `feat/m7-recorded-traces`
+
+## M7 update
+
+M7 establishes an honest, review-gated path from public recorded simulations
+to Trace2Flow without adding tau3-bench as a runtime dependency:
+
+- Added `trace2flow import-tau` for explicitly selected text-mode retail
+  simulations. It records the embedded producing commit, benchmark execution
+  context, MIT license, and `contains_real_customer_data=false`.
+- Typed tool arguments and occurrence identity survive conversion. Recorded
+  string tool responses stay strings; provider payloads, prompts, timestamps,
+  costs, token usage, and audio are not copied.
+- Structured identity fields receive deterministic type-preserving pseudonyms,
+  which are also replaced in free text. Automatic processing remains labeled
+  incomplete until a human confirms redaction.
+- The importer never infers dependencies or side effects from call order. An
+  exhaustive `tau-import-review/1.0` artifact is required, and candidate mining
+  refuses quarantined imports.
+- Added `task_group_id`, group-aware splitting, and cross-partition leakage
+  rejection so different trials of the same tau task cannot leak.
+
+The official tau3-bench repository was inspected at
+`2174a603f6d014ef94473ffa95957f6ce27100db`. A public successful retail
+simulation from a historical result produced at
+`ade39493be54aad326a4c65295f77fe09780329b` was imported locally: one complete
+run, three distinct calls, valid normalized JSON, review status `required`.
+No credentials or model calls were used. The generated audit file stayed in a
+temporary directory and was not added to the repository.
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 56 tests in 11.888s
+OK
+
+$ ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests streamlit_app.py
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 179 packages in 2ms
+```
+
+The new tau files under `tests/fixtures/` are schema-shaped synthetic test
+fixtures only; they are not claimed as collected benchmark evidence. The next
+milestone is a small manually reviewed corpus from multiple disjoint source
+tasks. It requires data selection and semantic review, but no production data.
+
+The reviewed regression path produced 3 runs/9 calls, split entire task groups
+2/1, and mined 3 aligned nodes plus 2 evidence-bearing edges with no unresolved
+dependencies. This is adapter coverage on a synthetic fixture, not a benchmark
+performance result.
 
 ## M6 update
 

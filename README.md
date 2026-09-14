@@ -23,6 +23,8 @@ allowlist. See [the safe export guide](docs/PREFECT_EXPORT.md).
 
 The complete synthetic customer-support compile and held-out simulation path
 is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
+The conservative tau3-bench retail importer and its evidence language are
+documented in [the recorded-data guide](docs/RECORDED_DATA.md).
 
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.

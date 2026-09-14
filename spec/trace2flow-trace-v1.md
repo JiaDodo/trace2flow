@@ -31,7 +31,11 @@ array order proves data dependency.
   "provenance": {
     "kind": "synthetic",
     "source": "generator/customer_support_v1",
-    "source_run_id": "case_001"
+    "source_run_id": "case_001",
+    "source_revision": null,
+    "task_group_id": null,
+    "execution_context": "hand_authored",
+    "contains_real_customer_data": false
   },
   "inputs": {"priority": 1, "expedited": false, "coupon": null},
   "steps": [],
@@ -48,6 +52,11 @@ array order proves data dependency.
 - `source` and `source_run_id` identify the original complete run. Their stable
   fingerprint prevents a renamed run from appearing in both compile and test
   partitions.
+- Optional `source_revision` pins the producer version. `task_group_id`
+  identifies repeated trials of one source task; a group may not cross the
+  compile/test boundary. `execution_context` distinguishes hand-authored,
+  benchmark-simulator, local-simulator, and production records. The independent
+  boolean prevents `recorded` from being misread as real customer data.
 - `inputs`, `final_output`, state snapshots, and metadata accept JSON values.
   Strings, integers, floats, booleans, `null`, arrays, and objects retain their
   original types.
@@ -143,3 +152,12 @@ PYTHONPATH=src python -m trace2flow mine compile.json \
 These commands validate and transform local data only. `mine` invokes the
 audited local Clingo compiler with an allowlisted rules profile; none of them
 execute trace-carried code, call recorded tools, or access external services.
+
+## Conservative tau3-bench import
+
+`trace2flow import-tau` accepts selected text-mode retail simulations. It does
+not infer dependencies from message order or decode string tool responses.
+Until a complete `tau-import-review/1.0` artifact declares every occurrence's
+dependencies and side effects and confirms manual redaction review, the output
+is marked as quarantine data and candidate mining refuses it. See
+`docs/RECORDED_DATA.md`.

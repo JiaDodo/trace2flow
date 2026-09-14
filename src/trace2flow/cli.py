@@ -10,7 +10,11 @@ from pathlib import Path
 
 from .asp import to_asp
 from .candidate import CandidateDag, candidate_json, mine_candidate_dag
-from .datasets import DatasetLeakageError, split_by_test_run_ids
+from .datasets import (
+    DatasetLeakageError,
+    split_by_test_group_ids,
+    split_by_test_run_ids,
+)
 from .io import TraceFormatError, dump_trace_dataset, load_trace_dataset
 from .ir import (
     ResolutionPlan,
@@ -20,6 +24,12 @@ from .ir import (
 )
 from .prefect_export import PrefectExportError, export_prefect
 from .simulation import verification_report_json, verify_workflow
+from .tau_import import (
+    TauImportError,
+    import_tau_results,
+    load_tau_results,
+    load_tau_review,
+)
 from .upstream import RuleProfile, UpstreamCompilationError
 
 
@@ -39,9 +49,29 @@ def _build_parser() -> argparse.ArgumentParser:
         help="split complete runs into compile and test datasets",
     )
     split.add_argument("input", type=Path)
-    split.add_argument("--test-run-id", action="append", required=True)
+    split_selector = split.add_mutually_exclusive_group(required=True)
+    split_selector.add_argument("--test-run-id", action="append")
+    split_selector.add_argument(
+        "--test-group-id",
+        action="append",
+        help="hold out every run with this provenance task_group_id",
+    )
     split.add_argument("--compile-output", type=Path, required=True)
     split.add_argument("--test-output", type=Path, required=True)
+
+    tau_import = subparsers.add_parser(
+        "import-tau",
+        help="quarantine and normalize selected tau retail text simulations",
+    )
+    tau_import.add_argument("input", type=Path, help="tau results.json or its directory")
+    tau_import.add_argument("--dataset-id", required=True)
+    tau_selector = tau_import.add_mutually_exclusive_group(required=True)
+    tau_selector.add_argument("--simulation-id", action="append")
+    tau_selector.add_argument("--task-id", action="append")
+    tau_selector.add_argument("--all", action="store_true")
+    tau_import.add_argument("--successful-only", action="store_true")
+    tau_import.add_argument("--review", type=Path)
+    tau_import.add_argument("--output", type=Path, required=True)
 
     asp = subparsers.add_parser(
         "to-asp",
@@ -95,6 +125,33 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.command == "import-tau":
+            review = load_tau_review(args.review) if args.review is not None else None
+            dataset = import_tau_results(
+                load_tau_results(args.input),
+                dataset_id=args.dataset_id,
+                simulation_ids=args.simulation_id or (),
+                task_ids=args.task_id or (),
+                successful_only=args.successful_only,
+                review=review,
+            )
+            dump_trace_dataset(dataset, args.output)
+            print(
+                json.dumps(
+                    {
+                        "dataset_id": dataset.dataset_id,
+                        "import_review_status": dataset.metadata[
+                            "import_review_status"
+                        ],
+                        "recording_claim": dataset.metadata["recording_claim"],
+                        "runs": len(dataset.runs),
+                        "steps": sum(len(run.steps) for run in dataset.runs),
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+
         if args.command == "export-prefect":
             workflow = loads_workflow_ir(args.input.read_text(encoding="utf-8"))
             artifact = export_prefect(workflow, set(args.registered_tool))
@@ -150,7 +207,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "split":
-            split = split_by_test_run_ids(dataset, args.test_run_id)
+            split = (
+                split_by_test_run_ids(dataset, args.test_run_id)
+                if args.test_run_id is not None
+                else split_by_test_group_ids(dataset, args.test_group_id)
+            )
             dump_trace_dataset(split.compile, args.compile_output)
             dump_trace_dataset(split.test, args.test_output)
             print(
@@ -232,6 +293,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     except (
         OSError,
         TraceFormatError,
+        TauImportError,
         DatasetLeakageError,
         PrefectExportError,
         UpstreamCompilationError,

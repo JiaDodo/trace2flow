@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-09-14T00:00:00",
+  "info": {
+    "git_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+    "environment_info": {"domain_name": "retail", "policy": "not imported"},
+    "agent_info": {"implementation": "fixture_agent", "llm": "fixture-model"},
+    "user_info": {"implementation": "fixture_user", "llm": "fixture-model"}
+  },
+  "tasks": [
+    {
+      "id": "address-change",
+      "user_scenario": {
+        "instructions": {
+          "reason_for_call": "Move order #W100 to 12 Main Street",
+          "known_info": "I am Ada Example, zip 10001"
+        }
+      }
+    },
+    {
+      "id": "address-change-holdout",
+      "user_scenario": {
+        "instructions": {
+          "reason_for_call": "Move order #W200 to 88 Pine Street",
+          "known_info": "I am Bob Example, zip 20002"
+        }
+      }
+    }
+  ],
+  "simulations": [
+    {
+      "id": "sim-address-1",
+      "task_id": "address-change",
+      "termination_reason": "user_stop",
+      "trial": 0,
+      "reward_info": {"reward": 1},
+      "agent_cost": 9.99,
+      "messages": [
+        {"role": "user", "content": "I am Ada Example at 10001."},
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [{
+            "id": "source-call-a1",
+            "name": "find_user_id_by_name_zip",
+            "arguments": {"first_name": "Ada", "last_name": "Example", "zip": "10001", "retry": 1, "active": true, "note": null},
+            "requestor": "assistant"
+          }],
+          "turn_idx": 1,
+          "raw_data": {"secret_provider_payload": "must disappear"},
+          "usage": {"prompt_tokens": 100}
+        },
+        {"id": "source-call-a1", "role": "tool", "content": "ada_example_1", "requestor": "assistant", "error": false},
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [{
+            "id": "source-call-a2",
+            "name": "get_order_details",
+            "arguments": {"order_id": "#W100"},
+            "requestor": "assistant"
+          }],
+          "turn_idx": 3
+        },
+        {"id": "source-call-a2", "role": "tool", "content": "{\"order_id\":\"#W100\",\"address1\":\"12 Main Street\",\"amount\":12.5}", "requestor": "assistant", "error": false},
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [{
+            "id": "source-call-a3",
+            "name": "modify_pending_order_address",
+            "arguments": {"order_id": "#W100", "address1": "12 Main Street", "zip": "10001"},
+            "requestor": "assistant"
+          }],
+          "turn_idx": 5
+        },
+        {"id": "source-call-a3", "role": "tool", "content": "{\"order_id\":\"#W100\",\"address1\":\"12 Main Street\",\"updated\":true}", "requestor": "assistant", "error": false},
+        {"role": "assistant", "content": "Order #W100 now goes to 12 Main Street."}
+      ]
+    },
+    {
+      "id": "sim-address-2",
+      "task_id": "address-change",
+      "termination_reason": "user_stop",
+      "trial": 1,
+      "reward_info": {"reward": 1},
+      "messages": [
+        {"role": "assistant", "tool_calls": [{"id": "source-call-b1", "name": "find_user_id_by_name_zip", "arguments": {"first_name": "Ada", "last_name": "Example", "zip": "10001", "retry": 2, "active": false, "note": null}, "requestor": "assistant"}]},
+        {"id": "source-call-b1", "role": "tool", "content": "ada_example_1", "error": false},
+        {"role": "assistant", "tool_calls": [{"id": "source-call-b2", "name": "get_order_details", "arguments": {"order_id": "#W100"}, "requestor": "assistant"}]},
+        {"id": "source-call-b2", "role": "tool", "content": "{\"order_id\":\"#W100\",\"address1\":\"12 Main Street\"}", "error": false},
+        {"role": "assistant", "tool_calls": [{"id": "source-call-b3", "name": "modify_pending_order_address", "arguments": {"order_id": "#W100", "address1": "12 Main Street", "zip": "10001"}, "requestor": "assistant"}]},
+        {"id": "source-call-b3", "role": "tool", "content": "updated", "error": false},
+        {"role": "assistant", "content": "Order #W100 now goes to 12 Main Street."}
+      ]
+    },
+    {
+      "id": "sim-address-3",
+      "task_id": "address-change-holdout",
+      "termination_reason": "user_stop",
+      "trial": 0,
+      "reward_info": {"reward": 1},
+      "messages": [
+        {"role": "assistant", "tool_calls": [{"id": "source-call-c1", "name": "find_user_id_by_name_zip", "arguments": {"first_name": "Bob", "last_name": "Example", "zip": "20002", "retry": 3, "active": true, "note": null}, "requestor": "assistant"}]},
+        {"id": "source-call-c1", "role": "tool", "content": "bob_example_2", "error": false},
+        {"role": "assistant", "tool_calls": [{"id": "source-call-c2", "name": "get_order_details", "arguments": {"order_id": "#W200"}, "requestor": "assistant"}]},
+        {"id": "source-call-c2", "role": "tool", "content": "{\"order_id\":\"#W200\",\"address1\":\"88 Pine Street\"}", "error": false},
+        {"role": "assistant", "tool_calls": [{"id": "source-call-c3", "name": "modify_pending_order_address", "arguments": {"order_id": "#W200", "address1": "88 Pine Street", "zip": "20002"}, "requestor": "assistant"}]},
+        {"id": "source-call-c3", "role": "tool", "content": "updated", "error": false},
+        {"role": "assistant", "content": "Order #W200 now goes to 88 Pine Street."}
+      ]
+    }
+  ]
+}

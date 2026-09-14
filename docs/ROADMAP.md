@@ -106,6 +106,39 @@ Deliverables:
 Acceptance: a clean local run demonstrates the complete customer-support story
 without external credentials, and all automated tests pass.
 
+## M7 — Recorded benchmark trace intake (complete)
+
+Deliverables:
+
+- Conservative importer for selected tau3-bench retail text simulations.
+- Explicit benchmark-simulator provenance, producing revision, customer-data
+  flag, dropped-field inventory, and honest recording claim.
+- Type-preserving structured pseudonymization plus mandatory manual review.
+- Review artifact for occurrence dependencies, side effects, and alignment;
+  unreviewed imports are refused by candidate mining.
+- Source-task-group partitioning and leakage rejection across repeated trials.
+
+Acceptance: an official public retail simulation imports and validates without
+credentials; tests prove tool argument types and repeated occurrences survive,
+call order creates no dependency, incomplete review blocks mining, source-task
+trials cannot cross partitions, and provider raw data is absent.
+
+## M8 — Small reviewed recorded corpus (next)
+
+Deliverables:
+
+- Select a narrow retail workflow family from distinct tau source tasks.
+- Manually inspect and review a small compile/test corpus; keep raw results
+  private and commit only licensing-safe reviewed normalized artifacts.
+- Mine the compile partition and report structural coverage and unresolved
+  items on the disjoint task-group holdout without inventing a success target.
+- Add an independent matching local simulator only if the selected tau tools
+  can be modeled faithfully; otherwise report ingestion/mining evidence only.
+
+Acceptance: every run has pinned provenance and a review record, no source task
+group crosses partitions, no unreviewed trace reaches mining, and all reported
+numbers are reproduced from committed commands/artifacts.
+
 ## Out of scope for the MVP
 
 Multi-user support, databases, live platform integrations, multi-agent

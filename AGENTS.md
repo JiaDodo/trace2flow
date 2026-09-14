@@ -27,6 +27,9 @@ capabilities distinct from Trace2Flow additions in code, docs, and demos.
   Refuse executable export while execution-critical items remain unresolved.
 - Split compilation and evaluation data by complete task run. Do not leak
   calls from one run across the split.
+- For imported benchmark data, keep every trial of one source task group in a
+  single partition. `source + task_group_id` overlap is leakage even when run
+  IDs differ.
 - Mark synthetic traces and fixtures as synthetic. Synthetic results establish
   only controlled-scenario behavior.
 - Recorded-response replay is structural validation, not evidence of execution
@@ -66,6 +69,25 @@ The normalized Trace2Flow format is specified in
 ```bash
 PYTHONPATH=src python -m trace2flow validate traces.json
 ```
+
+Tau retail imports are quarantined until a complete human review supplies
+dependencies, side effects, occurrence alignment where needed, and confirms
+manual redaction. The importer never treats message order as lineage:
+
+```bash
+PYTHONPATH=src python -m trace2flow import-tau results.json \
+  --dataset-id tau3_retail_reviewed \
+  --task-id TASK_ID \
+  --successful-only \
+  --review review.json \
+  --output reviewed.json
+PYTHONPATH=src python -m trace2flow split reviewed.json \
+  --test-group-id HELD_OUT_TASK_ID \
+  --compile-output compile.json \
+  --test-output test.json
+```
+
+Keep raw data under ignored `data-private/`. See `docs/RECORDED_DATA.md`.
 
 Mine an evidence-bearing candidate DAG through the audited upstream adapter:
 

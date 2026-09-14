@@ -39,11 +39,10 @@ def _format_validation_error(error: ValidationError) -> str:
     )
 
 
-def loads_trace_dataset(text: str) -> TraceDataset:
-    """Load the normalized schema while rejecting JSON extensions and duplicates."""
-
+def loads_json_document(text: str) -> Any:
+    """Load strict JSON while rejecting duplicate keys and non-finite numbers."""
     try:
-        value = json.loads(
+        return json.loads(
             text,
             object_pairs_hook=_reject_duplicate_keys,
             parse_constant=_reject_non_finite,
@@ -54,6 +53,12 @@ def loads_trace_dataset(text: str) -> TraceDataset:
         raise TraceFormatError(
             f"invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}"
         ) from None
+
+
+def loads_trace_dataset(text: str) -> TraceDataset:
+    """Load the normalized schema while rejecting JSON extensions and duplicates."""
+
+    value = loads_json_document(text)
 
     try:
         return TraceDataset.model_validate(value)
