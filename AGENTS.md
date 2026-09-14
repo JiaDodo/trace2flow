@@ -93,6 +93,10 @@ Never convert equality or historical invariance into a resolved binding.
 Resolved bindings require declarations that validate against all aligned
 compile observations.
 
+Prefect export must go through `trace2flow.prefect_export.export_prefect` and
+the generated flow must dispatch through `ToolRegistry`. Do not add dynamic
+imports, `eval`, `exec`, shell execution, or a fallback for unknown tools.
+
 To reproduce the audited upstream example without overwriting tracked example
 outputs, write all generated files to a temporary directory:
 

@@ -18,6 +18,9 @@ PYTHONPATH=src python -m trace2flow build-ir \
   --output workflow.json
 ```
 
+Resolved workflows can be exported to Prefect only with an explicit tool
+allowlist. See [the safe export guide](docs/PREFECT_EXPORT.md).
+
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 

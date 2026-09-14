@@ -16,14 +16,14 @@ FIXTURE = ROOT / "tests" / "fixtures" / "typed_customer_support.json"
 
 class TraceCliTest(unittest.TestCase):
     @staticmethod
-    def run_cli(*args: str) -> subprocess.CompletedProcess[str]:
+    def run_cli(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
         environment = dict(os.environ)
         environment["PYTHONPATH"] = str(ROOT / "src")
         return subprocess.run(
             [sys.executable, "-m", "trace2flow", *args],
             cwd=ROOT,
             env=environment,
-            check=True,
+            check=check,
             capture_output=True,
             text=True,
         )
@@ -140,6 +140,28 @@ class TraceCliTest(unittest.TestCase):
                 "constant",
                 {candidate["kind"] for candidate in policy_binding["candidates"]},
             )
+
+            export_path = root / "generated.py"
+            exported = self.run_cli(
+                "export-prefect",
+                str(workflow_path),
+                "--registered-tool",
+                "lookup_customer",
+                "--registered-tool",
+                "lookup_order",
+                "--registered-tool",
+                "classify_issue",
+                "--registered-tool",
+                "recommend_action",
+                "--registered-tool",
+                "update_ticket",
+                "--output",
+                str(export_path),
+                check=False,
+            )
+            self.assertEqual(exported.returncode, 2)
+            self.assertIn("workflow is not executable", exported.stderr)
+            self.assertFalse(export_path.exists())
 
 
 if __name__ == "__main__":

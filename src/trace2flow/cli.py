@@ -12,7 +12,13 @@ from .asp import to_asp
 from .candidate import CandidateDag, candidate_json, mine_candidate_dag
 from .datasets import DatasetLeakageError, split_by_test_run_ids
 from .io import TraceFormatError, dump_trace_dataset, load_trace_dataset
-from .ir import ResolutionPlan, build_workflow_ir, workflow_ir_json
+from .ir import (
+    ResolutionPlan,
+    build_workflow_ir,
+    loads_workflow_ir,
+    workflow_ir_json,
+)
+from .prefect_export import PrefectExportError, export_prefect
 from .upstream import RuleProfile, UpstreamCompilationError
 
 
@@ -63,6 +69,14 @@ def _build_parser() -> argparse.ArgumentParser:
     build_ir.add_argument("--candidate", type=Path, required=True)
     build_ir.add_argument("--resolution", type=Path)
     build_ir.add_argument("--output", type=Path, required=True)
+
+    prefect = subparsers.add_parser(
+        "export-prefect",
+        help="export executable Prefect source after safety and registry checks",
+    )
+    prefect.add_argument("input", type=Path, help="workflow-ir/1.0 JSON")
+    prefect.add_argument("--registered-tool", action="append", required=True)
+    prefect.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -71,6 +85,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.command == "export-prefect":
+            workflow = loads_workflow_ir(args.input.read_text(encoding="utf-8"))
+            artifact = export_prefect(workflow, set(args.registered_tool))
+            artifact.write(args.output)
+            print(
+                json.dumps(
+                    {
+                        "required_tools": list(artifact.required_tools),
+                        "source_sha256": artifact.source_sha256,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+
         dataset = load_trace_dataset(args.input)
         if args.command == "validate":
             if args.output is not None:
@@ -173,6 +202,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         OSError,
         TraceFormatError,
         DatasetLeakageError,
+        PrefectExportError,
         UpstreamCompilationError,
         KeyError,
         ValueError,

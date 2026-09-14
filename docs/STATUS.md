@@ -2,9 +2,46 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M3 complete
+Current milestone: M4 complete
 
-Working branch: `feat/m3-workflow-ir`
+Working branch: `feat/m4-prefect-export`
+
+## M4 update
+
+M4 adds one guarded execution target, Prefect 3:
+
+- Added deterministic Python source generation from resolved Workflow IR.
+- Added a fixed Prefect `@flow` and registered-tool `@task`; parameter values
+  are emitted only as literals or validated JSON-path lookups.
+- Added a two-stage allowlist: export requires every tool name in the declared
+  set, and the generated flow checks its runtime `ToolRegistry` before the
+  first call.
+- Export fails before writing output when `execution_blockers()` reports an
+  unresolved dependency, alignment, parameter, branch, or side effect.
+- Added negative AST/runtime tests proving trace strings are not evaluated and
+  unknown tools cannot dispatch.
+- Added Prefect `>=3.8,<4`; the lock resolved Prefect 3.8.5 and it was installed
+  in the isolated validation environment.
+
+The generated two-node controlled flow was imported and run through the real
+local Prefect 3.8.5 engine. Both registered tasks and the flow completed, and
+the returned sink output was `{"result": 8}`. This is a controlled execution
+smoke result, not a performance or production claim.
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 37 tests in 8.983s
+OK
+
+$ ruff check src/trace2flow tests
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 170 packages in 2ms
+```
 
 ## M3 update
 
@@ -239,7 +276,7 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M4. The upstream boundary still cannot satisfy the MVP
+There is no blocker to M5. The upstream boundary still cannot satisfy the MVP
 by itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
@@ -260,15 +297,16 @@ by itself:
 - The root dependency set mixes core and optional experimental packages; only
   the minimal core dependency was installed for M0.
 
-Trace2Flow now supplies a validated IR, declaration-gated typed bindings, and
-explicit branch/side-effect resolution. It does not yet export Prefect, enforce
-a runtime tool registry, or execute and verify the local simulator.
+Trace2Flow now supplies a validated IR, declaration-gated typed bindings,
+explicit branch/side-effect resolution, safe Prefect export, and a runtime tool
+registry. It does not yet execute and compare held-out cases against an
+independent customer-support simulator.
 
 See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M4: add a Prefect export target guarded by
-`WorkflowIR.execution_blockers()`. Generated flows may dispatch only through an
-explicit tool registry. Static and execution tests must prove unresolved IR,
-unregistered tools, and trace-carried code cannot run.
+M5: implement the independent in-memory customer-support simulator and
+verification report. Compile and held-out runs must remain disjoint; checks
+must compare both final outputs and state diffs, with intentional mismatch
+coverage. Recorded-response replay remains labeled as partial only.

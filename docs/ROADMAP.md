@@ -67,7 +67,7 @@ Acceptance: round-trip serialization preserves types; weak equality evidence
 does not create lineage; historical invariance alone does not create a
 confirmed constant; invalid references and cycles are rejected.
 
-## M4 — Safe Prefect export
+## M4 — Safe Prefect export (complete)
 
 Deliverables:
 

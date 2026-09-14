@@ -58,6 +58,8 @@ from .models import (
     TraceRun,
     TraceStep,
 )
+from .prefect_export import PrefectArtifact, PrefectExportError, export_prefect
+from .runtime import ToolRegistry, UnregisteredToolError, get_path
 from .upstream import (
     UPSTREAM_BASELINE_COMMIT,
     RuleProfile,
@@ -80,6 +82,8 @@ __all__ = [
     "DatasetLeakageError",
     "DatasetPartition",
     "DatasetSplit",
+    "PrefectArtifact",
+    "PrefectExportError",
     "ResolutionPlan",
     "ResolutionStatus",
     "RuleProfile",
@@ -92,10 +96,12 @@ __all__ = [
     "TaskInputBindingSpec",
     "ToolOutputBinding",
     "ToolOutputBindingSpec",
+    "ToolRegistry",
     "TraceDataset",
     "TraceFormatError",
     "TraceRun",
     "TraceStep",
+    "UnregisteredToolError",
     "UnresolvedBinding",
     "UnresolvedDependency",
     "UpstreamCompilationError",
@@ -111,6 +117,8 @@ __all__ = [
     "decode_json_value",
     "dump_trace_dataset",
     "encode_json_value",
+    "export_prefect",
+    "get_path",
     "load_trace_dataset",
     "loads_trace_dataset",
     "loads_workflow_ir",
