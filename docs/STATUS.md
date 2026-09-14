@@ -2,9 +2,49 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M2 complete
+Current milestone: M3 complete
 
-Working branch: `feat/m2-evidence-dag`
+Working branch: `feat/m3-workflow-ir`
+
+## M3 update
+
+M3 adds the framework-independent `workflow-ir/1.0` boundary:
+
+- Added discriminated Pydantic bindings for typed declared constants, task
+  input paths, accepted predecessor-output paths, and unresolved candidates.
+- Added a `ResolutionPlan` for explicit human/config declarations. Every
+  declaration is checked across all matching compile occurrences; conflicting
+  constants, missing input paths, output mismatches, and output bindings
+  without accepted dependency edges are rejected.
+- Equality and historical invariance produce evidence-backed candidates only.
+  They never silently become resolved lineage or business constants.
+- Added validated workflow nodes/edges, cycle and reference rejection,
+  occurrence evidence, explicit branch state, and explicit side-effect state.
+  Writes and upstream conditional/mutually-exclusive signals require
+  confirmation.
+- Added `WorkflowIR.execution_blockers()` as the single safety gate consumed by
+  later exporters and executors.
+- Added `trace2flow build-ir` and a versioned IR specification.
+
+Focused M3 verification passed: six IR tests plus one CLI test cover typed
+round trips, all four binding forms, weak-equality ambiguity, historical
+invariance, declaration contradictions, missing dependency edges, cycles,
+references, branches, and write confirmation.
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 33 tests in 1.842s
+OK
+
+$ ruff check src/trace2flow tests
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 100 packages in 1ms
+```
 
 ## M2 update
 
@@ -199,8 +239,8 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M3, but the current M2 artifact is deliberately not
-executable and the upstream boundary cannot satisfy the MVP by itself:
+There is no blocker to M4. The upstream boundary still cannot satisfy the MVP
+by itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
 - ASP parameters are strings, so the current compiler path does not preserve
@@ -220,16 +260,15 @@ executable and the upstream boundary cannot satisfy the MVP by itself:
 - The root dependency set mixes core and optional experimental packages; only
   the minimal core dependency was installed for M0.
 
-Trace2Flow now supplies validation and edge evidence around this output, but it
-does not yet classify parameter bindings, declare business constants, resolve
-branches/side effects, export Prefect, or execute the local simulator.
+Trace2Flow now supplies a validated IR, declaration-gated typed bindings, and
+explicit branch/side-effect resolution. It does not yet export Prefect, enforce
+a runtime tool registry, or execute and verify the local simulator.
 
 See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M3: define the framework-independent Workflow IR and infer typed candidate
-bindings for task inputs and prior tool outputs while leaving weak equality,
-undeclared constants, branch semantics, and execution-critical ambiguity
-explicitly unresolved. Add round-trip, cycle/reference, and false-lineage
-regression tests. No Prefect or UI work is planned for M3.
+M4: add a Prefect export target guarded by
+`WorkflowIR.execution_blockers()`. Generated flows may dispatch only through an
+explicit tool registry. Static and execution tests must prove unresolved IR,
+unregistered tools, and trace-carried code cannot run.

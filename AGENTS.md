@@ -79,6 +79,20 @@ Only the named `strict` and `relaxed` rule profiles are accepted. Candidate
 edges must come from explicit `depends_on` evidence; upstream phases and call
 order are contextual signals, not substitutes for occurrence-level lineage.
 
+The framework-independent IR is specified in `spec/workflow-ir-v1.md`. Build
+it without executing tools:
+
+```bash
+PYTHONPATH=src python -m trace2flow build-ir compile.json \
+  --candidate candidate.json \
+  --resolution resolution.json \
+  --output workflow.json
+```
+
+Never convert equality or historical invariance into a resolved binding.
+Resolved bindings require declarations that validate against all aligned
+compile observations.
+
 To reproduce the audited upstream example without overwriting tracked example
 outputs, write all generated files to a temporary directory:
 

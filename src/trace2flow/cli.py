@@ -9,9 +9,10 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .asp import to_asp
-from .candidate import candidate_json, mine_candidate_dag
+from .candidate import CandidateDag, candidate_json, mine_candidate_dag
 from .datasets import DatasetLeakageError, split_by_test_run_ids
 from .io import TraceFormatError, dump_trace_dataset, load_trace_dataset
+from .ir import ResolutionPlan, build_workflow_ir, workflow_ir_json
 from .upstream import RuleProfile, UpstreamCompilationError
 
 
@@ -53,6 +54,15 @@ def _build_parser() -> argparse.ArgumentParser:
         choices=[profile.value for profile in RuleProfile],
         default=RuleProfile.STRICT.value,
     )
+
+    build_ir = subparsers.add_parser(
+        "build-ir",
+        help="build framework-independent Workflow IR from traces and a candidate DAG",
+    )
+    build_ir.add_argument("input", type=Path)
+    build_ir.add_argument("--candidate", type=Path, required=True)
+    build_ir.add_argument("--resolution", type=Path)
+    build_ir.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -128,6 +138,32 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "unresolved_dependencies": len(
                             candidate.unresolved_dependencies
                         ),
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "build-ir":
+            candidate = CandidateDag.model_validate_json(
+                args.candidate.read_text(encoding="utf-8")
+            )
+            resolution = (
+                ResolutionPlan.model_validate_json(
+                    args.resolution.read_text(encoding="utf-8")
+                )
+                if args.resolution is not None
+                else None
+            )
+            workflow = build_workflow_ir(dataset, candidate, resolution)
+            args.output.write_text(workflow_ir_json(workflow), encoding="utf-8")
+            print(
+                json.dumps(
+                    {
+                        "blockers": len(workflow.execution_blockers()),
+                        "edges": len(workflow.edges),
+                        "nodes": len(workflow.nodes),
+                        "unresolved_dependencies": workflow.unresolved_dependencies,
                     },
                     sort_keys=True,
                 )

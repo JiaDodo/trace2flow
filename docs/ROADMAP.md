@@ -53,7 +53,7 @@ Deliverables:
 Acceptance: repeated-tool and reordered-independent-call tests prove occurrence
 identity and order independence. Ambiguous alignments remain unresolved.
 
-## M3 — Workflow IR and parameter binding
+## M3 — Workflow IR and parameter binding (complete)
 
 Deliverables:
 

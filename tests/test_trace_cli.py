@@ -109,6 +109,38 @@ class TraceCliTest(unittest.TestCase):
                 all(len(edge["supporting_evidence"]) == 3 for edge in candidate["edges"])
             )
 
+    def test_build_ir_keeps_undeclared_bindings_unresolved(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="trace2flow-cli-test-") as tempdir:
+            root = Path(tempdir)
+            candidate_path = root / "candidate.json"
+            workflow_path = root / "workflow.json"
+            self.run_cli("mine", str(FIXTURE), "--output", str(candidate_path))
+            result = self.run_cli(
+                "build-ir",
+                str(FIXTURE),
+                "--candidate",
+                str(candidate_path),
+                "--output",
+                str(workflow_path),
+            )
+
+            summary = json.loads(result.stdout)
+            self.assertEqual(summary["nodes"], 5)
+            self.assertEqual(summary["edges"], 2)
+            self.assertEqual(summary["unresolved_dependencies"], 2)
+            self.assertGreater(summary["blockers"], 2)
+            workflow = json.loads(workflow_path.read_text(encoding="utf-8"))
+            self.assertEqual(workflow["schema_version"], "workflow-ir/1.0")
+            recommendation = next(
+                node for node in workflow["nodes"] if node["tool"] == "recommend_action"
+            )
+            policy_binding = recommendation["parameters"]["policy_version"]
+            self.assertEqual(policy_binding["kind"], "unresolved")
+            self.assertIn(
+                "constant",
+                {candidate["kind"] for candidate in policy_binding["candidates"]},
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

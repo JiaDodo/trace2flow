@@ -11,6 +11,11 @@ ambiguity. Run it locally with:
 PYTHONPATH=src python -m trace2flow mine \
   tests/fixtures/typed_customer_support.json \
   --output candidate.json
+
+PYTHONPATH=src python -m trace2flow build-ir \
+  tests/fixtures/typed_customer_support.json \
+  --candidate candidate.json \
+  --output workflow.json
 ```
 
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
