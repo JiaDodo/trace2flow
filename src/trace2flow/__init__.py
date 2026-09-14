@@ -7,6 +7,16 @@ from .asp import (
     encode_json_value,
     to_asp,
 )
+from .candidate import (
+    AlignmentStatus,
+    CandidateDag,
+    CandidateNode,
+    DagEdge,
+    UnresolvedDependency,
+    build_candidate_dag,
+    candidate_json,
+    mine_candidate_dag,
+)
 from .datasets import (
     DatasetLeakageError,
     DatasetSplit,
@@ -31,13 +41,26 @@ from .models import (
     TraceRun,
     TraceStep,
 )
+from .upstream import (
+    UPSTREAM_BASELINE_COMMIT,
+    RuleProfile,
+    UpstreamCompilationError,
+    UpstreamSignals,
+    compile_with_upstream,
+)
 
 __all__ = [
     "PARAM_ENCODING",
+    "UPSTREAM_BASELINE_COMMIT",
+    "AlignmentStatus",
     "AspTraceBundle",
+    "CandidateDag",
+    "CandidateNode",
+    "DagEdge",
     "DatasetLeakageError",
     "DatasetPartition",
     "DatasetSplit",
+    "RuleProfile",
     "RunProvenance",
     "RunStatus",
     "SideEffect",
@@ -47,13 +70,20 @@ __all__ = [
     "TraceFormatError",
     "TraceRun",
     "TraceStep",
+    "UnresolvedDependency",
+    "UpstreamCompilationError",
+    "UpstreamSignals",
     "assert_disjoint",
+    "build_candidate_dag",
+    "candidate_json",
     "canonical_json",
+    "compile_with_upstream",
     "decode_json_value",
     "dump_trace_dataset",
     "encode_json_value",
     "load_trace_dataset",
     "loads_trace_dataset",
+    "mine_candidate_dag",
     "split_by_test_run_ids",
     "to_asp",
 ]

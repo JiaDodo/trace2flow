@@ -67,6 +67,18 @@ The normalized Trace2Flow format is specified in
 PYTHONPATH=src python -m trace2flow validate traces.json
 ```
 
+Mine an evidence-bearing candidate DAG through the audited upstream adapter:
+
+```bash
+PYTHONPATH=src python -m trace2flow mine compile.json \
+  --output candidate.json \
+  --rule-profile strict
+```
+
+Only the named `strict` and `relaxed` rule profiles are accepted. Candidate
+edges must come from explicit `depends_on` evidence; upstream phases and call
+order are contextual signals, not substitutes for occurrence-level lineage.
+
 To reproduce the audited upstream example without overwriting tracked example
 outputs, write all generated files to a temporary directory:
 

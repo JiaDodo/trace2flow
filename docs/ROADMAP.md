@@ -38,7 +38,7 @@ duplicate calls to one tool, invalid references, and split leakage. A typed
 customer-support fixture compiles through the upstream adapter without type
 loss in the retained source model.
 
-## M2 — Occurrence-aware structure and evidence
+## M2 — Occurrence-aware structure and evidence (complete)
 
 Deliverables:
 

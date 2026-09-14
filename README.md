@@ -3,7 +3,16 @@
 Trace2Flow is a safety- and evidence-focused evolution of the upstream
 [AutoCompile](https://github.com/mirkokiefer/autocompile) project. The current
 Trace2Flow contribution adds strict, typed JSON trace ingestion, complete-run
-dataset boundaries, and a reversible adapter into the original ASP compiler.
+dataset boundaries, a reversible adapter into the original ASP compiler, and
+an occurrence-aware candidate DAG with per-edge evidence and explicit
+ambiguity. Run it locally with:
+
+```bash
+PYTHONPATH=src python -m trace2flow mine \
+  tests/fixtures/typed_customer_support.json \
+  --output candidate.json
+```
+
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 

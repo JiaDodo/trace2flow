@@ -47,7 +47,11 @@ Observed behavior:
 - The rules classify tools by the number of runs in which a tool name occurs.
   The default rule uses a 50% core threshold; the relaxed rule uses 25%.
 - Ordering evidence comes from explicit `depends`/`spawned_by` facts, not raw
-  list position. This is a useful upstream property.
+  list position. More precisely, the current `precedes_in_job` rules require
+  `spawned_by` parent structure; a direct dependency between two actionable
+  calls without that parent structure does not become an upstream ordering.
+  M2 verified this on the typed customer-support fixture: despite direct
+  `depends_on` chains, upstream placed all five tool types in phase 0.
 - Conflicting tool-level ordering evidence is solved and reported, but
   `synthesize()` intentionally uses only consistent orderings as hard phase
   constraints. Conflicts are placed concurrently rather than imposing the
@@ -90,6 +94,25 @@ Important limitations:
 
 Primary source locations: `src/compile.py`, `rules/mine_patterns.lp`,
 `rules/mine_patterns_relaxed.lp`, and `spec/trace-format.md`.
+
+## M2 adapter and candidate-graph findings
+
+Trace2Flow now invokes `src/compile.py` behind an adapter that accepts only the
+audited `strict` or `relaxed` rule file, uses a 60-second timeout, and records
+the baseline commit plus compiler, rules, and typed-source SHA-256 values. It
+validates and retains the upstream output signals that are actually exposed:
+core tools, synthesized phases/call count, conditionals, fusion candidates,
+mutual exclusions, chosen conflict resolutions, and variable parameters.
+
+These are contextual tool-level signals, not occurrence-level truth. The M2
+candidate graph separately aligns run-qualified calls and builds edges only
+from normalized `depends_on` declarations. The customer-support fixture
+therefore retains all six `lookup_order` occurrences as an unresolved family,
+accepts only the unambiguous `classify_issue -> recommend_action ->
+update_ticket` chain, and keeps the two dependency families touching
+`lookup_order` unresolved with their original run/call evidence.
+
+M2 did not modify the upstream compiler or ASP rules.
 
 ## Benchmark: verified input, output, and behavior
 

@@ -2,9 +2,78 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M1 complete
+Current milestone: M2 complete
 
-Working branch: `feat/m1-trace-ingestion`
+Working branch: `feat/m2-evidence-dag`
+
+## M2 update
+
+M2 adds occurrence-aware structure mining while keeping the audited upstream
+compiler unchanged:
+
+- Added a stable upstream subprocess adapter. It accepts only the named
+  `strict` and `relaxed` rules profiles, enforces a 60-second timeout, validates
+  exposed output fields, and records the upstream baseline plus source,
+  compiler, and rules SHA-256 values.
+- Added versioned `candidate-dag/1.0` Pydantic models for candidate nodes,
+  accepted edges, dependency evidence, and unresolved dependencies. This is an
+  evidence artifact, not yet the M3 executable Workflow IR.
+- Candidate occurrence signatures use tool name, parameter names, and declared
+  side-effect shape, or an explicit `metadata.alignment_key`. They do not use
+  parameter values, trace array position, or dependency direction.
+- If the same signature appears more than once in a run, all distinct
+  run-qualified calls remain present and the node is explicitly unresolved.
+- Accepted edges come only from `depends_on`. Every accepted direction retains
+  run/source-occurrence/target-occurrence evidence. Edges touching an
+  unresolved node, reciprocal directions, and combined cross-run cycles are
+  excluded from the DAG and recorded as unresolved.
+- Added the local `trace2flow mine` CLI. It invokes no recorded tool and cannot
+  select an arbitrary rules file.
+
+Actual M2 CLI verification on the synthetic customer-support compile fixture:
+
+```text
+source runs: 3
+candidate nodes: 5
+accepted edges: 2
+unresolved alignment nodes: 1
+unresolved dependency groups: 2
+```
+
+The unresolved node contains all six distinct `lookup_order` calls (two per
+run). The accepted edges are `classify_issue -> recommend_action` and
+`recommend_action -> update_ticket`, each supported by three occurrence-level
+records. Dependencies into and out of the ambiguous repeated-call family are
+retained as unresolved evidence.
+
+Actual M2 automated verification:
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 26 tests in 1.229s
+OK
+
+$ ruff check src/trace2flow tests
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 100 packages in 2ms
+```
+
+The nine added tests cover the real upstream adapter/CLI path, repeated-tool
+alignment with explicit keys, reordered independent calls, equal common values,
+reciprocal evidence, cycles that emerge only across runs, and source-hash
+mismatch and test-partition rejection.
+
+One upstream limitation became more precise during M2: its ordering rules
+require `spawned_by` parent structure. Direct actionable-call `depends_on`
+chains in the typed customer-support fixture did not affect its phases, so all
+five upstream tool types were placed in phase 0. Trace2Flow preserves that
+observed upstream result as context but derives candidate edges separately from
+the typed occurrence-level declarations.
 
 ## M1 update
 
@@ -130,8 +199,8 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M2, but the upstream boundary cannot satisfy the MVP by
-itself:
+There is no blocker to M3, but the current M2 artifact is deliberately not
+executable and the upstream boundary cannot satisfy the MVP by itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
 - ASP parameters are strings, so the current compiler path does not preserve
@@ -151,12 +220,16 @@ itself:
 - The root dependency set mixes core and optional experimental packages; only
   the minimal core dependency was installed for M0.
 
+Trace2Flow now supplies validation and edge evidence around this output, but it
+does not yet classify parameter bindings, declare business constants, resolve
+branches/side effects, export Prefect, or execute the local simulator.
+
 See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M2: align repeated call occurrences across runs, invoke the upstream miner as
-one evidence source, and build a candidate DAG whose edges retain supporting
-and conflicting run/call evidence. Call order alone must not create an edge,
-and ambiguous alignments must remain unresolved. No Prefect or UI work is
-planned for M2.
+M3: define the framework-independent Workflow IR and infer typed candidate
+bindings for task inputs and prior tool outputs while leaving weak equality,
+undeclared constants, branch semantics, and execution-critical ambiguity
+explicitly unresolved. Add round-trip, cycle/reference, and false-lineage
+regression tests. No Prefect or UI work is planned for M3.

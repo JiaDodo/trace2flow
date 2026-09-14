@@ -1,4 +1,4 @@
-"""Local CLI for M1 trace validation, partitioning, and ASP adaptation."""
+"""Local CLI for trace validation, upstream adaptation, and candidate mining."""
 
 from __future__ import annotations
 
@@ -9,8 +9,10 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .asp import to_asp
+from .candidate import candidate_json, mine_candidate_dag
 from .datasets import DatasetLeakageError, split_by_test_run_ids
 from .io import TraceFormatError, dump_trace_dataset, load_trace_dataset
+from .upstream import RuleProfile, UpstreamCompilationError
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -39,6 +41,18 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     asp.add_argument("input", type=Path)
     asp.add_argument("--output", type=Path, required=True)
+
+    mine = subparsers.add_parser(
+        "mine",
+        help="mine an evidence-bearing candidate DAG from compile-partition traces",
+    )
+    mine.add_argument("input", type=Path)
+    mine.add_argument("--output", type=Path, required=True)
+    mine.add_argument(
+        "--rule-profile",
+        choices=[profile.value for profile in RuleProfile],
+        default=RuleProfile.STRICT.value,
+    )
     return parser
 
 
@@ -94,7 +108,39 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             )
             return 0
-    except (OSError, TraceFormatError, DatasetLeakageError, KeyError, ValueError) as exc:
+
+        if args.command == "mine":
+            candidate = mine_candidate_dag(
+                dataset,
+                RuleProfile(args.rule_profile),
+            )
+            args.output.write_text(candidate_json(candidate), encoding="utf-8")
+            print(
+                json.dumps(
+                    {
+                        "accepted_edges": len(candidate.edges),
+                        "candidate_nodes": len(candidate.nodes),
+                        "source_runs": candidate.upstream.source_runs,
+                        "unresolved_alignment_nodes": sum(
+                            node.alignment_status.value == "unresolved"
+                            for node in candidate.nodes
+                        ),
+                        "unresolved_dependencies": len(
+                            candidate.unresolved_dependencies
+                        ),
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+    except (
+        OSError,
+        TraceFormatError,
+        DatasetLeakageError,
+        UpstreamCompilationError,
+        KeyError,
+        ValueError,
+    ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 

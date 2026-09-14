@@ -79,6 +79,36 @@ class TraceCliTest(unittest.TestCase):
             self.assertIn('job("support_run_1")', facts)
             self.assertNotIn('job("support_run_3")', facts)
 
+    def test_mine_writes_evidence_bearing_candidate_dag(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="trace2flow-cli-test-") as tempdir:
+            output = Path(tempdir) / "candidate.json"
+            result = self.run_cli("mine", str(FIXTURE), "--output", str(output))
+
+            self.assertEqual(
+                json.loads(result.stdout),
+                {
+                    "accepted_edges": 2,
+                    "candidate_nodes": 5,
+                    "source_runs": 3,
+                    "unresolved_alignment_nodes": 1,
+                    "unresolved_dependencies": 2,
+                },
+            )
+            candidate = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(candidate["schema_version"], "candidate-dag/1.0")
+            self.assertEqual(
+                candidate["upstream"]["baseline_commit"],
+                "b168d6760213b489e2fb2f5571f5d4e6d648dee8",
+            )
+            order_node = next(
+                node for node in candidate["nodes"] if node["tool"] == "lookup_order"
+            )
+            self.assertEqual(order_node["alignment_status"], "unresolved")
+            self.assertEqual(len(order_node["occurrences"]), 6)
+            self.assertTrue(
+                all(len(edge["supporting_evidence"]) == 3 for edge in candidate["edges"])
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

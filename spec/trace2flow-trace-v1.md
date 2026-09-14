@@ -77,6 +77,29 @@ array order proves data dependency.
 - Step status is `completed`, `failed`, or `skipped`.
 - Side-effect kind is `none`, `read`, or `write`. Reads and writes require an
   explicit target. A write may record whether it was reversible.
+- `metadata.alignment_key`, when present, is a non-empty human-declared key for
+  matching the same logical occurrence across runs. It is scoped by tool name.
+  Reusing one key more than once in a run remains unresolved.
+
+## Candidate occurrence alignment and dependencies
+
+M2 produces a separate `candidate-dag/1.0` artifact. Automatic occurrence
+signatures use the tool name, parameter **names**, and side-effect
+kind/target/reversibility. They intentionally ignore parameter values, array
+position, and dependency direction. A declared `metadata.alignment_key`
+replaces the inferred structural part of the signature.
+
+If one inferred or declared signature occurs more than once in the same run,
+Trace2Flow preserves every run-qualified occurrence under one unresolved node;
+it does not guess a pairing. Equal values such as `false`, `null`, or `1` do
+not resolve that ambiguity.
+
+Candidate edges come only from explicit `depends_on` declarations. Each edge
+contains its supporting run/source-call/target-call records. Dependencies with
+unresolved endpoints, reciprocal evidence, or a cycle across runs are moved to
+`unresolved_dependencies` rather than silently forced into the accepted DAG.
+`spawned_by` records orchestration provenance and is not treated as proof of a
+data dependency by this candidate graph.
 
 ## Upstream ASP adaptation
 
@@ -93,7 +116,8 @@ Trace2Flow therefore:
 
 The current upstream synthesis may still aggregate those facts by tool name.
 The adapter does not treat its lossy compiled JSON as a replacement for the
-typed source. Occurrence-aware alignment is an M2 responsibility.
+typed source. M2 retains normalized upstream tool-level signals as contextual
+evidence but derives occurrence-aware edges from the authoritative typed trace.
 
 ## Local commands
 
@@ -110,7 +134,12 @@ PYTHONPATH=src python -m trace2flow split normalized.json \
 
 PYTHONPATH=src python -m trace2flow to-asp compile.json \
   --output compile.lp
+
+PYTHONPATH=src python -m trace2flow mine compile.json \
+  --output candidate.json \
+  --rule-profile strict
 ```
 
-These commands validate and transform local data only. They execute no tool
-calls and access no external services.
+These commands validate and transform local data only. `mine` invokes the
+audited local Clingo compiler with an allowlisted rules profile; none of them
+execute trace-carried code, call recorded tools, or access external services.
