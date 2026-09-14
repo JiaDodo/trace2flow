@@ -1,7 +1,7 @@
 [project]
-name = "autocompile"
+name = "trace2flow"
 version = "0.1.0"
-description = "Add your description here"
+description = "Compile agent traces into evidence-bearing, locally verified workflows"
 requires-python = ">=3.12"
 dependencies = [
     "clingo>=5.8.0",
@@ -10,7 +10,23 @@ dependencies = [
     "huggingface-hub>=1.8.0",
     "numpy>=2.4.4",
     "pm4py>=2.7.22",
+    "prefect>=3.8,<4",
+    "pydantic>=2.11,<3",
     "requests>=2.33.1",
     "rerun-sdk>=0.31.1",
     "scipy>=1.17.1",
+    "streamlit>=1.63,<2",
 ]
+
+[dependency-groups]
+dev = ["ruff==0.16.7"]
+
+[project.scripts]
+trace2flow = "trace2flow.cli:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

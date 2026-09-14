@@ -1,0 +1,63 @@
+{
+  "schema_version": "tau-import-review/1.0",
+  "reviewer": "trace2flow-maintainer-semantic-review",
+  "redaction_reviewed": true,
+  "simulations": {
+    "1005448f-435c-4bdf-9717-910629df3560": {
+      "calls": {
+        "call_2VCgIwZjZHWiMzdNVfLaavgO": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_nO6Rsm30Ux1GuIypoiZ48G3H": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_rmR4Xw2D3A6rR9G6oL1yx1Wl": {"depends_on": ["call_nO6Rsm30Ux1GuIypoiZ48G3H"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_UyAlBejizBKRVxTa6frWfZ3l": {"depends_on": ["call_nO6Rsm30Ux1GuIypoiZ48G3H", "call_rmR4Xw2D3A6rR9G6oL1yx1Wl"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "244b3158-2fbf-4739-9e16-fb5535c04880": {
+      "calls": {
+        "call_BBlLaFrWbmAbsCe24GzzCHn8": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_OD8bgCrZwiMbtT8Au4fJ7bHK": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_adWoeKCoyEskIPrx4UencBtQ": {"depends_on": ["call_OD8bgCrZwiMbtT8Au4fJ7bHK"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_VezdnTQ6zjpz5FKJRWygc5m7": {"depends_on": ["call_OD8bgCrZwiMbtT8Au4fJ7bHK", "call_adWoeKCoyEskIPrx4UencBtQ"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "b1089536-3688-4e22-9ce3-88ced0045103": {
+      "calls": {
+        "call_JHRrMcQbngpDd3wxL1qQUuad": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_Z1U27YqM7dkoaz98Jps5k0ew": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_eBwL2vT9QePy4le9F9cYvle2": {"depends_on": ["call_Z1U27YqM7dkoaz98Jps5k0ew"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_4ysgCJbcNez9Utwz9MUT6KNj": {"depends_on": ["call_Z1U27YqM7dkoaz98Jps5k0ew", "call_eBwL2vT9QePy4le9F9cYvle2"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "06bd042e-25dc-4106-aafd-12b64f1395b2": {
+      "calls": {
+        "call_2Mrj142sOFe7qTsRgYk9XQr0": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_lhCcU1fxCYiK2FiIBPjy77dS": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_56w90dP8GgvEQakdCAtO02rC": {"depends_on": ["call_lhCcU1fxCYiK2FiIBPjy77dS"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_opMqMyGmjO4OqFtgTgwDeM0Y": {"depends_on": ["call_lhCcU1fxCYiK2FiIBPjy77dS", "call_56w90dP8GgvEQakdCAtO02rC"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "1bb478fb-0fbf-467b-a9d6-b56675165a71": {
+      "calls": {
+        "call_hLRw1RI4JngiwQzWxNlDIwie": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_JaYBd3lok4KoerIcVpjzjA80": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_czGqO4VvTcoRwIhPPVgZ4LsZ": {"depends_on": ["call_JaYBd3lok4KoerIcVpjzjA80"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_nEOtoSXpF4r2iPD9BYCDOCig": {"depends_on": ["call_JaYBd3lok4KoerIcVpjzjA80", "call_czGqO4VvTcoRwIhPPVgZ4LsZ"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "2575af22-7b4e-448b-b4db-78aa1024d2ca": {
+      "calls": {
+        "call_D3802p1yibkNidU0cPUyirUs": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_bygoAq7u7aFKtmLvc0q1VlIU": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_ShM8WUrvCyVdGZEoULcvwRwS": {"depends_on": ["call_bygoAq7u7aFKtmLvc0q1VlIU"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_XaaxrTpLlb34kABon0SCVKer": {"depends_on": ["call_bygoAq7u7aFKtmLvc0q1VlIU", "call_ShM8WUrvCyVdGZEoULcvwRwS"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    },
+    "a6b6c566-202f-449a-b05e-edebb5ee909c": {
+      "calls": {
+        "call_4JJmupuFUn7P6VeKJkehQU4S": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "authenticate_by_name_zip"},
+        "call_3C78HtyZD563gWX8Bz9Id7Ub": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "call_KrxSLdeYfM9pX0yWQA6R37Rc": {"depends_on": ["call_3C78HtyZD563gWX8Bz9Id7Ub"], "side_effects": [{"kind": "read", "target": "tau.retail.products"}], "alignment_key": "lookup_replacement_product"},
+        "call_4VqZxlB4MlrpKLCQk0mZHy1v": {"depends_on": ["call_3C78HtyZD563gWX8Bz9Id7Ub", "call_KrxSLdeYfM9pX0yWQA6R37Rc"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": false}], "alignment_key": "modify_target_order_item"}
+      }
+    }
+  }
+}

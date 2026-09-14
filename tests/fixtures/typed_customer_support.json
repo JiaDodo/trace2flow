@@ -1,0 +1,345 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "synthetic_customer_support_m1",
+  "partition": "compile",
+  "runs": [
+    {
+      "id": "support_run_1",
+      "provenance": {
+        "kind": "synthetic",
+        "source": "tests/fixtures/typed_customer_support.json",
+        "source_run_id": "generated_case_1"
+      },
+      "inputs": {
+        "ticket_id": "T-001",
+        "customer_id": "C-001",
+        "priority": 1,
+        "expedited": false,
+        "coupon": null,
+        "tags": ["delivery", "new-customer"]
+      },
+      "steps": [
+        {
+          "id": "lookup_customer_1",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-001",
+            "include_inactive": false
+          },
+          "output": {
+            "customer": {
+              "id": "C-001",
+              "tier": "standard",
+              "order_ids": [1001, 1002]
+            }
+          },
+          "status": "completed",
+          "side_effects": [
+            {"kind": "read", "target": "mock.customers"}
+          ]
+        },
+        {
+          "id": "lookup_order_1",
+          "tool": "lookup_order",
+          "params": {"order_id": 1001, "customer_id": "C-001"},
+          "output": {"order_id": 1001, "delivered": false, "items": 2},
+          "depends_on": ["lookup_customer_1"],
+          "status": "completed",
+          "side_effects": [
+            {"kind": "read", "target": "mock.orders"}
+          ]
+        },
+        {
+          "id": "lookup_order_2",
+          "tool": "lookup_order",
+          "params": {"order_id": 1002, "customer_id": "C-001"},
+          "output": {"order_id": 1002, "delivered": true, "items": 1},
+          "depends_on": ["lookup_customer_1"],
+          "status": "completed",
+          "side_effects": [
+            {"kind": "read", "target": "mock.orders"}
+          ]
+        },
+        {
+          "id": "classify_issue_1",
+          "tool": "classify_issue",
+          "params": {
+            "ticket_text": "One package has not arrived",
+            "signals": {"order_ids": [1001, 1002], "urgent": false},
+            "urgency": 1,
+            "eligible": false,
+            "missing_value": null
+          },
+          "output": {"issue_type": "delivery", "confidence": 0.91},
+          "depends_on": ["lookup_order_1", "lookup_order_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "recommend_action_1",
+          "tool": "recommend_action",
+          "params": {
+            "policy_version": "v1",
+            "context": {"issue_type": "delivery", "priority": 1}
+          },
+          "output": {"action": "request_carrier_update", "refund": null},
+          "depends_on": ["classify_issue_1"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "update_ticket_1",
+          "tool": "update_ticket",
+          "params": {
+            "ticket_id": "T-001",
+            "fields": {
+              "status": "pending_customer",
+              "priority": 1,
+              "requires_refund": false,
+              "refund_amount": null
+            }
+          },
+          "output": {"updated": true, "version": 2},
+          "depends_on": ["recommend_action_1"],
+          "status": "completed",
+          "side_effects": [
+            {"kind": "write", "target": "mock.tickets", "reversible": true}
+          ]
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "ticket_id": "T-001",
+        "recommendation": "request_carrier_update"
+      },
+      "state_before": {
+        "ticket": {"id": "T-001", "status": "open", "version": 1}
+      },
+      "state_after": {
+        "ticket": {"id": "T-001", "status": "pending_customer", "version": 2}
+      }
+    },
+    {
+      "id": "support_run_2",
+      "provenance": {
+        "kind": "synthetic",
+        "source": "tests/fixtures/typed_customer_support.json",
+        "source_run_id": "generated_case_2"
+      },
+      "inputs": {
+        "ticket_id": "T-002",
+        "customer_id": "C-002",
+        "priority": 2,
+        "expedited": true,
+        "coupon": "WELCOME10",
+        "tags": ["billing"]
+      },
+      "steps": [
+        {
+          "id": "lookup_customer_2",
+          "tool": "lookup_customer",
+          "params": {"customer_id": "C-002", "include_inactive": false},
+          "output": {
+            "customer": {
+              "id": "C-002",
+              "tier": "gold",
+              "order_ids": [2001, 2002]
+            }
+          },
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.customers"}]
+        },
+        {
+          "id": "lookup_order_1",
+          "tool": "lookup_order",
+          "params": {"order_id": 2001, "customer_id": "C-002"},
+          "output": {"order_id": 2001, "charged_twice": true, "amount": 49.5},
+          "depends_on": ["lookup_customer_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.orders"}]
+        },
+        {
+          "id": "lookup_order_2",
+          "tool": "lookup_order",
+          "params": {"order_id": 2002, "customer_id": "C-002"},
+          "output": {"order_id": 2002, "charged_twice": false, "amount": 12.0},
+          "depends_on": ["lookup_customer_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.orders"}]
+        },
+        {
+          "id": "classify_issue_2",
+          "tool": "classify_issue",
+          "params": {
+            "ticket_text": "I was charged twice",
+            "signals": {"order_ids": [2001, 2002], "urgent": true},
+            "urgency": 2,
+            "eligible": true,
+            "missing_value": null
+          },
+          "output": {"issue_type": "billing", "confidence": 0.97},
+          "depends_on": ["lookup_order_1", "lookup_order_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "recommend_action_2",
+          "tool": "recommend_action",
+          "params": {
+            "policy_version": "v1",
+            "context": {"issue_type": "billing", "priority": 2}
+          },
+          "output": {"action": "manual_refund_review", "refund": 49.5},
+          "depends_on": ["classify_issue_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "update_ticket_2",
+          "tool": "update_ticket",
+          "params": {
+            "ticket_id": "T-002",
+            "fields": {
+              "status": "pending_review",
+              "priority": 2,
+              "requires_refund": true,
+              "refund_amount": 49.5
+            }
+          },
+          "output": {"updated": true, "version": 4},
+          "depends_on": ["recommend_action_2"],
+          "status": "completed",
+          "side_effects": [
+            {"kind": "write", "target": "mock.tickets", "reversible": true}
+          ]
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "ticket_id": "T-002",
+        "recommendation": "manual_refund_review"
+      },
+      "state_before": {
+        "ticket": {"id": "T-002", "status": "open", "version": 3}
+      },
+      "state_after": {
+        "ticket": {"id": "T-002", "status": "pending_review", "version": 4}
+      }
+    },
+    {
+      "id": "support_run_3",
+      "provenance": {
+        "kind": "synthetic",
+        "source": "tests/fixtures/typed_customer_support.json",
+        "source_run_id": "generated_case_3"
+      },
+      "inputs": {
+        "ticket_id": "T-003",
+        "customer_id": "C-003",
+        "priority": 1,
+        "expedited": false,
+        "coupon": null,
+        "tags": ["returns", "damaged"]
+      },
+      "steps": [
+        {
+          "id": "lookup_customer_3",
+          "tool": "lookup_customer",
+          "params": {"customer_id": "C-003", "include_inactive": false},
+          "output": {
+            "customer": {
+              "id": "C-003",
+              "tier": "standard",
+              "order_ids": [3001, 3002]
+            }
+          },
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.customers"}]
+        },
+        {
+          "id": "lookup_order_1",
+          "tool": "lookup_order",
+          "params": {"order_id": 3001, "customer_id": "C-003"},
+          "output": {"order_id": 3001, "damaged": true, "items": 1},
+          "depends_on": ["lookup_customer_3"],
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.orders"}]
+        },
+        {
+          "id": "lookup_order_2",
+          "tool": "lookup_order",
+          "params": {"order_id": 3002, "customer_id": "C-003"},
+          "output": {"order_id": 3002, "damaged": false, "items": 3},
+          "depends_on": ["lookup_customer_3"],
+          "status": "completed",
+          "side_effects": [{"kind": "read", "target": "mock.orders"}]
+        },
+        {
+          "id": "classify_issue_3",
+          "tool": "classify_issue",
+          "params": {
+            "ticket_text": "An item arrived damaged",
+            "signals": {"order_ids": [3001, 3002], "urgent": false},
+            "urgency": 1,
+            "eligible": true,
+            "missing_value": null
+          },
+          "output": {"issue_type": "damaged_item", "confidence": 0.94},
+          "depends_on": ["lookup_order_1", "lookup_order_2"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "recommend_action_3",
+          "tool": "recommend_action",
+          "params": {
+            "policy_version": "v1",
+            "context": {"issue_type": "damaged_item", "priority": 1}
+          },
+          "output": {"action": "offer_replacement", "refund": null},
+          "depends_on": ["classify_issue_3"],
+          "status": "completed",
+          "side_effects": [{"kind": "none"}]
+        },
+        {
+          "id": "update_ticket_3",
+          "tool": "update_ticket",
+          "params": {
+            "ticket_id": "T-003",
+            "fields": {
+              "status": "replacement_offered",
+              "priority": 1,
+              "requires_refund": false,
+              "refund_amount": null
+            }
+          },
+          "output": {"updated": true, "version": 8},
+          "depends_on": ["recommend_action_3"],
+          "status": "completed",
+          "side_effects": [
+            {"kind": "write", "target": "mock.tickets", "reversible": true}
+          ]
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "ticket_id": "T-003",
+        "recommendation": "offer_replacement"
+      },
+      "state_before": {
+        "ticket": {"id": "T-003", "status": "open", "version": 7}
+      },
+      "state_after": {
+        "ticket": {"id": "T-003", "status": "replacement_offered", "version": 8}
+      }
+    }
+  ],
+  "metadata": {
+    "synthetic": true,
+    "purpose": "M1 typed-ingestion and upstream-adapter verification only",
+    "limitations": [
+      "Contains no real customer data",
+      "Does not establish real-world accuracy or execution equivalence"
+    ]
+  }
+}

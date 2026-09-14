@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "synthetic_customer_support_compile_v1",
+  "partition": "compile",
+  "metadata": {"synthetic": true, "scenario": "local_customer_support"},
+  "runs": [
+    {
+      "id": "compile_delivery_delay",
+      "provenance": {"kind": "synthetic", "source": "trace2flow/customer-support-v1", "source_run_id": "compile_case_001"},
+      "inputs": {"customer_id": "C-001", "order_id": "O-001", "ticket_id": "T-001", "ticket_text": "My package has not arrived"},
+      "steps": [
+        {"id": "lookup_customer", "tool": "lookup_customer", "params": {"customer_id": "C-001"}, "output": {"customer_id": "C-001", "name": "Synthetic A", "tier": "standard"}, "status": "completed", "side_effects": [{"kind": "read", "target": "mock.customers"}]},
+        {"id": "lookup_order", "tool": "lookup_order", "params": {"order_id": "O-001", "customer_id": "C-001"}, "output": {"order_id": "O-001", "customer_id": "C-001", "status": "shipped", "delivered": false, "damaged": false, "duplicate_charge": false}, "depends_on": ["lookup_customer"], "status": "completed", "side_effects": [{"kind": "read", "target": "mock.orders"}]},
+        {"id": "classify_issue", "tool": "classify_issue", "params": {"ticket_text": "My package has not arrived", "order_status": "shipped", "delivered": false, "damaged": false, "duplicate_charge": false}, "output": {"issue_type": "delivery_delay", "eligible": false}, "depends_on": ["lookup_order"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "recommend_action", "tool": "recommend_action", "params": {"issue_type": "delivery_delay", "eligible": false, "policy_version": "v1"}, "output": {"issue_type": "delivery_delay", "eligible": false, "policy_version": "v1", "recommendation": "carrier_investigation", "status": "pending_carrier"}, "depends_on": ["classify_issue"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "update_ticket", "tool": "update_ticket", "params": {"ticket_id": "T-001", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}, "output": {"ticket_id": "T-001", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}, "depends_on": ["classify_issue", "recommend_action"], "status": "completed", "side_effects": [{"kind": "write", "target": "mock.tickets", "reversible": true}]}
+      ],
+      "status": "completed",
+      "final_output": {"ticket_id": "T-001", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"},
+      "state_before": {"tickets": {"T-001": {"ticket_id": "T-001", "status": "open"}}},
+      "state_after": {"tickets": {"T-001": {"ticket_id": "T-001", "status": "pending_carrier", "recommendation": "carrier_investigation", "issue_type": "delivery_delay"}}}
+    },
+    {
+      "id": "compile_billing_duplicate",
+      "provenance": {"kind": "synthetic", "source": "trace2flow/customer-support-v1", "source_run_id": "compile_case_002"},
+      "inputs": {"customer_id": "C-002", "order_id": "O-002", "ticket_id": "T-002", "ticket_text": "I was charged twice"},
+      "steps": [
+        {"id": "lookup_customer", "tool": "lookup_customer", "params": {"customer_id": "C-002"}, "output": {"customer_id": "C-002", "name": "Synthetic B", "tier": "gold"}, "status": "completed", "side_effects": [{"kind": "read", "target": "mock.customers"}]},
+        {"id": "lookup_order", "tool": "lookup_order", "params": {"order_id": "O-002", "customer_id": "C-002"}, "output": {"order_id": "O-002", "customer_id": "C-002", "status": "delivered", "delivered": true, "damaged": false, "duplicate_charge": true}, "depends_on": ["lookup_customer"], "status": "completed", "side_effects": [{"kind": "read", "target": "mock.orders"}]},
+        {"id": "classify_issue", "tool": "classify_issue", "params": {"ticket_text": "I was charged twice", "order_status": "delivered", "delivered": true, "damaged": false, "duplicate_charge": true}, "output": {"issue_type": "billing_duplicate", "eligible": true}, "depends_on": ["lookup_order"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "recommend_action", "tool": "recommend_action", "params": {"issue_type": "billing_duplicate", "eligible": true, "policy_version": "v1"}, "output": {"issue_type": "billing_duplicate", "eligible": true, "policy_version": "v1", "recommendation": "manual_refund_review", "status": "pending_review"}, "depends_on": ["classify_issue"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "update_ticket", "tool": "update_ticket", "params": {"ticket_id": "T-002", "status": "pending_review", "recommendation": "manual_refund_review", "issue_type": "billing_duplicate"}, "output": {"ticket_id": "T-002", "status": "pending_review", "recommendation": "manual_refund_review", "issue_type": "billing_duplicate"}, "depends_on": ["classify_issue", "recommend_action"], "status": "completed", "side_effects": [{"kind": "write", "target": "mock.tickets", "reversible": true}]}
+      ],
+      "status": "completed",
+      "final_output": {"ticket_id": "T-002", "status": "pending_review", "recommendation": "manual_refund_review", "issue_type": "billing_duplicate"},
+      "state_before": {"tickets": {"T-002": {"ticket_id": "T-002", "status": "open"}}},
+      "state_after": {"tickets": {"T-002": {"ticket_id": "T-002", "status": "pending_review", "recommendation": "manual_refund_review", "issue_type": "billing_duplicate"}}}
+    },
+    {
+      "id": "compile_damaged_item",
+      "provenance": {"kind": "synthetic", "source": "trace2flow/customer-support-v1", "source_run_id": "compile_case_003"},
+      "inputs": {"customer_id": "C-003", "order_id": "O-003", "ticket_id": "T-003", "ticket_text": "The item arrived damaged"},
+      "steps": [
+        {"id": "lookup_customer", "tool": "lookup_customer", "params": {"customer_id": "C-003"}, "output": {"customer_id": "C-003", "name": "Synthetic C", "tier": "standard"}, "status": "completed", "side_effects": [{"kind": "read", "target": "mock.customers"}]},
+        {"id": "lookup_order", "tool": "lookup_order", "params": {"order_id": "O-003", "customer_id": "C-003"}, "output": {"order_id": "O-003", "customer_id": "C-003", "status": "delivered", "delivered": true, "damaged": true, "duplicate_charge": false}, "depends_on": ["lookup_customer"], "status": "completed", "side_effects": [{"kind": "read", "target": "mock.orders"}]},
+        {"id": "classify_issue", "tool": "classify_issue", "params": {"ticket_text": "The item arrived damaged", "order_status": "delivered", "delivered": true, "damaged": true, "duplicate_charge": false}, "output": {"issue_type": "damaged_item", "eligible": true}, "depends_on": ["lookup_order"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "recommend_action", "tool": "recommend_action", "params": {"issue_type": "damaged_item", "eligible": true, "policy_version": "v1"}, "output": {"issue_type": "damaged_item", "eligible": true, "policy_version": "v1", "recommendation": "replacement_offer", "status": "replacement_offered"}, "depends_on": ["classify_issue"], "status": "completed", "side_effects": [{"kind": "none"}]},
+        {"id": "update_ticket", "tool": "update_ticket", "params": {"ticket_id": "T-003", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}, "output": {"ticket_id": "T-003", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}, "depends_on": ["classify_issue", "recommend_action"], "status": "completed", "side_effects": [{"kind": "write", "target": "mock.tickets", "reversible": true}]}
+      ],
+      "status": "completed",
+      "final_output": {"ticket_id": "T-003", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"},
+      "state_before": {"tickets": {"T-003": {"ticket_id": "T-003", "status": "open"}}},
+      "state_after": {"tickets": {"T-003": {"ticket_id": "T-003", "status": "replacement_offered", "recommendation": "replacement_offer", "issue_type": "damaged_item"}}}
+    }
+  ]
+}

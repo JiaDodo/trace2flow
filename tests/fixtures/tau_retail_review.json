@@ -1,0 +1,28 @@
+{
+  "schema_version": "tau-import-review/1.0",
+  "reviewer": "fixture-reviewer",
+  "redaction_reviewed": true,
+  "simulations": {
+    "sim-address-1": {
+      "calls": {
+        "source-call-a1": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "identify_customer"},
+        "source-call-a2": {"depends_on": ["source-call-a1"], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "source-call-a3": {"depends_on": ["source-call-a2"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": true}], "alignment_key": "apply_address_change"}
+      }
+    },
+    "sim-address-2": {
+      "calls": {
+        "source-call-b1": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "identify_customer"},
+        "source-call-b2": {"depends_on": ["source-call-b1"], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "source-call-b3": {"depends_on": ["source-call-b2"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": true}], "alignment_key": "apply_address_change"}
+      }
+    },
+    "sim-address-3": {
+      "calls": {
+        "source-call-c1": {"depends_on": [], "side_effects": [{"kind": "read", "target": "tau.retail.users"}], "alignment_key": "identify_customer"},
+        "source-call-c2": {"depends_on": ["source-call-c1"], "side_effects": [{"kind": "read", "target": "tau.retail.orders"}], "alignment_key": "lookup_target_order"},
+        "source-call-c3": {"depends_on": ["source-call-c2"], "side_effects": [{"kind": "write", "target": "tau.retail.orders", "reversible": true}], "alignment_key": "apply_address_change"}
+      }
+    }
+  }
+}

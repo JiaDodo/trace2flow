@@ -1,0 +1,60 @@
+{
+  "_fixture": {
+    "synthetic": true,
+    "purpose": "upstream pipeline smoke test only",
+    "split": "holdout",
+    "note": "These runs are disjoint from smoke_train.lp and do not demonstrate real-world accuracy."
+  },
+  "runs": [
+    {
+      "id": "holdout_1",
+      "status": "completed",
+      "steps": [
+        {
+          "id": "lookup_holdout_1",
+          "tool": "lookup_customer",
+          "params": {
+            "source": "support_fixture",
+            "customer_id": "customer_holdout_1"
+          },
+          "status": "completed"
+        },
+        {
+          "id": "update_holdout_1",
+          "tool": "update_ticket",
+          "params": {
+            "status": "resolved",
+            "ticket_id": "ticket_holdout_1"
+          },
+          "depends_on": ["lookup_holdout_1"],
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "holdout_2",
+      "status": "completed",
+      "steps": [
+        {
+          "id": "lookup_holdout_2",
+          "tool": "lookup_customer",
+          "params": {
+            "source": "support_fixture",
+            "customer_id": "customer_holdout_2"
+          },
+          "status": "completed"
+        },
+        {
+          "id": "update_holdout_2",
+          "tool": "update_ticket",
+          "params": {
+            "status": "resolved",
+            "ticket_id": "ticket_holdout_2"
+          },
+          "depends_on": ["lookup_holdout_2"],
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

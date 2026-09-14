@@ -1,4 +1,114 @@
-# autocompile
+# Trace2Flow
+
+Trace2Flow is a safety- and evidence-focused evolution of the upstream
+[AutoCompile](https://github.com/mirkokiefer/autocompile) project. The current
+Trace2Flow contribution adds strict, typed JSON trace ingestion, complete-run
+dataset boundaries, a reversible adapter into the original ASP compiler, and
+an occurrence-aware candidate DAG with per-edge evidence and explicit
+ambiguity. Run it locally with:
+
+```bash
+PYTHONPATH=src python -m trace2flow mine \
+  tests/fixtures/typed_customer_support.json \
+  --output candidate.json
+
+PYTHONPATH=src python -m trace2flow build-ir \
+  tests/fixtures/typed_customer_support.json \
+  --candidate candidate.json \
+  --output workflow.json
+```
+
+Resolved workflows can be exported to Prefect only with an explicit tool
+allowlist. See [the safe export guide](docs/PREFECT_EXPORT.md).
+
+The complete synthetic customer-support compile and held-out simulation path
+is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
+The conservative tau3-bench retail importer and its evidence language are
+documented in [the recorded-data guide](docs/RECORDED_DATA.md).
+
+A small checked-in recorded corpus demonstrates the non-synthetic data path:
+
+```bash
+PYTHONPATH=src python -m trace2flow evaluate-structure \
+  examples/tau-retail-recorded/candidate.json \
+  --compile examples/tau-retail-recorded/compile.json \
+  --test examples/tau-retail-recorded/holdout.json \
+  --output /tmp/trace2flow-structural-report.json
+```
+
+It contains three compile runs from tau task 44 and four held-out runs from
+task 60. All four held-out runs cover the mined four-node/three-edge structure.
+This is deliberately reported as structural evidence only, not execution
+equivalence or a general benchmark success rate. See the
+[corpus source record](examples/tau-retail-recorded/SOURCE.md).
+
+M9 turns that reviewed structure into a deliberately narrower executable
+contract. The caller supplies already-confirmed customer, order, current-item,
+and replacement-item fields; Trace2Flow does not pretend the recorded traces
+contain a general product-selection policy. Reproduce the fresh-state run:
+
+```bash
+PYTHONPATH=src python -m trace2flow build-ir \
+  examples/tau-retail-recorded/compile.json \
+  --candidate examples/tau-retail-recorded/candidate.json \
+  --resolution examples/tau-retail-recorded/resolution.json \
+  --output /tmp/trace2flow-retail-workflow.json
+
+PYTHONPATH=src python -m trace2flow verify-retail \
+  /tmp/trace2flow-retail-workflow.json \
+  --cases examples/tau-retail-recorded/execution-cases.json \
+  --output /tmp/trace2flow-retail-verification.json
+```
+
+The two execution cases use new local entities and state, not recorded
+responses. Both the business-result node and the complete mutable order map
+must match. See the [portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) for
+the evidence ladder and demo script.
+
+See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
+[upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
+
+## What the MVP does
+
+```text
+typed JSON traces
+    -> upstream tool-level mining + Trace2Flow occurrence alignment
+    -> candidate DAG with run/call evidence and unresolved items
+    -> declaration-gated Workflow IR
+    -> safe Prefect export + independent local simulation
+```
+
+The key idea is that a frequent pattern is evidence, not permission to execute.
+Trace2Flow keeps repeated calls distinct, refuses to infer lineage from array
+order or equal values, and requires declarations before constants, branches,
+or writes become executable.
+
+Run the complete local demo:
+
+```bash
+PYTHONPATH=src streamlit run streamlit_app.py
+```
+
+The default story compiles three synthetic customer-support runs and verifies
+the resulting five-tool workflow against two separate synthetic holdout runs.
+The same page separately shows recorded retail structure coverage and its
+fresh-state local execution result. It uses only in-memory tool registries: no
+real customer system, messages, payments, or refunds. See the
+[release audit](docs/RELEASE_AUDIT.md) for tested scope and remaining limits.
+
+## Contribution boundary
+
+Upstream AutoCompile supplies the Clingo miner, ASP rules, original benchmark,
+and pseudo/Daslab generation. Trace2Flow adds the strict JSON schema and split
+guards, reversible typed adapter, occurrence/evidence DAG, Pydantic Workflow
+IR, declaration-based bindings, registered-tool Prefect export, independent
+simulator/verifier, and Streamlit inspection UI. The upstream Git history,
+license, and attribution are preserved.
+
+The original AutoCompile overview follows. Its broad product claims describe
+upstream intent; verified behavior and known gaps are recorded in the audit.
+
+## Upstream AutoCompile overview
 
 AI agents spend most of their compute re-deriving decisions that were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
 
