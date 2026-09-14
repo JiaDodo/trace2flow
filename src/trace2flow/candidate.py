@@ -46,7 +46,7 @@ class CandidateNode(StrictModel):
     alignment_status: AlignmentStatus = Field(strict=False)
     alignment_basis: AlignmentBasis
     signature_sha256: str
-    occurrences: list[OccurrenceReference]
+    occurrences: list[OccurrenceReference] = Field(min_length=1)
     occurrence_count_by_run: dict[str, int]
     unresolved_reason: str | None = None
     upstream_core_tool: bool
@@ -92,7 +92,7 @@ class CandidateDag(StrictModel):
     source_dataset_id: str
     source_sha256: str
     upstream: UpstreamSignals
-    nodes: list[CandidateNode]
+    nodes: list[CandidateNode] = Field(min_length=1)
     edges: list[DagEdge]
     unresolved_dependencies: list[UnresolvedDependency]
 

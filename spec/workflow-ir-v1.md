@@ -38,9 +38,11 @@ Each node also records:
 - side-effect-resolution status.
 
 Writes and upstream conditional/mutually-exclusive behavior require explicit
-confirmation. `WorkflowIR.execution_blockers()` lists unresolved dependencies,
-alignments, parameter bindings, branches, and side effects. Exporters and
-executors must reject a workflow while this list is non-empty.
+confirmation. In version 1.0, confirming a branch node declares that it should
+execute unconditionally; general conditional expressions are not represented.
+`WorkflowIR.execution_blockers()` lists unresolved dependencies, alignments,
+parameter bindings, branches, and side effects. Exporters and executors must
+reject a workflow while this list is non-empty.
 
 ## Local construction
 

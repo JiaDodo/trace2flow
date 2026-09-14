@@ -141,7 +141,7 @@ class WorkflowEdge(StrictModel):
 class WorkflowNode(StrictModel):
     id: str
     tool: str
-    occurrences: list[OccurrenceReference]
+    occurrences: list[OccurrenceReference] = Field(min_length=1)
     parameters: dict[str, ParameterBinding]
     side_effects: list[SideEffect]
     alignment_status: AlignmentStatus = Field(strict=False)
@@ -170,7 +170,7 @@ class WorkflowIR(StrictModel):
     source_dataset_id: str
     source_sha256: str
     candidate_schema_version: Literal["candidate-dag/1.0"] = "candidate-dag/1.0"
-    nodes: list[WorkflowNode]
+    nodes: list[WorkflowNode] = Field(min_length=1)
     edges: list[WorkflowEdge]
     unresolved_dependencies: int = Field(ge=0)
 

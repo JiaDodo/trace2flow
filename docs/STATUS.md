@@ -2,9 +2,61 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M5 complete
+Current milestone: M6 complete — MVP complete
 
-Working branch: `feat/m5-local-verification`
+Working branch: `feat/m6-streamlit-demo`
+
+## M6 update
+
+M6 adds the lightweight inspection/demo layer and closes the MVP scope:
+
+- Added a Streamlit entrypoint with default or uploaded compile/test JSON,
+  editable ResolutionPlan JSON, DAG visualization, per-run/call edge evidence,
+  upstream-signal inspection, binding/blocker inspection, Prefect source
+  download, and independent verification output.
+- Uploaded traces that invalidate the bundled resolution fall back to an
+  inspectable unresolved IR; they cannot trigger Prefect export or simulation.
+- Added pure demo orchestration helpers so the UI reuses the same tested
+  compiler, IR, exporter, and verifier APIs.
+- Added Streamlit 1.63, a console-script entry point, product metadata, a clear
+  upstream-versus-Trace2Flow README boundary, and a final release audit.
+- Hardened candidate and workflow schemas against empty node/occurrence sets.
+
+The clean five-node customer-support pipeline and generated Prefect flow both
+ran successfully. Streamlit `AppTest` loaded the real entrypoint and activated
+the default pipeline without exceptions.
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 49 tests in 11.107s
+OK
+
+$ ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests streamlit_app.py
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 179 packages in 2ms
+```
+
+Final clean demo artifacts were created under a new temporary directory:
+
+```text
+candidate.json: 5 nodes, 5 edges, 0 unresolved dependencies
+workflow.json: 5 nodes, 5 edges, 0 blockers
+generated_flow.py: 5 required tools, 2900 bytes
+verification.json: 2/2 cases passed
+```
+
+Running that generated five-node Prefect flow against one fresh holdout
+simulator produced `nodes_executed=5`, `final_output_match=true`, and
+`state_match=true`.
+
+An editable package build also succeeded, and the installed `trace2flow
+--help` command exposed `validate`, `split`, `to-asp`, `mine`, `build-ir`,
+`export-prefect`, and `verify`.
 
 ## M5 update
 
@@ -325,8 +377,8 @@ Negative capability checks:
 
 ## Current blockers and limits
 
-There is no blocker to M6. The upstream boundary still cannot satisfy the MVP
-by itself:
+There is no blocker to the defined MVP. The upstream boundary still cannot
+satisfy it by itself:
 
 - Compile accepts ASP facts in practice, not the documented direct JSON input.
 - ASP parameters are strings, so the current compiler path does not preserve
@@ -344,19 +396,20 @@ by itself:
   than executable semantics. There is no Prefect target or registered-tool
   execution gate.
 - The root dependency set still mixes core and optional experimental packages;
-  the isolated environment contains the core M0 dependencies plus Prefect for
-  verified M4 execution.
+  the isolated environment contains the core M0 dependencies, Prefect, and
+  Streamlit for verified execution and UI testing.
 
 Trace2Flow now supplies a validated IR, declaration-gated typed bindings,
 explicit branch/side-effect resolution, safe Prefect export, a runtime tool
-registry, and independent held-out simulation. It does not yet provide the
-Streamlit inspection/demo layer or final release audit.
+registry, independent held-out simulation, and the Streamlit inspection/demo
+layer. Remaining limitations are documented in `docs/RELEASE_AUDIT.md`.
 
 See `docs/UPSTREAM_AUDIT.md` for evidence and source locations.
 
 ## Next milestone
 
-M6: add a lightweight Streamlit UI over the tested library pipeline, including
-trace upload/default demo, DAG and evidence inspection, resolution editing,
-Prefect export, and simulation results. Then run a clean demo and final
-safety/licensing/attribution audit.
+The requested MVP is complete. A post-MVP iteration should ingest a small set
+of genuinely recorded but sanitized traces, add a richer occurrence-resolution
+workflow, and evaluate conditional-expression IR without weakening the current
+export gates. Production deployment and live customer integrations remain out
+of scope.

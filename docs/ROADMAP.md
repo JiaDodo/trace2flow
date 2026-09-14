@@ -94,7 +94,7 @@ Deliverables:
 Acceptance: success and intentional-failure cases verify both outputs and state
 changes; no network, messages, refunds, or real customer data are used.
 
-## M6 — Lightweight Streamlit demo and release audit
+## M6 — Lightweight Streamlit demo and release audit (complete)
 
 Deliverables:
 

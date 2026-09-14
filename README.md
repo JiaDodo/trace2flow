@@ -27,6 +27,42 @@ is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 
+## What the MVP does
+
+```text
+typed JSON traces
+    -> upstream tool-level mining + Trace2Flow occurrence alignment
+    -> candidate DAG with run/call evidence and unresolved items
+    -> declaration-gated Workflow IR
+    -> safe Prefect export + independent local simulation
+```
+
+The key idea is that a frequent pattern is evidence, not permission to execute.
+Trace2Flow keeps repeated calls distinct, refuses to infer lineage from array
+order or equal values, and requires declarations before constants, branches,
+or writes become executable.
+
+Run the complete local demo:
+
+```bash
+PYTHONPATH=src streamlit run streamlit_app.py
+```
+
+The default story compiles three synthetic customer-support runs and verifies
+the resulting five-tool workflow against two separate synthetic holdout runs.
+It uses only an in-memory tool registry: no real customer system, messages, or
+refunds. See the [release audit](docs/RELEASE_AUDIT.md) for tested scope and
+remaining limits.
+
+## Contribution boundary
+
+Upstream AutoCompile supplies the Clingo miner, ASP rules, original benchmark,
+and pseudo/Daslab generation. Trace2Flow adds the strict JSON schema and split
+guards, reversible typed adapter, occurrence/evidence DAG, Pydantic Workflow
+IR, declaration-based bindings, registered-tool Prefect export, independent
+simulator/verifier, and Streamlit inspection UI. The upstream Git history,
+license, and attribution are preserved.
+
 The original AutoCompile overview follows. Its broad product claims describe
 upstream intent; verified behavior and known gaps are recorded in the audit.
 

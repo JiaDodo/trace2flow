@@ -101,6 +101,10 @@ Customer-support equivalence claims must come from `verify_workflow` against a
 disjoint `test` partition and fresh simulator state. A structural replay must
 remain labeled partial and must never set an execution-equivalence claim.
 
+The Streamlit entrypoint is `streamlit_app.py`. Keep business logic in tested
+`trace2flow` modules, render uploaded content only through safe Streamlit data
+elements, and retain the fixed customer-support tool allowlist.
+
 To reproduce the audited upstream example without overwriting tracked example
 outputs, write all generated files to a temporary directory:
 

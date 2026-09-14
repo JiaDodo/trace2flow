@@ -1,7 +1,7 @@
 [project]
-name = "autocompile"
+name = "trace2flow"
 version = "0.1.0"
-description = "Add your description here"
+description = "Compile agent traces into evidence-bearing, locally verified workflows"
 requires-python = ">=3.12"
 dependencies = [
     "clingo>=5.8.0",
@@ -15,4 +15,8 @@ dependencies = [
     "requests>=2.33.1",
     "rerun-sdk>=0.31.1",
     "scipy>=1.17.1",
+    "streamlit>=1.63,<2",
 ]
+
+[project.scripts]
+trace2flow = "trace2flow.cli:main"
