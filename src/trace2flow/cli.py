@@ -24,6 +24,11 @@ from .ir import (
     workflow_ir_json,
 )
 from .prefect_export import PrefectExportError, export_prefect
+from .retail_simulation import (
+    load_retail_suite,
+    retail_verification_report_json,
+    verify_retail_workflow,
+)
 from .simulation import verification_report_json, verify_workflow
 from .tau_import import (
     TauImportError,
@@ -118,6 +123,14 @@ def _build_parser() -> argparse.ArgumentParser:
     verify.add_argument("--compile", type=Path, required=True)
     verify.add_argument("--test", type=Path, required=True)
     verify.add_argument("--output", type=Path, required=True)
+
+    verify_retail = subparsers.add_parser(
+        "verify-retail",
+        help="verify the reviewed retail workflow shape in a fresh local simulator",
+    )
+    verify_retail.add_argument("input", type=Path, help="workflow-ir/1.0 JSON")
+    verify_retail.add_argument("--cases", type=Path, required=True)
+    verify_retail.add_argument("--output", type=Path, required=True)
 
     evaluate = subparsers.add_parser(
         "evaluate-structure",
@@ -220,6 +233,33 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "passed": report.passed,
                         "passed_cases": sum(
                             case.status == "passed" for case in report.cases
+                        ),
+                        "validation_scope": report.validation_scope,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if report.passed else 1
+
+        if args.command == "verify-retail":
+            workflow = loads_workflow_ir(args.input.read_text(encoding="utf-8"))
+            report = verify_retail_workflow(
+                workflow,
+                load_retail_suite(args.cases),
+            )
+            args.output.write_text(
+                retail_verification_report_json(report), encoding="utf-8"
+            )
+            print(
+                json.dumps(
+                    {
+                        "cases": len(report.cases),
+                        "passed": report.passed,
+                        "passed_cases": sum(
+                            case.status == "passed" for case in report.cases
+                        ),
+                        "recorded_response_replay_used": (
+                            report.recorded_response_replay_used
                         ),
                         "validation_scope": report.validation_scope,
                     },

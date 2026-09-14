@@ -42,6 +42,29 @@ This is deliberately reported as structural evidence only, not execution
 equivalence or a general benchmark success rate. See the
 [corpus source record](examples/tau-retail-recorded/SOURCE.md).
 
+M9 turns that reviewed structure into a deliberately narrower executable
+contract. The caller supplies already-confirmed customer, order, current-item,
+and replacement-item fields; Trace2Flow does not pretend the recorded traces
+contain a general product-selection policy. Reproduce the fresh-state run:
+
+```bash
+PYTHONPATH=src python -m trace2flow build-ir \
+  examples/tau-retail-recorded/compile.json \
+  --candidate examples/tau-retail-recorded/candidate.json \
+  --resolution examples/tau-retail-recorded/resolution.json \
+  --output /tmp/trace2flow-retail-workflow.json
+
+PYTHONPATH=src python -m trace2flow verify-retail \
+  /tmp/trace2flow-retail-workflow.json \
+  --cases examples/tau-retail-recorded/execution-cases.json \
+  --output /tmp/trace2flow-retail-verification.json
+```
+
+The two execution cases use new local entities and state, not recorded
+responses. Both the business-result node and the complete mutable order map
+must match. See the [portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) for
+the evidence ladder and demo script.
+
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 
@@ -68,9 +91,10 @@ PYTHONPATH=src streamlit run streamlit_app.py
 
 The default story compiles three synthetic customer-support runs and verifies
 the resulting five-tool workflow against two separate synthetic holdout runs.
-It uses only an in-memory tool registry: no real customer system, messages, or
-refunds. See the [release audit](docs/RELEASE_AUDIT.md) for tested scope and
-remaining limits.
+The same page separately shows recorded retail structure coverage and its
+fresh-state local execution result. It uses only in-memory tool registries: no
+real customer system, messages, payments, or refunds. See the
+[release audit](docs/RELEASE_AUDIT.md) for tested scope and remaining limits.
 
 ## Contribution boundary
 

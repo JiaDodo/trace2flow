@@ -7,17 +7,19 @@ Audited upstream baseline:
 
 ## Capability result
 
-The local MVP path is complete for one normalized JSON format, one Prefect
-target, and one explicitly synthetic customer-support scenario. It invokes the
-upstream ASP miner, builds an occurrence-aware evidence DAG, applies reviewed
-typed binding declarations, exports registered-tool-only Prefect source, and
-validates held-out outputs and ticket-state changes in fresh in-memory state.
+The local MVP path is complete for one normalized JSON format and one Prefect
+target. It invokes the upstream ASP miner, builds an occurrence-aware evidence
+DAG, applies reviewed typed binding declarations, exports registered-tool-only
+Prefect source, and validates outputs plus complete mutable state in fresh
+in-memory environments.
 
 The Streamlit UI supports default or uploaded compile/test traces, editable
 ResolutionPlan JSON, DAG visualization, per-edge evidence, unresolved blocker
-inspection, Prefect source download, and independent verification reports. If
-an uploaded trace invalidates the default resolution IDs, the UI preserves the
-candidate graph and falls back to an unresolved IR instead of exporting.
+inspection, Prefect source download, and independent verification reports. It
+also presents the recorded tau structure, its separate fresh-state retail
+execution, and the limits of each claim. If an uploaded trace invalidates the
+default resolution IDs, the UI preserves the candidate graph and falls back to
+an unresolved IR instead of exporting.
 
 ## License and attribution
 
@@ -38,12 +40,19 @@ candidate graph and falls back to an unresolved IR instead of exporting.
 - The only subprocess use in `src/trace2flow/` is the allowlisted upstream
   adapter invoking the repository's fixed compiler and one of two fixed rule
   files with a 60-second timeout.
-- The simulator imports no HTTP/socket client, has no message-sending tool, and
-  has no refund operation. `manual_refund_review` is output text only.
+- The simulators import no HTTP/socket client, have no message-sending tool,
+  and have no external payment/refund dispatch. Refund entries in local order
+  history and `manual_refund_review` output text never leave memory.
 - Prefect export and local execution both preflight unresolved IR and registered
   tool names before dispatch. Writes require explicit confirmation.
 - Compile/test overlap is rejected by run ID and provenance fingerprint.
 - Replay is labeled partial and cannot claim execution equivalence.
+- The recorded-retail runtime uses exactly four registered local tools, has no
+  network integration, and compares the complete order collection after every
+  case. Recorded tool responses are never executed or replayed.
+- Runtime-only task-input contracts carry the weaker
+  `declared_runtime_contract` evidence label instead of pretending those paths
+  appeared in historical natural-language inputs.
 
 ## Reproduced clean demo result
 
@@ -69,17 +78,25 @@ Streamlit's `AppTest` also loaded the real entrypoint, activated the default
 pipeline, and observed five nodes, five edges, zero blockers, and a passing
 verification result.
 
-Final automated verification ran 49 tests successfully. Ruff passed over the
+The M9 recorded-derived path produced a four-node/three-edge workflow with
+nine explicit task-input bindings, zero constants, one declared business
+result node, and zero blockers. Two fresh retail cases matched both the result
+node and the complete order state. The generated Prefect flow was imported and
+executed with the same four-tool local registry. Separate corrupt-output and
+corrupt-state tests both failed as intended.
+
+Final automated verification ran 73 tests successfully. Ruff passed over the
 Trace2Flow source, tests, and Streamlit entrypoint; `compileall` completed; and
-the 179-package lock resolved offline. An editable package build succeeded and
-the installed `trace2flow --help` exposed all seven CLI operations.
+the 180-package lock resolved offline. An editable package build succeeded and
+the `trace2flow` parser exposes ten CLI operations.
 
 ## Honest limitations
 
-- The executable default customer-support traces and results are synthetic.
-  The separate tau retail corpus contains recorded benchmark-simulator runs,
-  but its committed report validates held-out structure only and does not claim
-  output/state execution equivalence.
+- The executable customer-support cases and retail simulator states are
+  synthetic. The tau retail corpus contains recorded benchmark-simulator runs,
+  but its report validates held-out structure only. Fresh retail execution
+  validates our local implementation of that structure, not equivalence to tau
+  or a production system.
 - Automatic occurrence alignment is conservative structural matching, not a
   general semantic matcher. Ambiguity requires user declarations.
 - Candidate binding matches remain unresolved until declared; Trace2Flow does
@@ -90,3 +107,6 @@ the installed `trace2flow --help` exposed all seven CLI operations.
 - The simulator is an independent local fixture, not a real service-integration
   test. The UI is a local demonstration, not a production deployment.
 - No success rate, cost saving, or LLM-call reduction is claimed.
+- Product/variant choice is a required structured runtime input. The recorded
+  traces do not establish a general natural-language selection policy, so M9
+  intentionally does not synthesize one.

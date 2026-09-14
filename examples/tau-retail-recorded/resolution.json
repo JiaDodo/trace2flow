@@ -1,0 +1,88 @@
+{
+  "binding_overrides": [
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["first_name"]
+      },
+      "node_id": "node_71e78aa8d836",
+      "parameter": "first_name"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["last_name"]
+      },
+      "node_id": "node_71e78aa8d836",
+      "parameter": "last_name"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["zip"]
+      },
+      "node_id": "node_71e78aa8d836",
+      "parameter": "zip"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["order_id"]
+      },
+      "node_id": "node_9927edeef2e6",
+      "parameter": "order_id"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["product_id"]
+      },
+      "node_id": "node_b34dfad477c9",
+      "parameter": "product_id"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["item_ids"]
+      },
+      "node_id": "node_b5265cf2e501",
+      "parameter": "item_ids"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["new_item_ids"]
+      },
+      "node_id": "node_b5265cf2e501",
+      "parameter": "new_item_ids"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["order_id"]
+      },
+      "node_id": "node_b5265cf2e501",
+      "parameter": "order_id"
+    },
+    {
+      "binding": {
+        "evidence_mode": "declared_runtime_contract",
+        "kind": "task_input",
+        "path": ["payment_method_id"]
+      },
+      "node_id": "node_b5265cf2e501",
+      "parameter": "payment_method_id"
+    }
+  ],
+  "confirmed_branch_nodes": [],
+  "confirmed_side_effect_nodes": ["node_b5265cf2e501"],
+  "output_node_ids": ["node_b5265cf2e501"]
+}

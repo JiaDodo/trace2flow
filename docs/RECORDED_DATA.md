@@ -124,3 +124,8 @@ The separate `examples/tau-retail-recorded/` directory is a reviewed recorded
 benchmark corpus. Its `selection.json` pins the source file and explains every
 exclusion; compile task 44 and test task 60 use different simulated entities.
 Its committed structural report makes no execution-equivalence claim.
+
+M9 adds `resolution.json` and `execution-cases.json` beside that corpus. The
+former is an explicit typed runtime contract over the recorded structure; the
+latter contains newly authored synthetic simulator states. They must not be
+described as additional recorded traces or as recorded-response replay.

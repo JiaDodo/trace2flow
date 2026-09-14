@@ -19,6 +19,13 @@ matches are recorded as candidates with per-run evidence and require a
 `ResolutionPlan` declaration. A declared binding is checked against every
 aligned observation and is rejected if it contradicts the compile traces.
 
+Some recorded systems expose only unstructured task text even though the
+runtime integration needs a typed input contract. A `task_input` declaration
+may therefore set `evidence_mode` to `declared_runtime_contract`. Its evidence
+records the historical target-parameter observations but explicitly does not
+claim that the declared source path was present or value-matched in the trace.
+This mode cannot declare a constant or tool-output lineage.
+
 JSON paths are arrays of object keys and list indexes. For example,
 `["customer", "id"]` selects `value["customer"]["id"]`; an empty output path
 selects the predecessor's complete result.
@@ -36,6 +43,11 @@ Each node also records:
 - branch-resolution status;
 - observed side-effect declarations; and
 - side-effect-resolution status.
+
+`output_node_ids` optionally names explicitly reviewed business-result nodes.
+This matters when a valid evidence DAG has an independent read node that is
+also a structural sink. If no output is declared, runtimes retain the legacy
+behavior of returning every structural sink.
 
 Writes and upstream conditional/mutually-exclusive behavior require explicit
 confirmation. In version 1.0, confirming a branch node declares that it should

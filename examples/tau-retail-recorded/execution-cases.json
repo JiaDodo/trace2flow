@@ -1,0 +1,281 @@
+{
+  "schema_version": "retail-simulation-suite/1.0",
+  "source_dataset_id": "tau3_retail_modify_items_recorded_v1:compile",
+  "synthetic_data": true,
+  "recorded_response_replay": false,
+  "cases": [
+    {
+      "id": "fresh_local_lamp",
+      "task_input": {
+        "first_name": "Ada",
+        "last_name": "Lin",
+        "zip": "10001",
+        "order_id": "LOCAL-O-101",
+        "product_id": "LOCAL-P-LAMP",
+        "item_ids": ["LOCAL-I-LAMP-BLACK"],
+        "new_item_ids": ["LOCAL-I-LAMP-WHITE"],
+        "payment_method_id": "LOCAL-PM-GIFT"
+      },
+      "initial_state": {
+        "users": {
+          "LOCAL-U-101": {
+            "first_name": "Ada",
+            "last_name": "Lin",
+            "zip": "10001"
+          }
+        },
+        "orders": {
+          "LOCAL-O-101": {
+            "order_id": "LOCAL-O-101",
+            "user_id": "LOCAL-U-101",
+            "items": [
+              {
+                "name": "Desk Lamp",
+                "product_id": "LOCAL-P-LAMP",
+                "item_id": "LOCAL-I-LAMP-BLACK",
+                "price": 120.0,
+                "options": {"color": "black", "power": "USB"}
+              }
+            ],
+            "status": "pending",
+            "payment_history": [
+              {
+                "transaction_type": "payment",
+                "amount": 120.0,
+                "payment_method_id": "LOCAL-PM-GIFT"
+              }
+            ]
+          },
+          "LOCAL-O-UNCHANGED": {
+            "order_id": "LOCAL-O-UNCHANGED",
+            "user_id": "LOCAL-U-101",
+            "items": [],
+            "status": "delivered",
+            "payment_history": []
+          }
+        },
+        "products": {
+          "LOCAL-P-LAMP": {
+            "name": "Desk Lamp",
+            "product_id": "LOCAL-P-LAMP",
+            "variants": {
+              "LOCAL-I-LAMP-BLACK": {
+                "item_id": "LOCAL-I-LAMP-BLACK",
+                "available": true,
+                "price": 120.0,
+                "options": {"color": "black", "power": "USB"}
+              },
+              "LOCAL-I-LAMP-WHITE": {
+                "item_id": "LOCAL-I-LAMP-WHITE",
+                "available": true,
+                "price": 95.0,
+                "options": {"color": "white", "power": "USB"}
+              }
+            }
+          }
+        }
+      },
+      "expected_final_output": {
+        "order_id": "LOCAL-O-101",
+        "user_id": "LOCAL-U-101",
+        "items": [
+          {
+            "name": "Desk Lamp",
+            "product_id": "LOCAL-P-LAMP",
+            "item_id": "LOCAL-I-LAMP-WHITE",
+            "price": 95.0,
+            "options": {"color": "white", "power": "USB"}
+          }
+        ],
+        "status": "pending (item modified)",
+        "payment_history": [
+          {
+            "transaction_type": "payment",
+            "amount": 120.0,
+            "payment_method_id": "LOCAL-PM-GIFT"
+          },
+          {
+            "transaction_type": "refund",
+            "amount": 25.0,
+            "payment_method_id": "LOCAL-PM-GIFT"
+          }
+        ]
+      },
+      "expected_orders_after": {
+        "LOCAL-O-101": {
+          "order_id": "LOCAL-O-101",
+          "user_id": "LOCAL-U-101",
+          "items": [
+            {
+              "name": "Desk Lamp",
+              "product_id": "LOCAL-P-LAMP",
+              "item_id": "LOCAL-I-LAMP-WHITE",
+              "price": 95.0,
+              "options": {"color": "white", "power": "USB"}
+            }
+          ],
+          "status": "pending (item modified)",
+          "payment_history": [
+            {
+              "transaction_type": "payment",
+              "amount": 120.0,
+              "payment_method_id": "LOCAL-PM-GIFT"
+            },
+            {
+              "transaction_type": "refund",
+              "amount": 25.0,
+              "payment_method_id": "LOCAL-PM-GIFT"
+            }
+          ]
+        },
+        "LOCAL-O-UNCHANGED": {
+          "order_id": "LOCAL-O-UNCHANGED",
+          "user_id": "LOCAL-U-101",
+          "items": [],
+          "status": "delivered",
+          "payment_history": []
+        }
+      }
+    },
+    {
+      "id": "fresh_local_keyboard",
+      "task_input": {
+        "first_name": "Grace",
+        "last_name": "Hao",
+        "zip": "94105",
+        "order_id": "LOCAL-O-202",
+        "product_id": "LOCAL-P-KEYBOARD",
+        "item_ids": ["LOCAL-I-KEYBOARD-WIRED"],
+        "new_item_ids": ["LOCAL-I-KEYBOARD-WIRELESS"],
+        "payment_method_id": "LOCAL-PM-CARD"
+      },
+      "initial_state": {
+        "users": {
+          "LOCAL-U-202": {
+            "first_name": "Grace",
+            "last_name": "Hao",
+            "zip": "94105"
+          }
+        },
+        "orders": {
+          "LOCAL-O-202": {
+            "order_id": "LOCAL-O-202",
+            "user_id": "LOCAL-U-202",
+            "items": [
+              {
+                "name": "Travel Mouse",
+                "product_id": "LOCAL-P-MOUSE",
+                "item_id": "LOCAL-I-MOUSE",
+                "price": 45.0,
+                "options": {"color": "gray"}
+              },
+              {
+                "name": "Compact Keyboard",
+                "product_id": "LOCAL-P-KEYBOARD",
+                "item_id": "LOCAL-I-KEYBOARD-WIRED",
+                "price": 80.0,
+                "options": {"connection": "wired"}
+              }
+            ],
+            "status": "pending",
+            "payment_history": [
+              {
+                "transaction_type": "payment",
+                "amount": 125.0,
+                "payment_method_id": "LOCAL-PM-CARD"
+              }
+            ]
+          }
+        },
+        "products": {
+          "LOCAL-P-KEYBOARD": {
+            "name": "Compact Keyboard",
+            "product_id": "LOCAL-P-KEYBOARD",
+            "variants": {
+              "LOCAL-I-KEYBOARD-WIRED": {
+                "item_id": "LOCAL-I-KEYBOARD-WIRED",
+                "available": true,
+                "price": 80.0,
+                "options": {"connection": "wired"}
+              },
+              "LOCAL-I-KEYBOARD-WIRELESS": {
+                "item_id": "LOCAL-I-KEYBOARD-WIRELESS",
+                "available": true,
+                "price": 65.5,
+                "options": {"connection": "wireless"}
+              }
+            }
+          }
+        }
+      },
+      "expected_final_output": {
+        "order_id": "LOCAL-O-202",
+        "user_id": "LOCAL-U-202",
+        "items": [
+          {
+            "name": "Travel Mouse",
+            "product_id": "LOCAL-P-MOUSE",
+            "item_id": "LOCAL-I-MOUSE",
+            "price": 45.0,
+            "options": {"color": "gray"}
+          },
+          {
+            "name": "Compact Keyboard",
+            "product_id": "LOCAL-P-KEYBOARD",
+            "item_id": "LOCAL-I-KEYBOARD-WIRELESS",
+            "price": 65.5,
+            "options": {"connection": "wireless"}
+          }
+        ],
+        "status": "pending (item modified)",
+        "payment_history": [
+          {
+            "transaction_type": "payment",
+            "amount": 125.0,
+            "payment_method_id": "LOCAL-PM-CARD"
+          },
+          {
+            "transaction_type": "refund",
+            "amount": 14.5,
+            "payment_method_id": "LOCAL-PM-CARD"
+          }
+        ]
+      },
+      "expected_orders_after": {
+        "LOCAL-O-202": {
+          "order_id": "LOCAL-O-202",
+          "user_id": "LOCAL-U-202",
+          "items": [
+            {
+              "name": "Travel Mouse",
+              "product_id": "LOCAL-P-MOUSE",
+              "item_id": "LOCAL-I-MOUSE",
+              "price": 45.0,
+              "options": {"color": "gray"}
+            },
+            {
+              "name": "Compact Keyboard",
+              "product_id": "LOCAL-P-KEYBOARD",
+              "item_id": "LOCAL-I-KEYBOARD-WIRELESS",
+              "price": 65.5,
+              "options": {"connection": "wireless"}
+            }
+          ],
+          "status": "pending (item modified)",
+          "payment_history": [
+            {
+              "transaction_type": "payment",
+              "amount": 125.0,
+              "payment_method_id": "LOCAL-PM-CARD"
+            },
+            {
+              "transaction_type": "refund",
+              "amount": 14.5,
+              "payment_method_id": "LOCAL-PM-CARD"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

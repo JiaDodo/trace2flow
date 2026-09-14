@@ -67,6 +67,18 @@ from .models import (
     TraceStep,
 )
 from .prefect_export import PrefectArtifact, PrefectExportError, export_prefect
+from .retail_simulation import (
+    RETAIL_TOOLS,
+    RetailSimulationCase,
+    RetailSimulationSuite,
+    RetailSimulator,
+    RetailState,
+    RetailVerificationCaseResult,
+    RetailVerificationReport,
+    load_retail_suite,
+    retail_verification_report_json,
+    verify_retail_workflow,
+)
 from .runtime import ToolRegistry, UnregisteredToolError, get_path
 from .simulation import (
     CustomerSupportSimulator,
@@ -103,6 +115,7 @@ from .upstream import (
 
 __all__ = [
     "PARAM_ENCODING",
+    "RETAIL_TOOLS",
     "TAU_IMPORT_SCHEMA",
     "TAU_REPOSITORY",
     "UPSTREAM_BASELINE_COMMIT",
@@ -124,6 +137,12 @@ __all__ = [
     "ReplayStructureResult",
     "ResolutionPlan",
     "ResolutionStatus",
+    "RetailSimulationCase",
+    "RetailSimulationSuite",
+    "RetailSimulator",
+    "RetailState",
+    "RetailVerificationCaseResult",
+    "RetailVerificationReport",
     "RuleProfile",
     "RunProvenance",
     "RunStatus",
@@ -171,6 +190,7 @@ __all__ = [
     "export_prefect",
     "get_path",
     "import_tau_results",
+    "load_retail_suite",
     "load_tau_results",
     "load_tau_review",
     "load_trace_dataset",
@@ -178,12 +198,14 @@ __all__ = [
     "loads_workflow_ir",
     "mine_candidate_dag",
     "replay_structure",
+    "retail_verification_report_json",
     "split_by_test_group_ids",
     "split_by_test_run_ids",
     "state_diff",
     "structural_report_json",
     "to_asp",
     "verification_report_json",
+    "verify_retail_workflow",
     "verify_workflow",
     "workflow_ir_json",
 ]

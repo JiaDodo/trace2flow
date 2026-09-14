@@ -9,9 +9,16 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from .candidate import CandidateDag, candidate_json, mine_candidate_dag
+from .evaluation import StructuralEvaluationReport
 from .io import loads_trace_dataset
 from .ir import ResolutionPlan, WorkflowIR, build_workflow_ir, workflow_ir_json
 from .prefect_export import PrefectArtifact, PrefectExportError, export_prefect
+from .retail_simulation import (
+    RETAIL_TOOLS,
+    RetailVerificationReport,
+    load_retail_suite,
+    verify_retail_workflow,
+)
 from .simulation import VerificationReport, verification_report_json, verify_workflow
 
 CUSTOMER_SUPPORT_TOOLS = frozenset(
@@ -25,6 +32,7 @@ CUSTOMER_SUPPORT_TOOLS = frozenset(
 )
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEMO_ROOT = PROJECT_ROOT / "examples" / "customer-support"
+RECORDED_RETAIL_ROOT = PROJECT_ROOT / "examples" / "tau-retail-recorded"
 
 
 @dataclass(frozen=True)
@@ -36,6 +44,45 @@ class DemoArtifacts:
     resolution_error: str | None = None
     export_error: str | None = None
     verification_error: str | None = None
+
+
+@dataclass(frozen=True)
+class RecordedRetailArtifacts:
+    candidate: CandidateDag
+    workflow: WorkflowIR
+    prefect: PrefectArtifact
+    structural: StructuralEvaluationReport
+    verification: RetailVerificationReport
+
+
+def build_recorded_retail_artifacts() -> RecordedRetailArtifacts:
+    """Build the recorded-derived workflow and rerun its fresh local cases."""
+
+    compile_dataset = loads_trace_dataset(
+        (RECORDED_RETAIL_ROOT / "compile.json").read_text(encoding="utf-8")
+    )
+    candidate = CandidateDag.model_validate_json(
+        (RECORDED_RETAIL_ROOT / "candidate.json").read_text(encoding="utf-8")
+    )
+    resolution = ResolutionPlan.model_validate_json(
+        (RECORDED_RETAIL_ROOT / "resolution.json").read_text(encoding="utf-8")
+    )
+    workflow = build_workflow_ir(compile_dataset, candidate, resolution)
+    prefect = export_prefect(workflow, RETAIL_TOOLS)
+    structural = StructuralEvaluationReport.model_validate_json(
+        (RECORDED_RETAIL_ROOT / "structural-report.json").read_text(encoding="utf-8")
+    )
+    verification = verify_retail_workflow(
+        workflow,
+        load_retail_suite(RECORDED_RETAIL_ROOT / "execution-cases.json"),
+    )
+    return RecordedRetailArtifacts(
+        candidate=candidate,
+        workflow=workflow,
+        prefect=prefect,
+        structural=structural,
+        verification=verification,
+    )
 
 
 def default_demo_texts() -> tuple[str, str, str]:

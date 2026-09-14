@@ -6,6 +6,7 @@ import streamlit as st
 
 from trace2flow.demo import (
     build_demo_artifacts,
+    build_recorded_retail_artifacts,
     candidate_dot,
     default_demo_texts,
     downloadable_json,
@@ -18,7 +19,63 @@ st.caption(
     "上游 AutoCompile 提供 ASP 工具级模式挖掘；Trace2Flow 新增类型边界、"
     "逐调用证据、Workflow IR、安全导出和独立模拟验证。"
 )
-st.info("本演示只使用合成本地数据，不连接客服系统、不发消息、不执行退款。")
+st.info(
+    "页面展示一组公开基准的脱敏记录结构；所有可执行验证仍只使用新建的"
+    "合成本地状态，不连接客服系统、不发消息、不执行真实退款。"
+)
+
+recorded = build_recorded_retail_artifacts()
+st.subheader("三层证据，三种不同结论")
+evidence_columns = st.columns(3)
+with evidence_columns[0]:
+    st.markdown("**合成客服端到端**")
+    st.write("用于证明完整五工具演示链路可运行；不代表真实数据表现。")
+    st.code("independent_local_simulation")
+with evidence_columns[1]:
+    st.markdown("**公开记录结构覆盖**")
+    st.write(
+        f"tau 留出任务 {recorded.structural.covered_runs}/"
+        f"{recorded.structural.test_runs} 覆盖四节点、三证据边。"
+    )
+    st.code("held_out_structure_only")
+with evidence_columns[2]:
+    st.markdown("**记录结构的独立执行**")
+    st.write(
+        f"{sum(case.status == 'passed' for case in recorded.verification.cases)}/"
+        f"{len(recorded.verification.cases)} 个全新本地订单匹配最终输出和完整订单状态。"
+    )
+    st.code("independent_local_simulation_of_recorded_structure")
+
+with st.expander("查看记录零售工作流的范围、绑定与验证结果"):
+    st.warning(
+        "记录中的商品选择由原 Agent 完成，Trace 没有足够证据编译该决策。"
+        "当前可执行合同要求调用方显式提供 product_id、原 item_ids 与 new_item_ids；"
+        "这不是任意换货意图解析器。"
+    )
+    st.caption(
+        "recorded_response_replay_used=false；execution_equivalence_claimed=false。"
+        "记录数据证明结构，新的合成状态只验证该结构的本地实现。"
+    )
+    st.graphviz_chart(candidate_dot(recorded.candidate), width="stretch")
+    st.dataframe(
+        [
+            {
+                "case_id": case.case_id,
+                "status": case.status,
+                "final_output_match": case.final_output_match,
+                "complete_order_state_match": case.state_match,
+            }
+            for case in recorded.verification.cases
+        ],
+        width="stretch",
+        hide_index=True,
+    )
+    st.download_button(
+        "下载记录结构生成的 Prefect flow",
+        recorded.prefect.source,
+        file_name="recorded_retail_flow.py",
+        mime="text/x-python",
+    )
 
 default_compile, default_resolution, default_holdout = default_demo_texts()
 with st.sidebar:

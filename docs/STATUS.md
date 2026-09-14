@@ -2,9 +2,71 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M8 complete — reviewed recorded corpus verified structurally
+Current milestone: M9 complete — scoped MVP implementation complete
 
-Working branch: `feat/m8-recorded-corpus`
+Working branch: `feat/m9-recorded-execution`
+
+## M9 update
+
+M9 turns the M8 recorded structure into an honestly bounded executable
+workflow and completes the scoped MVP:
+
+- Added `declared_runtime_contract` evidence for typed task-input paths that
+  were not structured fields in the recorded natural-language inputs. All nine
+  retail parameters use this explicit mode; none is promoted to a constant.
+- Added declared `output_node_ids`. The order-modification node is the business
+  result while the independent authentication read remains a structural sink;
+  no false data-dependency edge was invented to force a single sink.
+- Added four allowlisted in-memory retail tools and two fresh local cases with
+  entities and state unrelated to the recorded corpus. Recorded responses are
+  never replayed. The verifier compares the selected business output and the
+  complete mutable order map.
+- Added `trace2flow verify-retail`, real Prefect execution coverage, separate
+  output/state corruption tests, a three-level evidence display in Streamlit,
+  a portfolio walkthrough, and locked clean-install GitHub Actions CI.
+
+Actual recorded-derived execution result:
+
+```text
+workflow: 4 nodes, 3 evidence edges, 9 task-input bindings, 0 constants
+execution blockers: 0
+declared business output: modify_pending_order_items node
+Prefect required tools: 4 registered local tools
+fresh local cases: 2/2 passed
+final output matches: 2/2
+complete order-state matches: 2/2
+recorded response replay used: false
+validation scope: independent_local_simulation_of_recorded_structure
+```
+
+The executable contract requires the caller to supply `product_id`, original
+`item_ids`, and selected `new_item_ids`. The source traces do not justify a
+general natural-language product-selection policy, so that Agent decision was
+not silently synthesized.
+
+Full validation results:
+
+```text
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true python -m unittest discover -s tests -v
+Ran 73 tests in 16.332s
+OK
+
+$ ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests streamlit_app.py
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 180 packages
+
+$ uv build --out-dir /tmp/trace2flow-build.*
+Successfully built sdist and wheel; the wheel includes the trace2flow CLI entry point
+```
+
+The GitHub Actions workflow is committed locally but cannot have a hosted run
+until the branch is pushed. Pushing remains intentionally outside the current
+authorization.
 
 ## M8 update
 

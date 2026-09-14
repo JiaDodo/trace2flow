@@ -139,7 +139,7 @@ Acceptance: every run has pinned provenance and a review record, no source task
 group crosses partitions, no unreviewed trace reaches mining, and all reported
 numbers are reproduced from committed commands/artifacts.
 
-## M9 — Recorded-workflow execution and presentation (next)
+## M9 — Recorded-workflow execution and presentation (complete)
 
 Deliverables:
 
@@ -156,6 +156,18 @@ Acceptance: the generated workflow runs only registered local retail tools;
 intentional output/state corruptions fail; the UI clearly distinguishes
 synthetic end-to-end verification, recorded structural coverage, and any new
 independent execution result.
+
+## Post-MVP release handoff (next, requires repository publication authority)
+
+- Review the final branch history and choose merge/squash policy.
+- Push the development branch and observe the first GitHub Actions clean
+  install on hosted infrastructure.
+- Capture a short demo recording and create a release tag only after the hosted
+  checks pass.
+
+M0–M9 now cover the scoped MVP. Production integrations, arbitrary intent
+planning, and generalized branch synthesis remain intentionally out of scope,
+not unfinished acceptance items.
 
 ## Out of scope for the MVP
 

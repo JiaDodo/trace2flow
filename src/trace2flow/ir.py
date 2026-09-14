@@ -34,6 +34,9 @@ class BindingEvidence(StrictModel):
     source_path: JsonPath = Field(default_factory=list)
     source_occurrence_id: str | None = None
     observed_value: JsonValue
+    validation: Literal[
+        "observed_value_match", "declared_runtime_contract"
+    ] = "observed_value_match"
 
 
 class BindingCandidate(StrictModel):
@@ -58,6 +61,9 @@ class TaskInputBinding(StrictModel):
     path: JsonPath = Field(min_length=1)
     declared: Literal[True] = True
     rationale: Literal["explicit_declaration"] = "explicit_declaration"
+    evidence_mode: Literal[
+        "observed_value_match", "declared_runtime_contract"
+    ] = "observed_value_match"
     evidence: list[BindingEvidence] = Field(min_length=1)
 
 
@@ -91,6 +97,9 @@ class ConstantBindingSpec(StrictModel):
 class TaskInputBindingSpec(StrictModel):
     kind: Literal["task_input"] = "task_input"
     path: JsonPath = Field(min_length=1)
+    evidence_mode: Literal[
+        "observed_value_match", "declared_runtime_contract"
+    ] = "observed_value_match"
 
 
 class ToolOutputBindingSpec(StrictModel):
@@ -117,13 +126,18 @@ class ResolutionPlan(StrictModel):
     binding_overrides: list[BindingOverride] = Field(default_factory=list)
     confirmed_branch_nodes: list[str] = Field(default_factory=list)
     confirmed_side_effect_nodes: list[str] = Field(default_factory=list)
+    output_node_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_unique_entries(self) -> ResolutionPlan:
         keys = [(item.node_id, item.parameter) for item in self.binding_overrides]
         if len(keys) != len(set(keys)):
             raise ValueError("binding overrides must be unique by node and parameter")
-        for field_name in ("confirmed_branch_nodes", "confirmed_side_effect_nodes"):
+        for field_name in (
+            "confirmed_branch_nodes",
+            "confirmed_side_effect_nodes",
+            "output_node_ids",
+        ):
             values = getattr(self, field_name)
             if len(values) != len(set(values)):
                 raise ValueError(f"{field_name} must not contain duplicates")
@@ -173,6 +187,7 @@ class WorkflowIR(StrictModel):
     nodes: list[WorkflowNode] = Field(min_length=1)
     edges: list[WorkflowEdge]
     unresolved_dependencies: int = Field(ge=0)
+    output_node_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_workflow(self) -> WorkflowIR:
@@ -180,6 +195,14 @@ class WorkflowIR(StrictModel):
         if len(node_ids) != len(set(node_ids)):
             raise ValueError("workflow node ids must be unique")
         known_nodes = set(node_ids)
+        if len(self.output_node_ids) != len(set(self.output_node_ids)):
+            raise ValueError("workflow output node ids must not contain duplicates")
+        unknown_outputs = sorted(set(self.output_node_ids) - known_nodes)
+        if unknown_outputs:
+            raise ValueError(
+                "workflow output node ids reference unknown node(s): "
+                + ", ".join(unknown_outputs)
+            )
         adjacency = {node_id: set() for node_id in known_nodes}
         edge_pairs: set[tuple[str, str]] = set()
         for edge in self.edges:
@@ -220,6 +243,14 @@ class WorkflowIR(StrictModel):
         for node_id in sorted(known_nodes):
             visit(node_id)
         return self
+
+    def result_node_ids(self) -> list[str]:
+        """Return declared business outputs, or structural sinks for legacy IR."""
+
+        if self.output_node_ids:
+            return sorted(self.output_node_ids)
+        sources = {edge.source_node_id for edge in self.edges}
+        return sorted(node.id for node in self.nodes if node.id not in sources)
 
     def execution_blockers(self) -> list[str]:
         blockers: list[str] = []
@@ -491,6 +522,22 @@ def _resolve_declared_binding(
         )
 
     if isinstance(spec, TaskInputBindingSpec):
+        if spec.evidence_mode == "declared_runtime_contract":
+            return TaskInputBinding(
+                path=spec.path,
+                evidence_mode=spec.evidence_mode,
+                evidence=[
+                    BindingEvidence(
+                        run_id=occurrence.run_id,
+                        target_occurrence_id=occurrence.qualified_id,
+                        source_kind="task_input",
+                        source_path=spec.path,
+                        observed_value=observed,
+                        validation="declared_runtime_contract",
+                    )
+                    for occurrence, observed in values
+                ],
+            )
         evidence: list[BindingEvidence] = []
         for occurrence, observed in values:
             try:
@@ -514,7 +561,11 @@ def _resolve_declared_binding(
                     observed_value=source_value,
                 )
             )
-        return TaskInputBinding(path=spec.path, evidence=evidence)
+        return TaskInputBinding(
+            path=spec.path,
+            evidence_mode=spec.evidence_mode,
+            evidence=evidence,
+        )
 
     edge = next(
         (
@@ -588,7 +639,9 @@ def build_workflow_ir(
     candidate_node_ids = {node.id for node in candidate.nodes}
     referenced_node_ids = {
         override.node_id for override in plan.binding_overrides
-    } | set(plan.confirmed_branch_nodes) | set(plan.confirmed_side_effect_nodes)
+    } | set(plan.confirmed_branch_nodes) | set(plan.confirmed_side_effect_nodes) | set(
+        plan.output_node_ids
+    )
     unknown = sorted(referenced_node_ids - candidate_node_ids)
     if unknown:
         raise ValueError("resolution plan references unknown node(s): " + ", ".join(unknown))
@@ -742,4 +795,5 @@ def build_workflow_ir(
         nodes=sorted(workflow_nodes, key=lambda node: node.id),
         edges=sorted(edges, key=lambda edge: edge.id),
         unresolved_dependencies=len(candidate.unresolved_dependencies),
+        output_node_ids=plan.output_node_ids,
     )

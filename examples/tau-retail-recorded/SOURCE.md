@@ -62,3 +62,25 @@ The committed normalized artifacts contain pseudonyms and omit prompts,
 provider payloads, timestamps, token usage, and costs. Tool outputs remain
 strings because that is how tau recorded them. The report is structural only;
 it explicitly makes no output/state execution-equivalence claim.
+
+## Executable contract added in M9
+
+`resolution.json` binds all nine observed parameters to explicit runtime input
+paths with `evidence_mode=declared_runtime_contract`; it declares no business
+constants. That label is important: the paths were not present as structured
+fields in the recorded natural-language input, so the IR does not claim an
+observed value match. `output_node_ids` names the write node as the business
+result without adding a false data edge from the independent authentication
+lookup.
+
+The contract expects the caller to have already selected `product_id`, the
+current `item_ids`, and the desired `new_item_ids`. The source traces do not
+contain enough evidence to compile the Agent's natural-language product-choice
+reasoning, so this workflow is not presented as an arbitrary item-change
+planner.
+
+`execution-cases.json` contains two newly authored local simulator states with
+different users, orders, and products from the recorded corpus. The four
+allowlisted tools execute against those states and compare the declared result
+node plus the complete mutable order map. No recorded response is replayed and
+no external payment/refund action exists.

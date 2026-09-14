@@ -69,18 +69,15 @@ def export_prefect(
         )
 
     ordered_nodes = _topological_nodes(workflow)
-    outgoing = {node.id: set() for node in workflow.nodes}
-    for edge in workflow.edges:
-        outgoing[edge.source_node_id].add(edge.target_node_id)
-    sink_ids = sorted(node_id for node_id, targets in outgoing.items() if not targets)
-    if not sink_ids:
+    result_node_ids = workflow.result_node_ids()
+    if not result_node_ids:
         final_expression = "None"
-    elif len(sink_ids) == 1:
-        final_expression = f"outputs[{_literal(sink_ids[0])}]"
+    elif len(result_node_ids) == 1:
+        final_expression = f"outputs[{_literal(result_node_ids[0])}]"
     else:
         entries = ", ".join(
             f"{_literal(node_id)}: outputs[{_literal(node_id)}]"
-            for node_id in sink_ids
+            for node_id in result_node_ids
         )
         final_expression = "{" + entries + "}"
 

@@ -15,6 +15,7 @@ from streamlit.testing.v1 import AppTest
 
 from trace2flow.demo import (
     build_demo_artifacts,
+    build_recorded_retail_artifacts,
     candidate_dot,
     default_demo_texts,
     downloadable_json,
@@ -73,6 +74,33 @@ class DemoTest(unittest.TestCase):
         self.assertTrue(
             any("独立本地模拟验证通过" in item.value for item in app.success)
         )
+
+    def test_recorded_demo_keeps_structure_and_execution_claims_separate(self) -> None:
+        recorded = build_recorded_retail_artifacts()
+
+        self.assertEqual(recorded.structural.validation_scope, "held_out_structure_only")
+        self.assertFalse(recorded.structural.execution_equivalence_claimed)
+        self.assertEqual(recorded.structural.covered_runs, 4)
+        self.assertTrue(recorded.verification.passed)
+        self.assertFalse(recorded.verification.recorded_response_replay_used)
+        self.assertEqual(len(recorded.prefect.required_tools), 4)
+
+        app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=15).run()
+        self.assertEqual(app.exception, [])
+        rendered = "\n".join(
+            item.value
+            for collection in (app.markdown, app.caption, app.code, app.warning)
+            for item in collection
+        )
+        self.assertIn("合成客服端到端", rendered)
+        self.assertIn("公开记录结构覆盖", rendered)
+        self.assertIn("记录结构的独立执行", rendered)
+        self.assertIn("held_out_structure_only", rendered)
+        self.assertIn(
+            "independent_local_simulation_of_recorded_structure",
+            rendered,
+        )
+        self.assertIn("不是任意换货意图解析器", rendered)
 
     def test_changed_upload_falls_back_to_inspectable_unresolved_ir(self) -> None:
         compile_text, resolution_text, _ = default_demo_texts()

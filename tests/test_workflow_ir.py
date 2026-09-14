@@ -222,6 +222,37 @@ class WorkflowIrTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "contradicts observations"):
             build_workflow_ir(dataset, candidate, plan)
 
+    def test_declared_runtime_contract_is_not_misreported_as_observed_lineage(self) -> None:
+        dataset, candidate, node_ids = candidate_and_ids()
+        plan = ResolutionPlan(
+            binding_overrides=[
+                BindingOverride(
+                    node_id=node_ids["lookup_customer"],
+                    parameter="customer_id",
+                    binding=TaskInputBindingSpec(
+                        path=["runtime", "customer_id"],
+                        evidence_mode="declared_runtime_contract",
+                    ),
+                )
+            ],
+            output_node_ids=[node_ids["classify_issue"]],
+        )
+        workflow = build_workflow_ir(dataset, candidate, plan)
+        lookup = next(
+            node for node in workflow.nodes if node.tool == "lookup_customer"
+        )
+        binding = lookup.parameters["customer_id"]
+
+        self.assertIsInstance(binding, TaskInputBinding)
+        self.assertEqual(binding.evidence_mode, "declared_runtime_contract")
+        self.assertTrue(
+            all(
+                item.validation == "declared_runtime_contract"
+                for item in binding.evidence
+            )
+        )
+        self.assertEqual(workflow.result_node_ids(), [node_ids["classify_issue"]])
+
     def test_output_binding_requires_an_accepted_dependency_edge(self) -> None:
         dataset, candidate, node_ids = candidate_and_ids()
         plan = ResolutionPlan(

@@ -176,14 +176,11 @@ def execute_local(
                 raise WorkflowExecutionError(f"unresolved parameter {node_id}.{name}")
         outputs[node_id] = registry.invoke(node.tool, params)
 
-    outgoing = {node.id: set() for node in workflow.nodes}
-    for edge in workflow.edges:
-        outgoing[edge.source_node_id].add(edge.target_node_id)
-    sinks = sorted(node_id for node_id, targets in outgoing.items() if not targets)
-    if len(sinks) == 1:
-        final_output: JsonValue = outputs[sinks[0]]
+    result_node_ids = workflow.result_node_ids()
+    if len(result_node_ids) == 1:
+        final_output: JsonValue = outputs[result_node_ids[0]]
     else:
-        final_output = {node_id: outputs[node_id] for node_id in sinks}
+        final_output = {node_id: outputs[node_id] for node_id in result_node_ids}
     return ExecutionResult(
         workflow_id=workflow.workflow_id,
         outputs=outputs,

@@ -125,6 +125,13 @@ Never convert equality or historical invariance into a resolved binding.
 Resolved bindings require declarations that validate against all aligned
 compile observations.
 
+When recorded task inputs are unstructured, a reviewed runtime schema may use
+`evidence_mode=declared_runtime_contract`. Keep that weaker evidence label in
+the IR: it declares where a future invocation supplies a value and does not
+claim the path was observed in historical input. Use `output_node_ids` to name
+business results instead of inventing data edges to eliminate independent
+structural sinks.
+
 Prefect export must go through `trace2flow.prefect_export.export_prefect` and
 the generated flow must dispatch through `ToolRegistry`. Do not add dynamic
 imports, `eval`, `exec`, shell execution, or a fallback for unknown tools.
@@ -132,6 +139,22 @@ imports, `eval`, `exec`, shell execution, or a fallback for unknown tools.
 Customer-support equivalence claims must come from `verify_workflow` against a
 disjoint `test` partition and fresh simulator state. A structural replay must
 remain labeled partial and must never set an execution-equivalence claim.
+
+Reproduce the recorded-retail execution separately. Its structure comes from
+recorded tau simulations, but its executable inputs and state are new local
+synthetic fixtures and recorded responses are never replayed:
+
+```bash
+PYTHONPATH=src python -m trace2flow build-ir \
+  examples/tau-retail-recorded/compile.json \
+  --candidate examples/tau-retail-recorded/candidate.json \
+  --resolution examples/tau-retail-recorded/resolution.json \
+  --output /tmp/trace2flow-retail-workflow.json
+PYTHONPATH=src python -m trace2flow verify-retail \
+  /tmp/trace2flow-retail-workflow.json \
+  --cases examples/tau-retail-recorded/execution-cases.json \
+  --output /tmp/trace2flow-retail-verification.json
+```
 
 The Streamlit entrypoint is `streamlit_app.py`. Keep business logic in tested
 `trace2flow` modules, render uploaded content only through safe Streamlit data

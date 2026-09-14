@@ -17,6 +17,7 @@ DEMO_HOLDOUT = ROOT / "examples" / "customer-support" / "holdout.json"
 DEMO_RESOLUTION = ROOT / "examples" / "customer-support" / "resolution.json"
 TAU_RESULTS = ROOT / "tests" / "fixtures" / "tau_retail_results.json"
 TAU_REVIEW = ROOT / "tests" / "fixtures" / "tau_retail_review.json"
+RECORDED_ROOT = ROOT / "examples" / "tau-retail-recorded"
 
 
 class TraceCliTest(unittest.TestCase):
@@ -295,6 +296,68 @@ class TraceCliTest(unittest.TestCase):
                     for case in report["cases"]
                 )
             )
+
+    def test_recorded_retail_cli_builds_exports_and_verifies_fresh_cases(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="trace2flow-cli-retail-") as tempdir:
+            root = Path(tempdir)
+            workflow_path = root / "workflow.json"
+            flow_path = root / "flow.py"
+            report_path = root / "report.json"
+            built = self.run_cli(
+                "build-ir",
+                str(RECORDED_ROOT / "compile.json"),
+                "--candidate",
+                str(RECORDED_ROOT / "candidate.json"),
+                "--resolution",
+                str(RECORDED_ROOT / "resolution.json"),
+                "--output",
+                str(workflow_path),
+            )
+            self.assertEqual(json.loads(built.stdout)["blockers"], 0)
+
+            export_args = [
+                value
+                for tool in (
+                    "find_user_id_by_name_zip",
+                    "get_order_details",
+                    "get_product_details",
+                    "modify_pending_order_items",
+                )
+                for value in ("--registered-tool", tool)
+            ]
+            exported = self.run_cli(
+                "export-prefect",
+                str(workflow_path),
+                *export_args,
+                "--output",
+                str(flow_path),
+            )
+            self.assertEqual(len(json.loads(exported.stdout)["required_tools"]), 4)
+            self.assertIn("ToolRegistry", flow_path.read_text(encoding="utf-8"))
+
+            verified = self.run_cli(
+                "verify-retail",
+                str(workflow_path),
+                "--cases",
+                str(RECORDED_ROOT / "execution-cases.json"),
+                "--output",
+                str(report_path),
+            )
+            self.assertEqual(
+                json.loads(verified.stdout),
+                {
+                    "cases": 2,
+                    "passed": True,
+                    "passed_cases": 2,
+                    "recorded_response_replay_used": False,
+                    "validation_scope": (
+                        "independent_local_simulation_of_recorded_structure"
+                    ),
+                },
+            )
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            self.assertTrue(report["recorded_structure_source"])
+            self.assertTrue(all(case["state_match"] for case in report["cases"]))
 
 
 if __name__ == "__main__":
