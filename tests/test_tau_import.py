@@ -57,6 +57,7 @@ class TauImportTest(unittest.TestCase):
             "Example",
             "10001",
             "#W100",
+            "W100",
             "12 Main Street",
             "secret_provider_payload",
             "prompt_tokens",

@@ -123,7 +123,7 @@ credentials; tests prove tool argument types and repeated occurrences survive,
 call order creates no dependency, incomplete review blocks mining, source-task
 trials cannot cross partitions, and provider raw data is absent.
 
-## M8 — Small reviewed recorded corpus (next)
+## M8 — Small reviewed recorded corpus (complete)
 
 Deliverables:
 
@@ -138,6 +138,24 @@ Deliverables:
 Acceptance: every run has pinned provenance and a review record, no source task
 group crosses partitions, no unreviewed trace reaches mining, and all reported
 numbers are reproduced from committed commands/artifacts.
+
+## M9 — Recorded-workflow execution and presentation (next)
+
+Deliverables:
+
+- Resolve bindings for the selected four-tool recorded workflow without
+  promoting observed values to constants.
+- Implement an independent, minimal retail simulator for only the selected
+  lookup/product/item-modification behavior, using new local state rather than
+  recorded response replay.
+- Compare sink output and complete mutable order state on held-out cases.
+- Add the recorded-corpus evidence and its limitations to the Streamlit demo,
+  plus clean-install CI and a concise portfolio walkthrough.
+
+Acceptance: the generated workflow runs only registered local retail tools;
+intentional output/state corruptions fail; the UI clearly distinguishes
+synthetic end-to-end verification, recorded structural coverage, and any new
+independent execution result.
 
 ## Out of scope for the MVP
 

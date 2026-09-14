@@ -1,0 +1,614 @@
+{
+  "dataset_id": "tau3_retail_modify_items_recorded_v1:test",
+  "metadata": {
+    "automatic_redaction": "type_preserving_structured_pseudonymization",
+    "contains_real_customer_data": false,
+    "dependency_evidence": "explicit_reviewer_declaration",
+    "dropped_source_fields": [
+      "agent_cost",
+      "audio",
+      "policy_prompt",
+      "provider_raw_data",
+      "timestamps",
+      "token_usage",
+      "user_cost"
+    ],
+    "import_review_status": "complete",
+    "license": "MIT",
+    "manual_redaction_review": "complete",
+    "parent_dataset_id": "tau3_retail_modify_items_recorded_v1",
+    "recording_claim": "recorded_execution_in_public_benchmark_simulator",
+    "reviewer": "trace2flow-maintainer-semantic-review",
+    "side_effect_evidence": "explicit_reviewer_declaration",
+    "source_domain": "retail",
+    "source_format": "tau3_text_results_json",
+    "source_repository": "sierra-research/tau2-bench",
+    "source_revision": "ade39493be54aad326a4c65295f77fe09780329b",
+    "state_snapshot_evidence": "unavailable",
+    "tool_outputs": "preserved_as_recorded_strings_after_redaction"
+  },
+  "partition": "test",
+  "runs": [
+    {
+      "final_output": "The wireless earbuds in your order have been successfully changed to the blue variant with 8 hours battery life and no water resistance, priced at $242.92. The price difference of $13.75 has been refunded to your original payment method (PayPal). If you need any further assistance, feel free to ask!",
+      "id": "tau_4c3bb4c66e8e69b6",
+      "inputs": {
+        "user_scenario": {
+          "domain": "retail",
+          "known_info": "You are <first_name_2277c7f050> <last_name_4bf5f2c70f> from <city_6ade1bce6d> TX, <zip_7d4b168552>.",
+          "reason_for_call": "You want to change your wireless earbuds in order <order_id_22e7ad3fb2> to a blue colored one. Provide all details upfront in your very first message and ask the agent to resolve as soon as possible. You want the price to be the same or lower, which you want the agent to verify explicitly. If and only if the agent provides several options, you want the option without water resistance.",
+          "task_instructions": ".",
+          "unknown_info": "You do not remember your email address"
+        }
+      },
+      "metadata": {
+        "domain": "retail",
+        "final_output_source": "last_assistant_text_not_verified_task_result",
+        "reward": 1.0,
+        "state_snapshots": "unavailable_in_tau_results",
+        "termination_reason": "user_stop",
+        "trial": 0
+      },
+      "provenance": {
+        "contains_real_customer_data": false,
+        "execution_context": "benchmark_simulator",
+        "kind": "recorded",
+        "source": "sierra-research/tau2-bench",
+        "source_revision": "ade39493be54aad326a4c65295f77fe09780329b",
+        "source_run_id": "06bd042e-25dc-4106-aafd-12b64f1395b2",
+        "task_group_id": "60"
+      },
+      "state_after": {},
+      "state_before": {},
+      "status": "completed",
+      "steps": [
+        {
+          "depends_on": [],
+          "id": "call_001",
+          "metadata": {
+            "alignment_key": "authenticate_by_name_zip",
+            "observed_turn_index": 2,
+            "source_call_sha256": "bf993c066dac7ef5a0a8daca51d8694f783b6c72f02f0840d8094db014f8f146",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "<user_id_38376f1058>",
+          "params": {
+            "first_name": "<first_name_2277c7f050>",
+            "last_name": "<last_name_4bf5f2c70f>",
+            "zip": "<zip_7d4b168552>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.users"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "find_user_id_by_name_zip"
+        },
+        {
+          "depends_on": [],
+          "id": "call_002",
+          "metadata": {
+            "alignment_key": "lookup_target_order",
+            "observed_turn_index": 4,
+            "source_call_sha256": "f74aceead01b4082c90d244f1425bf08ca7e9924bb0186718ac68682e4bb637d",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_2d9a92466d>\", \"price\": 256.67, \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "order_id": "<order_id_22e7ad3fb2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_order_details"
+        },
+        {
+          "depends_on": [
+            "call_002"
+          ],
+          "id": "call_003",
+          "metadata": {
+            "alignment_key": "lookup_replacement_product",
+            "observed_turn_index": 6,
+            "source_call_sha256": "d7f3bced644d8dd5042c525c907136bf9e719fe09590baa6fcf7f74699ffd38c",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"variants\": {\"<item_id_4ff6218973>\": {\"item_id\": \"<item_id_4ff6218973>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": true, \"price\": 257.38}, \"<item_id_10cb1355af>\": {\"item_id\": \"<item_id_10cb1355af>\", \"options\": {\"color\": \"black\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.36}, \"<item_id_b1ca56fdfb>\": {\"item_id\": \"<item_id_b1ca56fdfb>\", \"options\": {\"color\": \"blue\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 232.49}, \"<item_id_28a25f50fe>\": {\"item_id\": \"<item_id_28a25f50fe>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 226.49}, \"<item_id_2113bf459b>\": {\"item_id\": \"<item_id_2113bf459b>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 267.9}, \"<item_id_b206176faa>\": {\"item_id\": \"<item_id_b206176faa>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 242.92}, \"<item_id_218fa4f250>\": {\"item_id\": \"<item_id_218fa4f250>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"not resistant\"}, \"available\": false, \"price\": 259.03}, \"<item_id_b210933375>\": {\"item_id\": \"<item_id_b210933375>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 243.34}, \"<item_id_2d9a92466d>\": {\"item_id\": \"<item_id_2d9a92466d>\", \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": false, \"price\": 256.67}, \"<item_id_5f313eb5da>\": {\"item_id\": \"<item_id_5f313eb5da>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 258.84}, \"<item_id_966cc3d431>\": {\"item_id\": \"<item_id_966cc3d431>\", \"options\": {\"color\": \"white\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 237.14}, \"<item_id_5edada4873>\": {\"item_id\": \"<item_id_5edada4873>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.97}}}",
+          "params": {
+            "product_id": "<product_id_f7a024a0f2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.products"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_product_details"
+        },
+        {
+          "depends_on": [
+            "call_002",
+            "call_003"
+          ],
+          "id": "call_004",
+          "metadata": {
+            "alignment_key": "modify_target_order_item",
+            "observed_turn_index": 12,
+            "source_call_sha256": "0b750ea171962a50a8dee0adbba36b11dfe180c6ebe5b6da85a5568345fa2ff9",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_b206176faa>\", \"price\": 242.92, \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending (item modified)\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}, {\"transaction_type\": \"refund\", \"amount\": 13.<phone_redacted>, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "item_ids": [
+              "<item_ids_5869715732>"
+            ],
+            "new_item_ids": [
+              "<new_item_ids_1999df54ae>"
+            ],
+            "order_id": "<order_id_22e7ad3fb2>",
+            "payment_method_id": "<payment_method_id_b2eaef2182>"
+          },
+          "side_effects": [
+            {
+              "kind": "write",
+              "reversible": false,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "modify_pending_order_items"
+        }
+      ]
+    },
+    {
+      "final_output": "The wireless earbuds in your order <order_id_22e7ad3fb2> have been successfully changed to the blue variant with 8 hours battery life and no water resistance, priced at $242.92. You will receive a refund of $13.75 to your original payment method (PayPal). The order status is now \"pending (item modified).\" If you need any further assistance, feel free to ask!",
+      "id": "tau_ca5e7d31d93388a5",
+      "inputs": {
+        "user_scenario": {
+          "domain": "retail",
+          "known_info": "You are <first_name_2277c7f050> <last_name_4bf5f2c70f> from <city_6ade1bce6d> TX, <zip_7d4b168552>.",
+          "reason_for_call": "You want to change your wireless earbuds in order <order_id_22e7ad3fb2> to a blue colored one. Provide all details upfront in your very first message and ask the agent to resolve as soon as possible. You want the price to be the same or lower, which you want the agent to verify explicitly. If and only if the agent provides several options, you want the option without water resistance.",
+          "task_instructions": ".",
+          "unknown_info": "You do not remember your email address"
+        }
+      },
+      "metadata": {
+        "domain": "retail",
+        "final_output_source": "last_assistant_text_not_verified_task_result",
+        "reward": 1.0,
+        "state_snapshots": "unavailable_in_tau_results",
+        "termination_reason": "user_stop",
+        "trial": 1
+      },
+      "provenance": {
+        "contains_real_customer_data": false,
+        "execution_context": "benchmark_simulator",
+        "kind": "recorded",
+        "source": "sierra-research/tau2-bench",
+        "source_revision": "ade39493be54aad326a4c65295f77fe09780329b",
+        "source_run_id": "1bb478fb-0fbf-467b-a9d6-b56675165a71",
+        "task_group_id": "60"
+      },
+      "state_after": {},
+      "state_before": {},
+      "status": "completed",
+      "steps": [
+        {
+          "depends_on": [],
+          "id": "call_001",
+          "metadata": {
+            "alignment_key": "authenticate_by_name_zip",
+            "observed_turn_index": 2,
+            "source_call_sha256": "b32d79c8676da3ec57898a140a68850d2768eca2a5b2bee006514c9516ded43a",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "<user_id_38376f1058>",
+          "params": {
+            "first_name": "<first_name_2277c7f050>",
+            "last_name": "<last_name_4bf5f2c70f>",
+            "zip": "<zip_7d4b168552>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.users"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "find_user_id_by_name_zip"
+        },
+        {
+          "depends_on": [],
+          "id": "call_002",
+          "metadata": {
+            "alignment_key": "lookup_target_order",
+            "observed_turn_index": 4,
+            "source_call_sha256": "f61bf58884e228e090ed8c3f2f595552f03af856c79e4a008df2a29fd6b21b2c",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_2d9a92466d>\", \"price\": 256.67, \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "order_id": "<order_id_22e7ad3fb2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_order_details"
+        },
+        {
+          "depends_on": [
+            "call_002"
+          ],
+          "id": "call_003",
+          "metadata": {
+            "alignment_key": "lookup_replacement_product",
+            "observed_turn_index": 6,
+            "source_call_sha256": "e21e81049342d48ba7194e41bb8f59bc91e685bcc8091175590afa5ffd455383",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"variants\": {\"<item_id_4ff6218973>\": {\"item_id\": \"<item_id_4ff6218973>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": true, \"price\": 257.38}, \"<item_id_10cb1355af>\": {\"item_id\": \"<item_id_10cb1355af>\", \"options\": {\"color\": \"black\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.36}, \"<item_id_b1ca56fdfb>\": {\"item_id\": \"<item_id_b1ca56fdfb>\", \"options\": {\"color\": \"blue\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 232.49}, \"<item_id_28a25f50fe>\": {\"item_id\": \"<item_id_28a25f50fe>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 226.49}, \"<item_id_2113bf459b>\": {\"item_id\": \"<item_id_2113bf459b>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 267.9}, \"<item_id_b206176faa>\": {\"item_id\": \"<item_id_b206176faa>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 242.92}, \"<item_id_218fa4f250>\": {\"item_id\": \"<item_id_218fa4f250>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"not resistant\"}, \"available\": false, \"price\": 259.03}, \"<item_id_b210933375>\": {\"item_id\": \"<item_id_b210933375>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 243.34}, \"<item_id_2d9a92466d>\": {\"item_id\": \"<item_id_2d9a92466d>\", \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": false, \"price\": 256.67}, \"<item_id_5f313eb5da>\": {\"item_id\": \"<item_id_5f313eb5da>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 258.84}, \"<item_id_966cc3d431>\": {\"item_id\": \"<item_id_966cc3d431>\", \"options\": {\"color\": \"white\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 237.14}, \"<item_id_5edada4873>\": {\"item_id\": \"<item_id_5edada4873>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.97}}}",
+          "params": {
+            "product_id": "<product_id_f7a024a0f2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.products"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_product_details"
+        },
+        {
+          "depends_on": [
+            "call_002",
+            "call_003"
+          ],
+          "id": "call_004",
+          "metadata": {
+            "alignment_key": "modify_target_order_item",
+            "observed_turn_index": 12,
+            "source_call_sha256": "25373bbaf833778b65b219d58a57bb93cddd45a2be33a83e9f7d2131c834274d",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_b206176faa>\", \"price\": 242.92, \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending (item modified)\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}, {\"transaction_type\": \"refund\", \"amount\": 13.<phone_redacted>, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "item_ids": [
+              "<item_ids_5869715732>"
+            ],
+            "new_item_ids": [
+              "<new_item_ids_1999df54ae>"
+            ],
+            "order_id": "<order_id_22e7ad3fb2>",
+            "payment_method_id": "<payment_method_id_b2eaef2182>"
+          },
+          "side_effects": [
+            {
+              "kind": "write",
+              "reversible": false,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "modify_pending_order_items"
+        }
+      ]
+    },
+    {
+      "final_output": "You're welcome! If you have any more questions or need assistance in the future, don't hesitate to reach out. Have a great day!",
+      "id": "tau_962add81d0726442",
+      "inputs": {
+        "user_scenario": {
+          "domain": "retail",
+          "known_info": "You are <first_name_2277c7f050> <last_name_4bf5f2c70f> from <city_6ade1bce6d> TX, <zip_7d4b168552>.",
+          "reason_for_call": "You want to change your wireless earbuds in order <order_id_22e7ad3fb2> to a blue colored one. Provide all details upfront in your very first message and ask the agent to resolve as soon as possible. You want the price to be the same or lower, which you want the agent to verify explicitly. If and only if the agent provides several options, you want the option without water resistance.",
+          "task_instructions": ".",
+          "unknown_info": "You do not remember your email address"
+        }
+      },
+      "metadata": {
+        "domain": "retail",
+        "final_output_source": "last_assistant_text_not_verified_task_result",
+        "reward": 1.0,
+        "state_snapshots": "unavailable_in_tau_results",
+        "termination_reason": "user_stop",
+        "trial": 2
+      },
+      "provenance": {
+        "contains_real_customer_data": false,
+        "execution_context": "benchmark_simulator",
+        "kind": "recorded",
+        "source": "sierra-research/tau2-bench",
+        "source_revision": "ade39493be54aad326a4c65295f77fe09780329b",
+        "source_run_id": "2575af22-7b4e-448b-b4db-78aa1024d2ca",
+        "task_group_id": "60"
+      },
+      "state_after": {},
+      "state_before": {},
+      "status": "completed",
+      "steps": [
+        {
+          "depends_on": [],
+          "id": "call_001",
+          "metadata": {
+            "alignment_key": "authenticate_by_name_zip",
+            "observed_turn_index": 2,
+            "source_call_sha256": "4360bcd04e36c311210782b9e8157859f14245a895071a75d785fcbdacb8ccba",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "<user_id_38376f1058>",
+          "params": {
+            "first_name": "<first_name_2277c7f050>",
+            "last_name": "<last_name_4bf5f2c70f>",
+            "zip": "<zip_7d4b168552>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.users"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "find_user_id_by_name_zip"
+        },
+        {
+          "depends_on": [],
+          "id": "call_002",
+          "metadata": {
+            "alignment_key": "lookup_target_order",
+            "observed_turn_index": 4,
+            "source_call_sha256": "4cf62c36f4a22529ee07279a23dd4d105eede840fbbe76a5b84e96976f4a7d4e",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_2d9a92466d>\", \"price\": 256.67, \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "order_id": "<order_id_22e7ad3fb2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_order_details"
+        },
+        {
+          "depends_on": [
+            "call_002"
+          ],
+          "id": "call_003",
+          "metadata": {
+            "alignment_key": "lookup_replacement_product",
+            "observed_turn_index": 6,
+            "source_call_sha256": "6627d75f5c274db7c7b959db2e02a6fbb9f745e569abc47b2c72cfe272d7ae46",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"variants\": {\"<item_id_4ff6218973>\": {\"item_id\": \"<item_id_4ff6218973>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": true, \"price\": 257.38}, \"<item_id_10cb1355af>\": {\"item_id\": \"<item_id_10cb1355af>\", \"options\": {\"color\": \"black\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.36}, \"<item_id_b1ca56fdfb>\": {\"item_id\": \"<item_id_b1ca56fdfb>\", \"options\": {\"color\": \"blue\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 232.49}, \"<item_id_28a25f50fe>\": {\"item_id\": \"<item_id_28a25f50fe>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 226.49}, \"<item_id_2113bf459b>\": {\"item_id\": \"<item_id_2113bf459b>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 267.9}, \"<item_id_b206176faa>\": {\"item_id\": \"<item_id_b206176faa>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 242.92}, \"<item_id_218fa4f250>\": {\"item_id\": \"<item_id_218fa4f250>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"not resistant\"}, \"available\": false, \"price\": 259.03}, \"<item_id_b210933375>\": {\"item_id\": \"<item_id_b210933375>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 243.34}, \"<item_id_2d9a92466d>\": {\"item_id\": \"<item_id_2d9a92466d>\", \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": false, \"price\": 256.67}, \"<item_id_5f313eb5da>\": {\"item_id\": \"<item_id_5f313eb5da>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 258.84}, \"<item_id_966cc3d431>\": {\"item_id\": \"<item_id_966cc3d431>\", \"options\": {\"color\": \"white\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 237.14}, \"<item_id_5edada4873>\": {\"item_id\": \"<item_id_5edada4873>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.97}}}",
+          "params": {
+            "product_id": "<product_id_f7a024a0f2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.products"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_product_details"
+        },
+        {
+          "depends_on": [
+            "call_002",
+            "call_003"
+          ],
+          "id": "call_004",
+          "metadata": {
+            "alignment_key": "modify_target_order_item",
+            "observed_turn_index": 14,
+            "source_call_sha256": "e2758df44b6e1e30352a83ab29de980b75c08bef057243ec52bec541b575653f",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_b206176faa>\", \"price\": 242.92, \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending (item modified)\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}, {\"transaction_type\": \"refund\", \"amount\": 13.<phone_redacted>, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "item_ids": [
+              "<item_ids_5869715732>"
+            ],
+            "new_item_ids": [
+              "<new_item_ids_1999df54ae>"
+            ],
+            "order_id": "<order_id_22e7ad3fb2>",
+            "payment_method_id": "<payment_method_id_b2eaef2182>"
+          },
+          "side_effects": [
+            {
+              "kind": "write",
+              "reversible": false,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "modify_pending_order_items"
+        }
+      ]
+    },
+    {
+      "final_output": "Your order <order_id_22e7ad3fb2> has been successfully updated to replace the wireless earbuds with the blue variant that has 8 hours battery life and is not water resistant. The price difference of $13.75 has been refunded to your original payment method (PayPal). If you need any further assistance, feel free to ask!",
+      "id": "tau_c2ee2c30209f470a",
+      "inputs": {
+        "user_scenario": {
+          "domain": "retail",
+          "known_info": "You are <first_name_2277c7f050> <last_name_4bf5f2c70f> from <city_6ade1bce6d> TX, <zip_7d4b168552>.",
+          "reason_for_call": "You want to change your wireless earbuds in order <order_id_22e7ad3fb2> to a blue colored one. Provide all details upfront in your very first message and ask the agent to resolve as soon as possible. You want the price to be the same or lower, which you want the agent to verify explicitly. If and only if the agent provides several options, you want the option without water resistance.",
+          "task_instructions": ".",
+          "unknown_info": "You do not remember your email address"
+        }
+      },
+      "metadata": {
+        "domain": "retail",
+        "final_output_source": "last_assistant_text_not_verified_task_result",
+        "reward": 1.0,
+        "state_snapshots": "unavailable_in_tau_results",
+        "termination_reason": "user_stop",
+        "trial": 3
+      },
+      "provenance": {
+        "contains_real_customer_data": false,
+        "execution_context": "benchmark_simulator",
+        "kind": "recorded",
+        "source": "sierra-research/tau2-bench",
+        "source_revision": "ade39493be54aad326a4c65295f77fe09780329b",
+        "source_run_id": "a6b6c566-202f-449a-b05e-edebb5ee909c",
+        "task_group_id": "60"
+      },
+      "state_after": {},
+      "state_before": {},
+      "status": "completed",
+      "steps": [
+        {
+          "depends_on": [],
+          "id": "call_001",
+          "metadata": {
+            "alignment_key": "authenticate_by_name_zip",
+            "observed_turn_index": 2,
+            "source_call_sha256": "c4bde80e52e8b193126ffeb52e8bc7b0c452ca9642fba74a88c21a3a8b57f10c",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "<user_id_38376f1058>",
+          "params": {
+            "first_name": "<first_name_2277c7f050>",
+            "last_name": "<last_name_4bf5f2c70f>",
+            "zip": "<zip_7d4b168552>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.users"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "find_user_id_by_name_zip"
+        },
+        {
+          "depends_on": [],
+          "id": "call_002",
+          "metadata": {
+            "alignment_key": "lookup_target_order",
+            "observed_turn_index": 4,
+            "source_call_sha256": "f6e89d0aeec7dc5698d132bb1d04d9b6932c4a9555cb261e546fbbf8c73944bd",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_2d9a92466d>\", \"price\": 256.67, \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "order_id": "<order_id_22e7ad3fb2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_order_details"
+        },
+        {
+          "depends_on": [
+            "call_002"
+          ],
+          "id": "call_003",
+          "metadata": {
+            "alignment_key": "lookup_replacement_product",
+            "observed_turn_index": 6,
+            "source_call_sha256": "9e66325f0a9559df8a8f46311309b2e4730153730d73b9b560a68561e456b08f",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"variants\": {\"<item_id_4ff6218973>\": {\"item_id\": \"<item_id_4ff6218973>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": true, \"price\": 257.38}, \"<item_id_10cb1355af>\": {\"item_id\": \"<item_id_10cb1355af>\", \"options\": {\"color\": \"black\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.36}, \"<item_id_b1ca56fdfb>\": {\"item_id\": \"<item_id_b1ca56fdfb>\", \"options\": {\"color\": \"blue\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 232.49}, \"<item_id_28a25f50fe>\": {\"item_id\": \"<item_id_28a25f50fe>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 226.49}, \"<item_id_2113bf459b>\": {\"item_id\": \"<item_id_2113bf459b>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 267.9}, \"<item_id_b206176faa>\": {\"item_id\": \"<item_id_b206176faa>\", \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 242.92}, \"<item_id_218fa4f250>\": {\"item_id\": \"<item_id_218fa4f250>\", \"options\": {\"color\": \"black\", \"battery life\": \"6 hours\", \"water resistance\": \"not resistant\"}, \"available\": false, \"price\": 259.03}, \"<item_id_b210933375>\": {\"item_id\": \"<item_id_b210933375>\", \"options\": {\"color\": \"black\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 243.34}, \"<item_id_2d9a92466d>\": {\"item_id\": \"<item_id_2d9a92466d>\", \"options\": {\"color\": \"white\", \"battery life\": \"8 hours\", \"water resistance\": \"IPX4\"}, \"available\": false, \"price\": 256.67}, \"<item_id_5f313eb5da>\": {\"item_id\": \"<item_id_5f313eb5da>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX4\"}, \"available\": true, \"price\": 258.84}, \"<item_id_966cc3d431>\": {\"item_id\": \"<item_id_966cc3d431>\", \"options\": {\"color\": \"white\", \"battery life\": \"4 hours\", \"water resistance\": \"not resistant\"}, \"available\": true, \"price\": 237.14}, \"<item_id_5edada4873>\": {\"item_id\": \"<item_id_5edada4873>\", \"options\": {\"color\": \"blue\", \"battery life\": \"4 hours\", \"water resistance\": \"IPX7\"}, \"available\": false, \"price\": 258.97}}}",
+          "params": {
+            "product_id": "<product_id_f7a024a0f2>"
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "reversible": null,
+              "target": "tau.retail.products"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "get_product_details"
+        },
+        {
+          "depends_on": [
+            "call_002",
+            "call_003"
+          ],
+          "id": "call_004",
+          "metadata": {
+            "alignment_key": "modify_target_order_item",
+            "observed_turn_index": 12,
+            "source_call_sha256": "ffda8241aa5396c9b5ec28f71d2c29a250782fbce7ef863814b8f19c0b1af88c",
+            "tool_output_representation": "tau_tool_message_content_string"
+          },
+          "output": "{\"order_id\": \"<order_id_22e7ad3fb2>\", \"user_id\": \"<user_id_38376f1058>\", \"address\": {\"address1\": \"<address1_c9f07d9bbf>\", \"address2\": \"<address2_7e360932f8>\", \"city\": \"<city_6ade1bce6d>\", \"country\": \"USA\", \"state\": \"TX\", \"zip\": \"<zip_7d4b168552>\"}, \"items\": [{\"name\": \"<name_a058341790>\", \"product_id\": \"<product_id_044bdd0353>\", \"item_id\": \"<item_id_2426f46758>\", \"price\": 248.85, \"options\": {\"skin tone\": \"dark\", \"kit size\": \"basic\", \"brand\": \"Brand B\"}}, {\"name\": \"<name_25cecbdfc3>\", \"product_id\": \"<product_id_f7a024a0f2>\", \"item_id\": \"<item_id_b206176faa>\", \"price\": 242.92, \"options\": {\"color\": \"blue\", \"battery life\": \"8 hours\", \"water resistance\": \"not resistant\"}}, {\"name\": \"<name_e92f11c688>\", \"product_id\": \"<product_id_60bb4765cd>\", \"item_id\": \"<item_id_b9e162c300>\", \"price\": 511.24, \"options\": {\"material\": \"fabric\", \"color\": \"blue\", \"armrest\": \"adjustable\", \"backrest height\": \"standard\"}}, {\"name\": \"<name_e50aa08835>\", \"product_id\": \"<product_id_6d9e84ddfb>\", \"item_id\": \"<item_id_377b959e0c>\", \"price\": 302.67, \"options\": {\"color\": \"blue\", \"battery life\": \"20 hours\", \"water resistance\": \"yes\"}}], \"status\": \"pending (item modified)\", \"fulfillments\": [], \"payment_history\": [{\"transaction_type\": \"payment\", \"amount\": 1319.43, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}, {\"transaction_type\": \"refund\", \"amount\": 13.<phone_redacted>, \"payment_method_id\": \"<payment_method_id_b2eaef2182>\"}], \"cancel_reason\": null, \"exchange_items\": null, \"exchange_new_items\": null, \"exchange_payment_method_id\": null, \"exchange_price_difference\": null, \"return_items\": null, \"return_payment_method_id\": null}",
+          "params": {
+            "item_ids": [
+              "<item_ids_5869715732>"
+            ],
+            "new_item_ids": [
+              "<new_item_ids_1999df54ae>"
+            ],
+            "order_id": "<order_id_22e7ad3fb2>",
+            "payment_method_id": "<payment_method_id_b2eaef2182>"
+          },
+          "side_effects": [
+            {
+              "kind": "write",
+              "reversible": false,
+              "target": "tau.retail.orders"
+            }
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "tool": "modify_pending_order_items"
+        }
+      ]
+    }
+  ],
+  "schema_version": "1.0"
+}

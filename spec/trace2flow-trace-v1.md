@@ -157,7 +157,7 @@ execute trace-carried code, call recorded tools, or access external services.
 
 `trace2flow import-tau` accepts selected text-mode retail simulations. It does
 not infer dependencies from message order or decode string tool responses.
-Until a complete `tau-import-review/1.0` artifact declares every occurrence's
+Until a complete `tau-import-review/1.0` reviewer artifact declares every occurrence's
 dependencies and side effects and confirms manual redaction review, the output
 is marked as quarantine data and candidate mining refuses it. See
 `docs/RECORDED_DATA.md`.

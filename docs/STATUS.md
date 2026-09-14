@@ -2,9 +2,70 @@
 
 Last updated: 2026-09-14
 
-Current milestone: M7 complete — recorded benchmark intake ready
+Current milestone: M8 complete — reviewed recorded corpus verified structurally
 
-Working branch: `feat/m7-recorded-traces`
+Working branch: `feat/m8-recorded-corpus`
+
+## M8 update
+
+M8 adds the first checked-in non-hand-authored trace corpus and a disjoint,
+claim-limited evaluation path:
+
+- Selected the narrow tau retail family “modify one item in a pending order.”
+  Compile contains three successful recorded trials from source task 44; test
+  contains four successful trials from task 60. The simulated customers,
+  orders, and products differ across the boundary.
+- Rejected task 61 despite its distinct task ID because it reuses task 60's
+  customer/order/product entities. Excluded task 44 trial 2 because its extra
+  `calculate` call falls outside the selected exact structure. Every inclusion
+  and exclusion is recorded in `examples/tau-retail-recorded/selection.json`.
+- Explicitly reviewed all 28 call occurrences for redaction, data dependency,
+  side effect, and alignment. Authentication and order lookup remain separate
+  roots: required policy order is not mislabeled as data lineage.
+- Added `structure-evaluation/1.0` and `trace2flow evaluate-structure`. It
+  verifies candidate source identity, compile/test group disjointness,
+  occurrence alignment, candidate node coverage, accepted-edge support, and
+  unseen held-out dependencies. The report always sets
+  `execution_equivalence_claimed=false`.
+- Added deterministic corpus reproduction, redaction, provenance, selection,
+  and negative unseen-tool tests.
+
+Actual recorded-corpus result:
+
+```text
+source results SHA-256: 6d6badb43b716adca31591b0b40e15fd493b49adddaa8e2c47035bb557549257
+source producing commit: ade39493be54aad326a4c65295f77fe09780329b
+compile: task group 44, 3 runs, 12 calls
+test: task group 60, 4 runs, 16 calls
+candidate: 4 aligned nodes, 3 edges, 0 unresolved dependencies
+edge evidence: 3 compile occurrences for each edge
+held-out structure: 4/4 runs covered
+validation scope: held_out_structure_only
+execution equivalence claimed: false
+```
+
+The audited upstream compiler classified the same four tools as core but put
+all of them in phase 0 because these imported calls have no `spawned_by`
+hierarchy. Trace2Flow's three data edges come only from reviewed occurrence
+dependencies; this is a concrete observed difference between upstream
+tool-level mining and the new evidence DAG.
+
+Full validation results:
+
+```text
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+Ran 64 tests in 14.201s
+OK
+
+$ ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src python -m compileall -q src tests streamlit_app.py
+completed with exit code 0
+
+$ uv lock --check --offline
+Resolved 179 packages in 2ms
+```
 
 ## M7 update
 

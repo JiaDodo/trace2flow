@@ -1,0 +1,272 @@
+{
+  "edges": [
+    {
+      "conflicting_evidence": [],
+      "id": "edge_78c0f4dacd5c",
+      "source_node_id": "node_b34dfad477c9",
+      "supporting_evidence": [
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_3230402a1e54a58f",
+          "source_occurrence_id": "tau_3230402a1e54a58f:call_003",
+          "target_occurrence_id": "tau_3230402a1e54a58f:call_004"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_70e78525d51ec2a8",
+          "source_occurrence_id": "tau_70e78525d51ec2a8:call_003",
+          "target_occurrence_id": "tau_70e78525d51ec2a8:call_004"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_ba910e66679aa2a2",
+          "source_occurrence_id": "tau_ba910e66679aa2a2:call_003",
+          "target_occurrence_id": "tau_ba910e66679aa2a2:call_004"
+        }
+      ],
+      "target_node_id": "node_b5265cf2e501"
+    },
+    {
+      "conflicting_evidence": [],
+      "id": "edge_a49ae9db1e41",
+      "source_node_id": "node_9927edeef2e6",
+      "supporting_evidence": [
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_3230402a1e54a58f",
+          "source_occurrence_id": "tau_3230402a1e54a58f:call_002",
+          "target_occurrence_id": "tau_3230402a1e54a58f:call_004"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_70e78525d51ec2a8",
+          "source_occurrence_id": "tau_70e78525d51ec2a8:call_002",
+          "target_occurrence_id": "tau_70e78525d51ec2a8:call_004"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_ba910e66679aa2a2",
+          "source_occurrence_id": "tau_ba910e66679aa2a2:call_002",
+          "target_occurrence_id": "tau_ba910e66679aa2a2:call_004"
+        }
+      ],
+      "target_node_id": "node_b5265cf2e501"
+    },
+    {
+      "conflicting_evidence": [],
+      "id": "edge_af2814149d23",
+      "source_node_id": "node_9927edeef2e6",
+      "supporting_evidence": [
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_3230402a1e54a58f",
+          "source_occurrence_id": "tau_3230402a1e54a58f:call_002",
+          "target_occurrence_id": "tau_3230402a1e54a58f:call_003"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_70e78525d51ec2a8",
+          "source_occurrence_id": "tau_70e78525d51ec2a8:call_002",
+          "target_occurrence_id": "tau_70e78525d51ec2a8:call_003"
+        },
+        {
+          "declaration": "depends_on",
+          "run_id": "tau_ba910e66679aa2a2",
+          "source_occurrence_id": "tau_ba910e66679aa2a2:call_002",
+          "target_occurrence_id": "tau_ba910e66679aa2a2:call_003"
+        }
+      ],
+      "target_node_id": "node_b34dfad477c9"
+    }
+  ],
+  "nodes": [
+    {
+      "alignment_basis": {
+        "declared_alignment_key": "authenticate_by_name_zip",
+        "parameter_keys": [],
+        "side_effects": [],
+        "tool": "find_user_id_by_name_zip"
+      },
+      "alignment_status": "aligned",
+      "id": "node_71e78aa8d836",
+      "occurrence_count_by_run": {
+        "tau_3230402a1e54a58f": 1,
+        "tau_70e78525d51ec2a8": 1,
+        "tau_ba910e66679aa2a2": 1
+      },
+      "occurrences": [
+        {
+          "qualified_id": "tau_3230402a1e54a58f:call_001",
+          "run_id": "tau_3230402a1e54a58f",
+          "step_id": "call_001"
+        },
+        {
+          "qualified_id": "tau_70e78525d51ec2a8:call_001",
+          "run_id": "tau_70e78525d51ec2a8",
+          "step_id": "call_001"
+        },
+        {
+          "qualified_id": "tau_ba910e66679aa2a2:call_001",
+          "run_id": "tau_ba910e66679aa2a2",
+          "step_id": "call_001"
+        }
+      ],
+      "signature_sha256": "71e78aa8d836ad8994b78916ac8f60e61657704510b83d77d87b5ba3c3edd238",
+      "tool": "find_user_id_by_name_zip",
+      "unresolved_reason": null,
+      "upstream_core_tool": true,
+      "upstream_phases": [
+        0
+      ]
+    },
+    {
+      "alignment_basis": {
+        "declared_alignment_key": "lookup_target_order",
+        "parameter_keys": [],
+        "side_effects": [],
+        "tool": "get_order_details"
+      },
+      "alignment_status": "aligned",
+      "id": "node_9927edeef2e6",
+      "occurrence_count_by_run": {
+        "tau_3230402a1e54a58f": 1,
+        "tau_70e78525d51ec2a8": 1,
+        "tau_ba910e66679aa2a2": 1
+      },
+      "occurrences": [
+        {
+          "qualified_id": "tau_3230402a1e54a58f:call_002",
+          "run_id": "tau_3230402a1e54a58f",
+          "step_id": "call_002"
+        },
+        {
+          "qualified_id": "tau_70e78525d51ec2a8:call_002",
+          "run_id": "tau_70e78525d51ec2a8",
+          "step_id": "call_002"
+        },
+        {
+          "qualified_id": "tau_ba910e66679aa2a2:call_002",
+          "run_id": "tau_ba910e66679aa2a2",
+          "step_id": "call_002"
+        }
+      ],
+      "signature_sha256": "9927edeef2e6ecd744cdb552424fa5a993cf7514d98aaf8545e859bfbb0407d1",
+      "tool": "get_order_details",
+      "unresolved_reason": null,
+      "upstream_core_tool": true,
+      "upstream_phases": [
+        0
+      ]
+    },
+    {
+      "alignment_basis": {
+        "declared_alignment_key": "lookup_replacement_product",
+        "parameter_keys": [],
+        "side_effects": [],
+        "tool": "get_product_details"
+      },
+      "alignment_status": "aligned",
+      "id": "node_b34dfad477c9",
+      "occurrence_count_by_run": {
+        "tau_3230402a1e54a58f": 1,
+        "tau_70e78525d51ec2a8": 1,
+        "tau_ba910e66679aa2a2": 1
+      },
+      "occurrences": [
+        {
+          "qualified_id": "tau_3230402a1e54a58f:call_003",
+          "run_id": "tau_3230402a1e54a58f",
+          "step_id": "call_003"
+        },
+        {
+          "qualified_id": "tau_70e78525d51ec2a8:call_003",
+          "run_id": "tau_70e78525d51ec2a8",
+          "step_id": "call_003"
+        },
+        {
+          "qualified_id": "tau_ba910e66679aa2a2:call_003",
+          "run_id": "tau_ba910e66679aa2a2",
+          "step_id": "call_003"
+        }
+      ],
+      "signature_sha256": "b34dfad477c93f999919cf067d549c6ef34157503539c7083809d2eb64c301e6",
+      "tool": "get_product_details",
+      "unresolved_reason": null,
+      "upstream_core_tool": true,
+      "upstream_phases": [
+        0
+      ]
+    },
+    {
+      "alignment_basis": {
+        "declared_alignment_key": "modify_target_order_item",
+        "parameter_keys": [],
+        "side_effects": [],
+        "tool": "modify_pending_order_items"
+      },
+      "alignment_status": "aligned",
+      "id": "node_b5265cf2e501",
+      "occurrence_count_by_run": {
+        "tau_3230402a1e54a58f": 1,
+        "tau_70e78525d51ec2a8": 1,
+        "tau_ba910e66679aa2a2": 1
+      },
+      "occurrences": [
+        {
+          "qualified_id": "tau_3230402a1e54a58f:call_004",
+          "run_id": "tau_3230402a1e54a58f",
+          "step_id": "call_004"
+        },
+        {
+          "qualified_id": "tau_70e78525d51ec2a8:call_004",
+          "run_id": "tau_70e78525d51ec2a8",
+          "step_id": "call_004"
+        },
+        {
+          "qualified_id": "tau_ba910e66679aa2a2:call_004",
+          "run_id": "tau_ba910e66679aa2a2",
+          "step_id": "call_004"
+        }
+      ],
+      "signature_sha256": "b5265cf2e501eb75873b08add7fa151e0bff56a5d9e4f6275f9f11d98152ef32",
+      "tool": "modify_pending_order_items",
+      "unresolved_reason": null,
+      "upstream_core_tool": true,
+      "upstream_phases": [
+        0
+      ]
+    }
+  ],
+  "schema_version": "candidate-dag/1.0",
+  "source_dataset_id": "tau3_retail_modify_items_recorded_v1:compile",
+  "source_sha256": "83da1b517dc0848911d360ce0758c91568e20d4fba55e51c72dc02fa83ff89d5",
+  "unresolved_dependencies": [],
+  "upstream": {
+    "baseline_commit": "b168d6760213b489e2fb2f5571f5d4e6d648dee8",
+    "compiled_call_count": 4,
+    "compiler_sha256": "77446f9a1020989019fcefa8d68c160fb4e3a1cce3cba2f75348bce7825832e2",
+    "conditionals": [],
+    "conflicting_order_choices": [],
+    "core_tools": [
+      "find_user_id_by_name_zip",
+      "get_order_details",
+      "get_product_details",
+      "modify_pending_order_items"
+    ],
+    "fusion_candidates": [],
+    "mutually_exclusive": [],
+    "phases": {
+      "0": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_product_details",
+        "modify_pending_order_items"
+      ]
+    },
+    "rule_profile": "strict",
+    "rules_sha256": "913f853adf4d6c83a749c294853e2e611b054023ed9de9eef3e521497881e3a4",
+    "source_runs": 3,
+    "source_sha256": "83da1b517dc0848911d360ce0758c91568e20d4fba55e51c72dc02fa83ff89d5",
+    "variable_params": {}
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "recorded-corpus-selection/1.0",
+  "corpus_id": "tau3_retail_modify_items_recorded_v1",
+  "source": {
+    "repository": "https://github.com/sierra-research/tau2-bench",
+    "repository_commit_inspected": "2174a603f6d014ef94473ffa95957f6ce27100db",
+    "result_producer_commit": "ade39493be54aad326a4c65295f77fe09780329b",
+    "result_relative_path": "data/tau2/results/final/gpt-4.1-mini-2025-04-14_retail_base_gpt-4.1-2025-04-14_4trials.json",
+    "result_sha256": "6d6badb43b716adca31591b0b40e15fd493b49adddaa8e2c47035bb557549257",
+    "license": "MIT"
+  },
+  "workflow_family": "modify one item in a pending retail order",
+  "compile": {
+    "task_group_ids": ["44"],
+    "simulation_ids": [
+      "1005448f-435c-4bdf-9717-910629df3560",
+      "244b3158-2fbf-4739-9e16-fb5535c04880",
+      "b1089536-3688-4e22-9ce3-88ced0045103"
+    ]
+  },
+  "test": {
+    "task_group_ids": ["60"],
+    "simulation_ids": [
+      "06bd042e-25dc-4106-aafd-12b64f1395b2",
+      "1bb478fb-0fbf-467b-a9d6-b56675165a71",
+      "2575af22-7b4e-448b-b4db-78aa1024d2ca",
+      "a6b6c566-202f-449a-b05e-edebb5ee909c"
+    ]
+  },
+  "exclusions": [
+    {
+      "task_group_id": "44",
+      "simulation_id": "35543854-db8c-4ef0-871d-ce7fdecc1ef8",
+      "reason": "contains an additional calculate call and is outside the selected exact structure"
+    },
+    {
+      "task_group_id": "61",
+      "reason": "reuses the same customer, order, and product entities as held-out task 60"
+    }
+  ]
+}

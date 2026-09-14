@@ -24,6 +24,13 @@ from .datasets import (
     split_by_test_group_ids,
     split_by_test_run_ids,
 )
+from .evaluation import (
+    StructuralDependency,
+    StructuralEvaluationReport,
+    StructuralRunResult,
+    evaluate_structure,
+    structural_report_json,
+)
 from .io import (
     TraceFormatError,
     canonical_json,
@@ -124,6 +131,9 @@ __all__ = [
     "SideEffectKind",
     "StateChange",
     "StepStatus",
+    "StructuralDependency",
+    "StructuralEvaluationReport",
+    "StructuralRunResult",
     "TaskInputBinding",
     "TaskInputBindingSpec",
     "TauCallReview",
@@ -156,6 +166,7 @@ __all__ = [
     "decode_json_value",
     "dump_trace_dataset",
     "encode_json_value",
+    "evaluate_structure",
     "execute_local",
     "export_prefect",
     "get_path",
@@ -170,6 +181,7 @@ __all__ = [
     "split_by_test_group_ids",
     "split_by_test_run_ids",
     "state_diff",
+    "structural_report_json",
     "to_asp",
     "verification_report_json",
     "verify_workflow",

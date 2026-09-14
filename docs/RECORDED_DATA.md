@@ -70,7 +70,7 @@ PYTHONPATH=src python -m trace2flow import-tau \
 The `--all` flag exists for deliberate bulk imports; selection is otherwise
 mandatory so an accidental command cannot copy an entire result file.
 
-Review every selected source call using a strict artifact shaped like
+Explicitly review every selected source call using a strict artifact shaped like
 `tests/fixtures/tau_retail_review.json`. It must contain every source call ID,
 including calls with no dependencies, and explicitly declare:
 
@@ -119,3 +119,8 @@ verification remains a separate requirement.
 The fixture files under `tests/fixtures/tau_retail_*` are deliberately small,
 schema-shaped synthetic regression fixtures. They test the adapter and are not
 benchmark evidence.
+
+The separate `examples/tau-retail-recorded/` directory is a reviewed recorded
+benchmark corpus. Its `selection.json` pins the source file and explains every
+exclusion; compile task 44 and test task 60 use different simulated entities.
+Its committed structural report makes no execution-equivalence claim.

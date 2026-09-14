@@ -146,6 +146,26 @@ class TraceCliTest(unittest.TestCase):
                 json.loads(split.stdout), {"compile_runs": 2, "test_runs": 1}
             )
 
+            candidate_path = root / "candidate.json"
+            report_path = root / "structure-report.json"
+            self.run_cli(
+                "mine", str(compile_path), "--output", str(candidate_path)
+            )
+            evaluated = self.run_cli(
+                "evaluate-structure",
+                str(candidate_path),
+                "--compile",
+                str(compile_path),
+                "--test",
+                str(test_path),
+                "--output",
+                str(report_path),
+            )
+            evaluation = json.loads(evaluated.stdout)
+            self.assertTrue(evaluation["all_runs_structurally_covered"])
+            self.assertFalse(evaluation["execution_equivalence_claimed"])
+            self.assertEqual(evaluation["validation_scope"], "held_out_structure_only")
+
     def test_mine_writes_evidence_bearing_candidate_dag(self) -> None:
         with tempfile.TemporaryDirectory(prefix="trace2flow-cli-test-") as tempdir:
             output = Path(tempdir) / "candidate.json"

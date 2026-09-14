@@ -11,7 +11,7 @@
       "id": "address-change",
       "user_scenario": {
         "instructions": {
-          "reason_for_call": "Move order #W100 to 12 Main Street",
+          "reason_for_call": "Move order W100 to 12 Main Street",
           "known_info": "I am Ada Example, zip 10001"
         }
       }

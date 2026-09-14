@@ -150,6 +150,8 @@ class _BenchmarkRedactor:
             token = f"<{label}_{digest[:10]}>"
             if value:
                 self._string_replacements[value] = token
+                if value.startswith("#") and len(value) > 1:
+                    self._string_replacements[value[1:]] = token
         else:
             return value
         self._tokens[lookup] = token
@@ -517,10 +519,12 @@ def import_tau_results(
             "recording_claim": "recorded_execution_in_public_benchmark_simulator",
             "contains_real_customer_data": False,
             "dependency_evidence": (
-                "explicit_human_review" if reviewed else "unavailable_call_order_only"
+                "explicit_reviewer_declaration"
+                if reviewed
+                else "unavailable_call_order_only"
             ),
             "side_effect_evidence": (
-                "explicit_human_review" if reviewed else "unavailable"
+                "explicit_reviewer_declaration" if reviewed else "unavailable"
             ),
             "state_snapshot_evidence": "unavailable",
             "tool_outputs": "preserved_as_recorded_strings_after_redaction",

@@ -26,6 +26,22 @@ is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
 The conservative tau3-bench retail importer and its evidence language are
 documented in [the recorded-data guide](docs/RECORDED_DATA.md).
 
+A small checked-in recorded corpus demonstrates the non-synthetic data path:
+
+```bash
+PYTHONPATH=src python -m trace2flow evaluate-structure \
+  examples/tau-retail-recorded/candidate.json \
+  --compile examples/tau-retail-recorded/compile.json \
+  --test examples/tau-retail-recorded/holdout.json \
+  --output /tmp/trace2flow-structural-report.json
+```
+
+It contains three compile runs from tau task 44 and four held-out runs from
+task 60. All four held-out runs cover the mined four-node/three-edge structure.
+This is deliberately reported as structural evidence only, not execution
+equivalence or a general benchmark success rate. See the
+[corpus source record](examples/tau-retail-recorded/SOURCE.md).
+
 See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
 [upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
 

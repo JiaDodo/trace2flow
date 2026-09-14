@@ -76,8 +76,10 @@ the installed `trace2flow --help` exposed all seven CLI operations.
 
 ## Honest limitations
 
-- All bundled customer-support traces and results are synthetic. They prove
-  controlled behavior only.
+- The executable default customer-support traces and results are synthetic.
+  The separate tau retail corpus contains recorded benchmark-simulator runs,
+  but its committed report validates held-out structure only and does not claim
+  output/state execution equivalence.
 - Automatic occurrence alignment is conservative structural matching, not a
   general semantic matcher. Ambiguity requires user declarations.
 - Candidate binding matches remain unresolved until declared; Trace2Flow does

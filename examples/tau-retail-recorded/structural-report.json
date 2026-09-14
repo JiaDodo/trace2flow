@@ -1,0 +1,117 @@
+{
+  "all_runs_structurally_covered": true,
+  "candidate_edges": 3,
+  "candidate_nodes": 4,
+  "candidate_source_sha256": "83da1b517dc0848911d360ce0758c91568e20d4fba55e51c72dc02fa83ff89d5",
+  "compile_dataset_id": "tau3_retail_modify_items_recorded_v1:compile",
+  "compile_task_group_ids": [
+    "44"
+  ],
+  "covered_runs": 4,
+  "execution_equivalence_claimed": false,
+  "limitations": [
+    "structure coverage does not compare final outputs or mutable state",
+    "recorded tool responses are not replayed as execution evidence"
+  ],
+  "run_results": [
+    {
+      "ambiguous_occurrences": [],
+      "matched_occurrences": 4,
+      "missing_candidate_edge_ids": [],
+      "missing_candidate_node_ids": [],
+      "observed_candidate_node_ids": [
+        "node_71e78aa8d836",
+        "node_9927edeef2e6",
+        "node_b34dfad477c9",
+        "node_b5265cf2e501"
+      ],
+      "run_id": "tau_4c3bb4c66e8e69b6",
+      "structurally_covered": true,
+      "supported_candidate_edge_ids": [
+        "edge_78c0f4dacd5c",
+        "edge_a49ae9db1e41",
+        "edge_af2814149d23"
+      ],
+      "task_group_id": "60",
+      "total_occurrences": 4,
+      "unmatched_occurrences": [],
+      "unseen_dependencies": []
+    },
+    {
+      "ambiguous_occurrences": [],
+      "matched_occurrences": 4,
+      "missing_candidate_edge_ids": [],
+      "missing_candidate_node_ids": [],
+      "observed_candidate_node_ids": [
+        "node_71e78aa8d836",
+        "node_9927edeef2e6",
+        "node_b34dfad477c9",
+        "node_b5265cf2e501"
+      ],
+      "run_id": "tau_ca5e7d31d93388a5",
+      "structurally_covered": true,
+      "supported_candidate_edge_ids": [
+        "edge_78c0f4dacd5c",
+        "edge_a49ae9db1e41",
+        "edge_af2814149d23"
+      ],
+      "task_group_id": "60",
+      "total_occurrences": 4,
+      "unmatched_occurrences": [],
+      "unseen_dependencies": []
+    },
+    {
+      "ambiguous_occurrences": [],
+      "matched_occurrences": 4,
+      "missing_candidate_edge_ids": [],
+      "missing_candidate_node_ids": [],
+      "observed_candidate_node_ids": [
+        "node_71e78aa8d836",
+        "node_9927edeef2e6",
+        "node_b34dfad477c9",
+        "node_b5265cf2e501"
+      ],
+      "run_id": "tau_962add81d0726442",
+      "structurally_covered": true,
+      "supported_candidate_edge_ids": [
+        "edge_78c0f4dacd5c",
+        "edge_a49ae9db1e41",
+        "edge_af2814149d23"
+      ],
+      "task_group_id": "60",
+      "total_occurrences": 4,
+      "unmatched_occurrences": [],
+      "unseen_dependencies": []
+    },
+    {
+      "ambiguous_occurrences": [],
+      "matched_occurrences": 4,
+      "missing_candidate_edge_ids": [],
+      "missing_candidate_node_ids": [],
+      "observed_candidate_node_ids": [
+        "node_71e78aa8d836",
+        "node_9927edeef2e6",
+        "node_b34dfad477c9",
+        "node_b5265cf2e501"
+      ],
+      "run_id": "tau_c2ee2c30209f470a",
+      "structurally_covered": true,
+      "supported_candidate_edge_ids": [
+        "edge_78c0f4dacd5c",
+        "edge_a49ae9db1e41",
+        "edge_af2814149d23"
+      ],
+      "task_group_id": "60",
+      "total_occurrences": 4,
+      "unmatched_occurrences": [],
+      "unseen_dependencies": []
+    }
+  ],
+  "schema_version": "structure-evaluation/1.0",
+  "test_dataset_id": "tau3_retail_modify_items_recorded_v1:test",
+  "test_runs": 4,
+  "test_task_group_ids": [
+    "60"
+  ],
+  "validation_scope": "held_out_structure_only"
+}

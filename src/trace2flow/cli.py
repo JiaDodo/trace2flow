@@ -15,6 +15,7 @@ from .datasets import (
     split_by_test_group_ids,
     split_by_test_run_ids,
 )
+from .evaluation import evaluate_structure, structural_report_json
 from .io import TraceFormatError, dump_trace_dataset, load_trace_dataset
 from .ir import (
     ResolutionPlan,
@@ -117,6 +118,15 @@ def _build_parser() -> argparse.ArgumentParser:
     verify.add_argument("--compile", type=Path, required=True)
     verify.add_argument("--test", type=Path, required=True)
     verify.add_argument("--output", type=Path, required=True)
+
+    evaluate = subparsers.add_parser(
+        "evaluate-structure",
+        help="compare a candidate DAG with disjoint held-out trace structure",
+    )
+    evaluate.add_argument("input", type=Path, help="candidate-dag/1.0 JSON")
+    evaluate.add_argument("--compile", type=Path, required=True)
+    evaluate.add_argument("--test", type=Path, required=True)
+    evaluate.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -125,6 +135,36 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.command == "evaluate-structure":
+            candidate = CandidateDag.model_validate_json(
+                args.input.read_text(encoding="utf-8")
+            )
+            report = evaluate_structure(
+                candidate,
+                load_trace_dataset(args.compile),
+                load_trace_dataset(args.test),
+            )
+            args.output.write_text(structural_report_json(report), encoding="utf-8")
+            print(
+                json.dumps(
+                    {
+                        "all_runs_structurally_covered": (
+                            report.all_runs_structurally_covered
+                        ),
+                        "candidate_edges": report.candidate_edges,
+                        "candidate_nodes": report.candidate_nodes,
+                        "covered_runs": report.covered_runs,
+                        "execution_equivalence_claimed": (
+                            report.execution_equivalence_claimed
+                        ),
+                        "test_runs": report.test_runs,
+                        "validation_scope": report.validation_scope,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if report.all_runs_structurally_covered else 1
+
         if args.command == "import-tau":
             review = load_tau_review(args.review) if args.review is not None else None
             dataset = import_tau_results(

@@ -70,7 +70,7 @@ The normalized Trace2Flow format is specified in
 PYTHONPATH=src python -m trace2flow validate traces.json
 ```
 
-Tau retail imports are quarantined until a complete human review supplies
+Tau retail imports are quarantined until a complete explicit review supplies
 dependencies, side effects, occurrence alignment where needed, and confirms
 manual redaction. The importer never treats message order as lineage:
 
@@ -85,6 +85,16 @@ PYTHONPATH=src python -m trace2flow split reviewed.json \
   --test-group-id HELD_OUT_TASK_ID \
   --compile-output compile.json \
   --test-output test.json
+```
+
+Evaluate candidate structure only against a disjoint holdout. This command
+never claims output or state equivalence:
+
+```bash
+PYTHONPATH=src python -m trace2flow evaluate-structure candidate.json \
+  --compile compile.json \
+  --test test.json \
+  --output structural-report.json
 ```
 
 Keep raw data under ignored `data-private/`. See `docs/RECORDED_DATA.md`.

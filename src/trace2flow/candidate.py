@@ -280,6 +280,12 @@ def _signature(basis: AlignmentBasis) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def occurrence_signature(run: TraceRun, step: TraceStep) -> str:
+    """Return the same value-free alignment signature used by candidate mining."""
+
+    return _signature(_alignment_basis(run, step))
+
+
 def _edge_id(source_node_id: str, target_node_id: str) -> str:
     digest = hashlib.sha256(
         f"{source_node_id}\0{target_node_id}".encode()
@@ -332,7 +338,7 @@ def build_candidate_dag(
     for run in dataset.runs:
         for step in run.steps:
             basis = _alignment_basis(run, step)
-            grouped[_signature(basis)].append((run, step, basis))
+            grouped[occurrence_signature(run, step)].append((run, step, basis))
 
     phase_by_tool: dict[str, list[int]] = defaultdict(list)
     for phase, tools in upstream.phases.items():
