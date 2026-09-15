@@ -1,0 +1,24 @@
+{
+  "schema_version": "agent-recording-projection/1.0",
+  "projection_kind": "lossy_task_and_tool_facts_without_model_messages",
+  "raw_sha256": "0350e3af05f68e6e042aa5bcd76afb851c11c90d438b3b5d77e0d3a64fd83573",
+  "case_id": "test-11",
+  "partition": "test",
+  "run_id": "agent_affdf628bc224bcfb1d75a6afce7d064",
+  "task": {
+    "customer_id": null,
+    "order_id": "O-test-11",
+    "policy_version": "v1",
+    "task_id": "test-11",
+    "ticket_id": "T-test-11",
+    "ticket_text": "客户编号缺失，不要改动任何工单。"
+  },
+  "environment": "synthetic_local_simulator",
+  "contains_real_customer_data": false,
+  "scripted_model": false,
+  "model_requested": "deepseek-v4-pro",
+  "model_snapshot_pinned": false,
+  "model_calls": 1,
+  "ending": "model_finished",
+  "calls": []
+}

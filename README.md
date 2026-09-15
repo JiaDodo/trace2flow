@@ -103,11 +103,18 @@ Run the complete local demo:
 PYTHONPATH=src streamlit run streamlit_app.py
 ```
 
-The default story compiles three synthetic customer-support runs and verifies
-the resulting five-tool workflow against two separate synthetic holdout runs.
-The same page separately shows recorded retail structure coverage and its
-fresh-state local execution result. It uses only in-memory tool registries: no
-real customer system, messages, payments, or refunds. See the
+The default page now walks through archived DeepSeek task/tool projections,
+the frozen occurrence DAG and AI-declared bindings, fresh-state execution and
+complete-state differences, and failure/zero-call evidence. It makes no model
+requests and needs no key or private recordings. Coverage (8/12) is shown
+separately from accepted correctness (8/8). See the
+[Chinese live-evidence walkthrough and real screenshots](docs/LIVE_DEMO_WALKTHROUGH.md).
+
+Switch to the original synthetic/tau demo to compile three synthetic
+customer-support runs and verify two separate synthetic holdout runs, or inspect
+recorded retail structure coverage and fresh-state local execution. Both modes
+use only in-memory tool registries: no real customer system, messages,
+payments, or refunds. See the
 [release audit](docs/RELEASE_AUDIT.md) for tested scope and remaining limits.
 
 ## Contribution boundary

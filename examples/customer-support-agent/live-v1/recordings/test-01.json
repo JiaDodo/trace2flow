@@ -1,0 +1,108 @@
+{
+  "schema_version": "agent-recording-projection/1.0",
+  "projection_kind": "lossy_task_and_tool_facts_without_model_messages",
+  "raw_sha256": "15c7bfb061815441eccac6f70bb2397bf2e68842b8b21e2a620ee074594b09b8",
+  "case_id": "test-01",
+  "partition": "test",
+  "run_id": "agent_3edb1144ee434c169129d73572b3f026",
+  "task": {
+    "customer_id": "C-test-01",
+    "order_id": "O-test-01",
+    "policy_version": "v1",
+    "task_id": "test-01",
+    "ticket_id": "T-test-01",
+    "ticket_text": "配送没有到达，请核实并记录下一步。"
+  },
+  "environment": "synthetic_local_simulator",
+  "contains_real_customer_data": false,
+  "scripted_model": false,
+  "model_requested": "deepseek-v4-pro",
+  "model_snapshot_pinned": false,
+  "model_calls": 5,
+  "ending": "model_finished",
+  "calls": [
+    {
+      "id": "call_00_ziWTFkCs5ouBy3yoc76i7777",
+      "tool": "lookup_customer",
+      "params": {
+        "customer_id": "C-test-01"
+      },
+      "output": {
+        "customer_id": "C-test-01"
+      },
+      "status": "completed",
+      "error_type": null
+    },
+    {
+      "id": "call_01_EqC2pMSsEjbxMDeT2ayL8756",
+      "tool": "lookup_order",
+      "params": {
+        "customer_id": "C-test-01",
+        "order_id": "O-test-01"
+      },
+      "output": {
+        "customer_id": "C-test-01",
+        "damaged": false,
+        "delivered": false,
+        "duplicate_charge": false,
+        "order_id": "O-test-01",
+        "status": "shipped"
+      },
+      "status": "completed",
+      "error_type": null
+    },
+    {
+      "id": "call_00_2DUgWleY5tMh4jjWczIF4962",
+      "tool": "classify_issue",
+      "params": {
+        "damaged": false,
+        "delivered": false,
+        "duplicate_charge": false,
+        "order_status": "shipped",
+        "ticket_text": "配送没有到达，请核实并记录下一步。"
+      },
+      "output": {
+        "eligible": false,
+        "issue_type": "delivery_delay"
+      },
+      "status": "completed",
+      "error_type": null
+    },
+    {
+      "id": "call_00_RvCxWCNqCQ6e81CBaM5o1235",
+      "tool": "recommend_action",
+      "params": {
+        "eligible": false,
+        "issue_type": "delivery_delay",
+        "policy_version": "v1"
+      },
+      "output": {
+        "eligible": false,
+        "issue_type": "delivery_delay",
+        "policy_version": "v1",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier"
+      },
+      "status": "completed",
+      "error_type": null
+    },
+    {
+      "id": "call_00_x7eNNM755GLBhzwLfHw09529",
+      "tool": "update_ticket",
+      "params": {
+        "issue_type": "delivery_delay",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier",
+        "ticket_id": "T-test-01"
+      },
+      "output": {
+        "issue_type": "delivery_delay",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier",
+        "ticket_id": "T-test-01"
+      },
+      "status": "completed",
+      "error_type": null
+    }
+  ]
+}

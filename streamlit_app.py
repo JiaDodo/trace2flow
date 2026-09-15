@@ -12,6 +12,7 @@ from trace2flow.demo import (
     downloadable_json,
     evidence_rows,
 )
+from trace2flow.live_demo_ui import render_live_demo
 
 st.set_page_config(page_title="Trace2Flow", page_icon="🧭", layout="wide")
 st.title("Trace2Flow · Agent 轨迹到可验证工作流")
@@ -19,6 +20,13 @@ st.caption(
     "上游 AutoCompile 提供 ASP 工具级模式挖掘；Trace2Flow 新增类型边界、"
     "逐调用证据、Workflow IR、安全导出和独立模拟验证。"
 )
+demo_source = st.radio(
+    "演示来源", ["DeepSeek 实测证据", "原有合成 / tau 演示"], horizontal=True,
+)
+if demo_source == "DeepSeek 实测证据":
+    render_live_demo()
+    st.stop()
+
 st.info(
     "页面展示一组公开基准的脱敏记录结构；所有可执行验证仍只使用新建的"
     "合成本地状态，不连接客服系统、不发消息、不执行真实退款。"

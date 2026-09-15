@@ -247,6 +247,27 @@ or authenticity attestation. Never auto-push this evaluation branch.
 
 ## Scope discipline
 
+M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the
+Streamlit source switch retains the synthetic/tau path. The default live page
+must remain offline and public-only: no provider call, credential lookup,
+private raw-file read or compiler rerun. Public `recordings/` files are lossy
+task/tool projections, not complete raw recordings or normalized traces. Keep
+the original raw hash, occurrence IDs, parameter types and privacy labels.
+`demo-index.json` pins public bytes for integrity, not provider authenticity.
+Reject mixed archive/pipeline identities before showing historical metrics.
+New local executions must compare independently declared output and all three
+state maps, never overwrite historical reports or call known fixtures fresh
+holdout. Preserve failure, exception and zero-call evidence.
+
+```bash
+.venv/bin/python -m unittest discover -s tests -p test_live_demo.py -v
+.venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+```
+
+See `docs/LIVE_DEMO_WALKTHROUGH.md` for the Chinese demo and local-only
+Playwright screenshot script. Screenshot tooling is optional and not a project
+dependency. Wait for the actual DAG/tables to render, not just the page title.
+
 - Implement one testable milestone per iteration.
 - M0 contains audit docs and smoke coverage only; it does not authorize UI or
   full-MVP work.

@@ -49,6 +49,7 @@ class DemoTest(unittest.TestCase):
         rows = evidence_rows(self.artifacts.candidate)
 
         self.assertTrue(dot.startswith("digraph trace2flow"))
+        self.assertIn('label="lookup_customer\\naligned"', dot)
         self.assertEqual(dot.count(" evidence\"") , 5)
         self.assertEqual(len(rows), 15)
         self.assertEqual({row["status"] for row in rows}, {"accepted"})
@@ -63,6 +64,7 @@ class DemoTest(unittest.TestCase):
 
     def test_streamlit_app_smoke_runs_default_pipeline(self) -> None:
         app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=15).run()
+        app.radio[0].set_value("原有合成 / tau 演示").run()
         self.assertEqual(app.exception, [])
         self.assertEqual(app.title[0].value, "Trace2Flow · Agent 轨迹到可验证工作流")
         self.assertEqual(len(app.file_uploader), 2)
@@ -86,6 +88,7 @@ class DemoTest(unittest.TestCase):
         self.assertEqual(len(recorded.prefect.required_tools), 4)
 
         app = AppTest.from_file(ROOT / "streamlit_app.py", default_timeout=15).run()
+        app.radio[0].set_value("原有合成 / tau 演示").run()
         self.assertEqual(app.exception, [])
         rendered = "\n".join(
             item.value

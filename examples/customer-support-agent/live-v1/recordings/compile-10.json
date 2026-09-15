@@ -1,0 +1,59 @@
+{
+  "schema_version": "agent-recording-projection/1.0",
+  "projection_kind": "lossy_task_and_tool_facts_without_model_messages",
+  "raw_sha256": "ca594d886cbc561e57fd317ecfc12f45315119e0e1e6a3d6738cfc4a2d69656e",
+  "case_id": "compile-10",
+  "partition": "compile",
+  "run_id": "agent_37368ad0875a48b4b37cd2fa5401ab07",
+  "task": {
+    "customer_id": "C-compile-10",
+    "order_id": "O-compile-10",
+    "policy_version": "v1",
+    "task_id": "compile-10",
+    "ticket_id": "T-compile-10",
+    "ticket_text": "请查询这笔订单并更新处理建议。"
+  },
+  "environment": "synthetic_local_simulator",
+  "contains_real_customer_data": false,
+  "scripted_model": false,
+  "model_requested": "deepseek-v4-pro",
+  "model_snapshot_pinned": false,
+  "model_calls": 3,
+  "ending": "model_finished",
+  "calls": [
+    {
+      "id": "call_00_qi1T29P8IJN9z68sMj8R9706",
+      "tool": "lookup_customer",
+      "params": {
+        "customer_id": "C-compile-10"
+      },
+      "output": {
+        "customer_id": "C-compile-10"
+      },
+      "status": "completed",
+      "error_type": null
+    },
+    {
+      "id": "call_01_6mz7Yxs1ge2qIbC9G8ea3784",
+      "tool": "lookup_order",
+      "params": {
+        "customer_id": "C-compile-10",
+        "order_id": "O-compile-10"
+      },
+      "output": null,
+      "status": "failed",
+      "error_type": "ValueError"
+    },
+    {
+      "id": "call_00_UZp9PKC1yUo2Yfooj9j53269",
+      "tool": "lookup_order",
+      "params": {
+        "customer_id": "C-compile-10",
+        "order_id": "O-compile-10"
+      },
+      "output": null,
+      "status": "failed",
+      "error_type": "ValueError"
+    }
+  ]
+}

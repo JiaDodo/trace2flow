@@ -2,9 +2,115 @@
 
 Last updated: 2026-09-15
 
-Current milestone: M11 complete — controlled DeepSeek corpus and frozen independent evaluation
+Current milestone: M12 complete — offline live-evidence demo and Chinese handoff
 
-Working branch: `feat/m11-live-evaluation`
+Working branch: `feat/m12-live-evidence-demo`
+
+## M12 completed demo handoff
+
+Implemented the existing Streamlit demo's public-only, offline DeepSeek mode;
+kept the original synthetic/tau upload/compile/verification mode selectable.
+No model requests, key/environment reads, pushes, PRs or merges. Private local
+recordings were read only to extract/check the four public task/tool projections;
+the demo and its automated regressions never open private recording files.
+
+- Added tested `live_demo.py` archive helpers and `live_demo_ui.py` rendering.
+  Default story: historical recording, occurrence DAG and declared bindings,
+  fresh isolated execution with complete-state field diff, failures and limits.
+- Published four **lossy original task/tool projections**, not complete raw
+  messages or normalized traces: compile-01, test-01, repeated-failure
+  compile-10 and zero-call test-11. They retain exact run/call IDs, types,
+  results, failure types and original private-file hashes. Chat/prompt/state
+  snapshots/credentials/provider payloads are omitted. Public demo never
+  opens private raw files and works without them.
+- Added `demo-index.json` byte-integrity inventory plus frozen plan, pipeline,
+  workflow/source/scorer, report inventory and safe Prefect-export checks.
+  Stop displaying scores if archive or pipeline identities differ. The new
+  index is a post-experiment UI integrity index, not a pre-test freeze or
+  provider-authenticity attestation. Four display selections do not filter the
+  full historical thirty-task evaluation denominator.
+- Exposed all fifteen AI-declared parameter bindings and occurrence evidence
+  for the five-node/three-edge DAG. Fixed a presentation-only DOT newline escape
+  so node alignment labels render as a second line, with a regression assertion.
+  No upstream/compiler/IR/mining/scoring change.
+- All twelve known test tasks can execute in new local states. Explicit
+  existence/ownership admission is unchanged. Compare actual business output
+  and all customers/orders/tickets with the independently declared oracle;
+  display actual state changes and retain failures. Returned state cannot
+  contaminate the next run. These are known-fixture regressions, not new
+  model/holdout results; archived reports remain unchanged.
+- Kept coverage **8/12 (66.7%)**, accepted correctness **8/8**, four safe
+  refusals, and matched model requests **40 → 0** separate. Tools **40 → 40**;
+  no tool reduction, cost benefit, chat quality, generalization or self-evolution
+  claim. AI-reviewed contract / synthetic business labels remain prominent.
+- Added 19 helper/UI tests: privacy/offline behavior, checksum/core identity,
+  typed loss labels, distinct repeated failures, zero-call preservation,
+  occurrence evidence, isolated output/full-state checks, refusal, corruption,
+  exception-text omission, unknown tools and real Streamlit widget interactions.
+  Existing six demo tests still run their original pipeline assertions by
+  explicitly selecting the retained legacy source; no assertion was lowered.
+- Added Chinese three-minute walkthrough and seven real Chromium screenshots
+  in `docs/LIVE_DEMO_WALKTHROUGH.md`. Optional local-only capture script checks
+  five DAG nodes/three edges, actual execution, refusal, failure and zero-call.
+  Screenshot tools were installed only in `/tmp/trace2flow-m12-browser`, not
+  project dependencies. Initial capture preceded async graph/table rendering;
+  fixed waits for actual SVG/grids/skeleton completion and regenerated images.
+
+### Actual M12 verification
+
+```text
+$ .venv/bin/python -m unittest discover -s tests -p test_live_demo.py -v
+Ran 19 tests in 2.149s; OK
+
+$ .venv/bin/python -m unittest discover -s tests -p test_demo.py -v
+Ran 6 tests in 1.629s; OK (final, including DOT newline assertion)
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 141 tests in 19.354s; OK; no skips (final, after presentation fix)
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py scripts
+exit 0
+
+$ uv lock --check --offline
+Resolved 202 packages; exit 0 (lock unchanged)
+
+$ uv build --out-dir /tmp/trace2flow-m12-build
+Successfully built sdist and wheel containing both new live-demo modules
+
+$ /tmp/trace2flow-m12-browser/bin/python scripts/capture_m12_demo.py
+7 screenshots; successful update, safe refusal, failures and zero-call checked
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0
+
+$ git diff --exit-code a35049e -- src/trace2flow/{agent_corpus,agent_collect,agent_review,agent_evaluation,agent_build,candidate,ir,runtime,simulation,agent_contract_review,agent_report,agent_final_freeze}.py examples/customer-support-agent/live-v1/artifacts examples/customer-support-agent/live-v1/{final-freeze,review-plan,compile-report,development-report,test-report}.json
+exit 0
+
+$ git diff --exit-code -- uv.lock pyproject.toml
+exit 0
+
+$ git diff --check
+exit 0
+```
+
+Initial lint found an unused test import and nested context manager; fixed the
+test syntax without weakening assertions. Existing offline suite includes real
+temporary local Prefect execution. No new paid collection or hosted CI was run.
+The screenshot script blocks off-machine resource requests. See the walkthrough
+for the exact tested Streamlit server command and screenshot reproduction.
+
+### Next step and human intervention
+
+No human intervention was needed for M12's local simulated implementation.
+The next step is release handoff: review the Chinese script, rehearse a short
+recording, then explicitly authorize publication if wanted. Push / PR / merge /
+release tag are not authorized by this milestone. Hosted CI remains unrun for
+these local commits. More algorithm tuning is not required for M12; future
+business-policy/generalization work needs separately declared data and holdout.
+The frozen upstream/mining/IR/scorer boundary remains intact.
 
 ## M11b completed experiment
 

@@ -205,7 +205,7 @@ zero unsafe acceptances. A real local Prefect target run also passes. These
 are controlled synthetic-business results, not automatic lineage discovery,
 human-review evidence or production/generalization claims.
 
-## M12 — Live-evidence demo handoff (next)
+## M12 — Live-evidence demo handoff (complete)
 
 Integrate the archived DeepSeek corpus/result into the existing Streamlit
 inspection story without a new frontend architecture. Show one raw task/tool
@@ -215,6 +215,20 @@ labels prominent and expose failure/zero-call evidence. Add a concise Chinese
 demo script and screenshots. Reuse known archived fixtures for UI regression,
 not a fresh holdout score. Any policy/workflow tuning needs a new predeclared
 test population. No live customer integration or self-evolution loop is implied.
+
+Completed: public-only offline source selection; four loss-labeled original
+task/tool projections including repeated failure and zero-call evidence; frozen
+five-node/three-edge DAG and per-occurrence evidence; all fifteen declared
+bindings; twelve selectable known regression tasks with fresh-state execution,
+output/full-state comparison and field diffs; separate historical coverage and
+accepted correctness. Added 19 helper/UI tests and a real Chromium screenshot
+script with seven screenshots plus `docs/LIVE_DEMO_WALKTHROUGH.md` in Chinese.
+No model request, policy/core/scorer/frozen-artifact change or publication.
+
+Acceptance verified by 141 offline tests (no skips), lint, source compile,
+locked dependency check, package build, browser interaction/rendering checks
+and unchanged upstream/frozen-pipeline diffs. Historical test results remain
+M11 evidence, not newly measured holdout performance.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

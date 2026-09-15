@@ -1,0 +1,19 @@
+{
+  "schema_version": "live-demo-index/1.0",
+  "purpose": "public_lossy_projections_and_frozen_archived_evidence_integrity_not_provider_authentication",
+  "files": {
+    "final-freeze.json": "c151faedd6bb61bafcaeb9486fe4e86b672daf47b7172781735d1169881aa326",
+    "review-plan.json": "d015f179b972a56a28e1cfc2a2c2fc502f52a623bd6ac1f389ba4c5720c135bf",
+    "compile-report.json": "2022689ad3c9d9589ce21784ef4a0637098daf68dd452baecf9ffb357c4939d0",
+    "development-report.json": "fb6e5316b75b11cf99ff71480077ff9d00ba1e2811bcf2b9182395df198f2fde",
+    "test-report.json": "4fcd22a032e39ff664d741771be96c0e043aacaff388891eb36717cbb4cbc5be",
+    "artifacts/compile.json": "c45d16c1de0e6fcf48411b40616c115aad46766070dca7125ca153c6dfa92c4f",
+    "artifacts/candidate.json": "a6319f401cf2e4099b8832c63b7a9adb28ef7276b81b24e465be7dbf1935c1c6",
+    "artifacts/workflow.json": "29ad232396a81bf0b4f4fc1892764d594180909b75e6bb0b83e9668141295023",
+    "artifacts/prefect_flow.py": "a10bfac7ad3a2566ba5cb2541587c275212df945c97f09431d72c56427cd2278",
+    "recordings/compile-01.json": "79f624098643549067ede8c6d1f191b38fed85dbf005769513812a38114bdc86",
+    "recordings/test-01.json": "c52b7cd7903a2bc603736c6845f9959d2baa7714a1a5a17411cbcad9509c270b",
+    "recordings/compile-10.json": "8aa2aaf55a0875449636a4270557033b6d18ea8a49287b392a499aa018f2db3c",
+    "recordings/test-11.json": "2610ed7f2ff587dbed3615e2466c3ad60d8749c3b4911c92be4a2545302fe2ec"
+  }
+}

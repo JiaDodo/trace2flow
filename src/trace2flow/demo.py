@@ -148,7 +148,7 @@ def candidate_dot(candidate: CandidateDag) -> str:
     lines = ["digraph trace2flow {", "rankdir=LR;", "node [shape=box];"]
     for node in candidate.nodes:
         color = "#dc2626" if node.alignment_status.value == "unresolved" else "#2563eb"
-        label = f"{node.tool}\\n{node.alignment_status.value}"
+        label = f"{node.tool}\n{node.alignment_status.value}"
         lines.append(
             f"{json.dumps(node.id)} [label={json.dumps(label)}, color={json.dumps(color)}];"
         )
