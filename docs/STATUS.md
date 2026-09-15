@@ -6,6 +6,30 @@ Current milestone: M11a complete — corpus/review/evaluation engineering baseli
 
 Working branch: `feat/m11-evaluation-baseline`
 
+## M11b pre-test source checkpoint
+
+Working branch: `feat/m11-live-evaluation`. Current inherited environment has
+`DEEPSEEK_API_KEY`; only presence was checked. The user authorized proceeding
+with live DeepSeek evaluation. No `.bashrc`, `.env` or credential value was read.
+
+Collected all 10 compile and 8 development cases once using the frozen M11a
+plan/prompt/pipeline. Nine complete compile runs are AI-reviewed using exact
+occurrence IDs and an explicit execution contract. The foreign-order run retains
+both failed order occurrences and is excluded only from compilation. No human
+review is claimed. Policy version binds to the task input; no historical value
+is promoted to a constant. Manual AI effort is unmeasured, machine checks are
+timed separately. Added an exhaustive checked contract intake, source-pinned
+final freeze, usage/call/timing report and eight offline tests.
+
+Actual pre-test observations: compile safety/output/state 10/10; development
+8/8. Workflow independently admits and correctly executes 4/8 development tasks,
+safely refuses 4/8, with zero unsafe acceptances. Four accepted development tasks
+have 20 Agent model calls versus zero workflow model calls; both execute 20 tool
+calls. These are descriptive controlled-simulator facts, not cost or production
+speedup claims. No test model run or result inspection has occurred at this
+source checkpoint. Next: freeze the final workflow and report code, then run
+each of the twelve test tasks once without tuning. No push/PR/merge.
+
 ## M11a update
 
 Implemented the next testable engineering baseline, not a fabricated empirical

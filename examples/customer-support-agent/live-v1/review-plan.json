@@ -1,0 +1,123 @@
+{
+  "schema_version": "agent-contract-review-plan/1.0",
+  "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+  "reviewer": "Codex AI occurrence inspection + deterministic contract validation; no human review",
+  "reviewer_kind": "ai",
+  "redaction_confirmed": true,
+  "cases": {
+    "compile-01": {
+      "raw_sha256": "43e7417c602d84fb345f3e59520dede7bac552de57c079a8c5ecd6643215951b",
+      "decision": "include",
+      "rationale": "Inspected five distinct completed occurrences and typed arguments/results. Declare future execution sources from the local tool contract, not from equal booleans or query order.",
+      "roles": {
+        "lookup_customer": "call_00_sfbyJARnuMDyfbGPqcVW8855",
+        "lookup_order": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+        "classify_issue": "call_00_48uv2uPv2yJYwd980XyY3593",
+        "recommend_action": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+        "update_ticket": "call_00_E4e48aDr6yy3I7KDngdv9494"
+      }
+    },
+    "compile-02": {
+      "raw_sha256": "34afe0a43e6f5fa190d78327a74b39fc9b1003224fc2a21dcded851b69b7cdc4",
+      "decision": "include",
+      "rationale": "Inspected complete distinct occurrences and damaged-item typed facts. Declare the same future input/output contract; preserve independent customer/order reads without a fabricated edge.",
+      "roles": {
+        "lookup_customer": "call_00_KzlVyGg0qpWt9rbqgVN10875",
+        "lookup_order": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+        "classify_issue": "call_00_KbCA7TBqk4MmuIRwydDg6890",
+        "recommend_action": "call_00_VjxKgcpanizlXix8pt2l6221",
+        "update_ticket": "call_00_Id3fjDWDj1f1QixMqF4m5740"
+      }
+    },
+    "compile-03": {
+      "raw_sha256": "d92dc1d338fd7a46a1c6b1d9738bd767dc128e9d65599aae90369e1ac4f7ffda",
+      "decision": "include",
+      "rationale": "Inspected complete billing occurrences. The registered action records manual refund review, not a real refund. Policy is a declared task input, not a mined constant.",
+      "roles": {
+        "lookup_customer": "call_00_AMwnSnZkeEYHQUbokJZz4875",
+        "lookup_order": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+        "classify_issue": "call_00_z45Ybw20aBHCyiVsSXNP2741",
+        "recommend_action": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+        "update_ticket": "call_00_XQeKUH3m5wrb488tluAr5902"
+      }
+    },
+    "compile-04": {
+      "raw_sha256": "e3a42de34d47f682bf34349f654905d8643643942e0f089947568cfd3d0208c1",
+      "decision": "include",
+      "rationale": "Inspected delivery facts and exact occurrence IDs; declare semantic source fields explicitly despite repeated false values.",
+      "roles": {
+        "lookup_customer": "call_00_Vqq712RWOlFDlFo5w0AJ2964",
+        "lookup_order": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+        "classify_issue": "call_00_cQPNRdazuBpsiVSKxMQk7971",
+        "recommend_action": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+        "update_ticket": "call_00_RxDzEPwM9kHJCwIabuSX9194"
+      }
+    },
+    "compile-05": {
+      "raw_sha256": "ca7bb55a93e412f5cf397e17bd59d458b8471a9d1f9bdb160cf099653e062cc5",
+      "decision": "include",
+      "rationale": "Inspected five completed damaged-item occurrences; explicit source-field declarations do not claim automatic model-lineage discovery.",
+      "roles": {
+        "lookup_customer": "call_00_Es0wZLPRs1xCJvbJCOn81674",
+        "lookup_order": "call_01_RF4CFB1mZZmWTovBeAde9712",
+        "classify_issue": "call_00_UatVGAaBeco63pGY6NCi0414",
+        "recommend_action": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+        "update_ticket": "call_00_N99gShcjy3wyFpsnxwYB0360"
+      }
+    },
+    "compile-06": {
+      "raw_sha256": "5774c561cf401bdb5904f0ab206e20279043f41bb8df7dd044950d1c82147d47",
+      "decision": "include",
+      "rationale": "Inspected billing facts, recommendation and update occurrences. Local registered write capability only; task-supplied policy version.",
+      "roles": {
+        "lookup_customer": "call_00_zVL0rkgBYiuSmECmFIRk3090",
+        "lookup_order": "call_01_9URqdLAtHESoDOcJCiFn6513",
+        "classify_issue": "call_00_3MkeFnVHLONPHGoi8xGj9024",
+        "recommend_action": "call_00_yt88mom0ecwoX9t5HDaj8202",
+        "update_ticket": "call_00_6cazWQjGXg7Vk7sTFlBJ4675"
+      }
+    },
+    "compile-07": {
+      "raw_sha256": "6a83d76f69ad71571f850a345195abea092f4dc3393978ff8ea61eb37ff3ad64",
+      "decision": "include",
+      "rationale": "Inspected distinct delivery occurrences and typed source fields. No chronology-derived customer-to-order dependency.",
+      "roles": {
+        "lookup_customer": "call_00_dQdU6WHztB6QLZ2WJMOt8250",
+        "lookup_order": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+        "classify_issue": "call_00_jr1DLYqYjDbfQF6JqICJ0706",
+        "recommend_action": "call_00_suTquckUUBL0LhvvwC176691",
+        "update_ticket": "call_00_WP6rZPpPOuDJjJkTVooh3519"
+      }
+    },
+    "compile-08": {
+      "raw_sha256": "dc36d9343392edb9297c9d5cc8eb9ca8b0e88aefdfeedf8ea4e7f280c335292a",
+      "decision": "include",
+      "rationale": "Inspected completed damage-family calls with these exact IDs; use only explicitly declared input and source-output paths.",
+      "roles": {
+        "lookup_customer": "call_00_RvZsLDygOmXFNpi90m2M8383",
+        "lookup_order": "call_01_GlUhx7dceo71zfyoCcsP1104",
+        "classify_issue": "call_00_IxbLdM2nGvyaCj5a5p043966",
+        "recommend_action": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+        "update_ticket": "call_00_Y1ubpyquhH71b1cRNlX78231"
+      }
+    },
+    "compile-09": {
+      "raw_sha256": "c9eba8042a556a060bffcda89f5835385db54f39aa8f99b5bc5d27ced1903644",
+      "decision": "include",
+      "rationale": "Inspected billing-family occurrences and local write output. The contract invokes no real refund or messaging tool.",
+      "roles": {
+        "lookup_customer": "call_00_iya6VIqULtKFmdDGwAYr4111",
+        "lookup_order": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+        "classify_issue": "call_00_CW3eL3LWyP5vPVYo0myy8579",
+        "recommend_action": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+        "update_ticket": "call_00_mkB1KyjzIc6TodverXhU3267"
+      }
+    },
+    "compile-10": {
+      "raw_sha256": "ca594d886cbc561e57fd317ecfc12f45315119e0e1e6a3d6738cfc4a2d69656e",
+      "decision": "exclude_from_compilation",
+      "rationale": "Inspected foreign-order run: successful customer read plus two separate failed order occurrences, no classification/recommendation/write. Retain both failures and the full run in evaluation; do not merge tool-name repetitions.",
+      "roles": {}
+    }
+  }
+}
