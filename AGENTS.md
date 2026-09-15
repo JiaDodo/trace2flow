@@ -207,6 +207,35 @@ Guard requirements and list order are not data-dependency proof. Scripted
 responses prove collector mechanics, not model capability. Live development
 pilots are not held-out estimates; preserve full task-group partitions.
 
+## Reviewed Agent corpus and evaluation
+
+Use `docs/AGENT_EVALUATION.md` for M11 commands. Predeclare full task groups and
+compile/development/test roles before collection. Do not send scenario labels,
+state snapshots or oracle answers to the model. Preserve every paid attempt,
+including failures and zero-call records. Repetitions require a new declared
+inventory, not an invisible retry. Freeze sources before collection, and the
+final workflow/compile artifacts before unlocking test results.
+
+`agent_review --draft` is intentionally unapproved. Do not fabricate reviewer
+identity, human participation or review time. Include decisions require
+exhaustive checked declarations; ambiguity and disagreement must remain IR
+blockers. Excluded compile records stay in the planned-task evaluation.
+`agent_build` may compile only included reviewed compile-role data. A declared
+customer/order admission guard must not be described as mined branching.
+
+Run the offline baseline with:
+
+```bash
+.venv/bin/python -m unittest discover -s tests -p test_agent_corpus.py -v
+```
+
+Separate scripted regression results, actual local-model recordings and real
+customer data claims. Report workflow coverage and accepted correctness
+separately; pending runs mean the model score is not final. Complete state
+comparison is required. Final-chat quality is currently unmeasured. Public
+test definitions and local hash manifests are logical seals, not access control
+or authenticity attestation. Never auto-push this evaluation branch.
+
 ## Scope discipline
 
 - Implement one testable milestone per iteration.

@@ -157,7 +157,7 @@ intentional output/state corruptions fail; the UI clearly distinguishes
 synthetic end-to-end verification, recorded structural coverage, and any new
 independent execution result.
 
-## M10 — DeepSeek trace producer (extension)
+## M10 — DeepSeek trace producer (extension, complete)
 
 Add a single-purpose LangChain `create_agent` producer using DeepSeek and the
 existing five local simulated customer-support tools. Capture calls, typed
@@ -173,7 +173,7 @@ and partial recording. Unreviewed normalized output cannot enter mining. Run a
 small explicitly authorized DeepSeek development pilot; report actual results
 without treating the pilot as a holdout score or claiming automatic lineage.
 
-## M11 — Reviewed agent corpus and independent evaluation (next)
+## M11 — Reviewed agent corpus and independent evaluation (in progress)
 
 Freeze task partitions before collecting a larger corpus. Add a checked,
 source-pinned review intake for collector recordings, preserving original raw
@@ -183,6 +183,25 @@ paraphrases remain within one task group. Evaluate Agent and workflow against
 independently specified expected output/state on untouched test tasks, with
 separate coverage, accepted-case correctness, unsafe acceptance, and review
 effort. Recorded local model runs remain synthetic-business evidence.
+
+M11a engineering baseline is complete:
+
+- Predeclared 30-task plan: compile 10 / development 8 / test 12, with isolated
+  entity identities, explicit independent output/state expectations and
+  Agent-visible input projection.
+- Source/plan/prompt freeze and final workflow/compile artifact pinning;
+  intentionally unapproved exhaustive review drafts and strict review intake.
+- Real upstream-backed build from reviewed compile runs, agreeing-declaration
+  translation and unresolved-binding retention.
+- Planned-task Agent evaluation and fresh-state workflow execution with
+  separate admission coverage, correctness and safety; twenty offline tests.
+
+M11b empirical acceptance remains pending: collect every compile/development
+task with DeepSeek, review actual occurrences with honestly recorded effort,
+resolve only supported declarations, freeze a final workflow, then collect all
+untouched test tasks once. Publish a reproducible report including all failures,
+pending runs, unsupported structures, coverage and unsafe attempts. The baseline
+scripted test results do not satisfy this empirical acceptance.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

@@ -11,6 +11,18 @@ claims in upstream documentation. “Verified” means inspected and/or run
 locally during M0; it does not mean production-ready or independently proven on
 real systems.
 
+## M11 boundary recheck (2026-09-15)
+
+The upstream compile/benchmark/codegen files, ASP rules and MIT license still
+match baseline `b168d6760213b489e2fb2f5571f5d4e6d648dee8` (`git diff --exit-code`
+returned 0). New Agent task plans, raw-record review, agreeing-declaration
+translation and independent output/state evaluators live in `src/trace2flow/`;
+they are Trace2Flow contributions, not upstream capabilities. The M11 offline
+integration invokes the existing adapter/candidate path and actual Clingo
+mining, then builds the occurrence-level IR separately. A declared admission
+guard and reviewed binding are not claims of automatic branch/lineage discovery.
+See `docs/AGENT_EVALUATION.md`; full live held-out Agent scoring remains pending.
+
 ## Provenance, license, and layout
 
 - The Git history and fork relationship are preserved.

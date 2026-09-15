@@ -32,6 +32,11 @@ not a new compiler: raw evidence is saved locally, normalized output requires
 dependency review, and live calls need an explicit paid-call flag. See
 [the Agent collector guide](docs/AGENT_COLLECTOR.md).
 
+The next evaluation stage has a predeclared 30-task synthetic plan, hash-bound
+explicit review intake and independent Agent/workflow outcome scoring. The
+engineering baseline is tested; full live corpus collection and untouched
+model-test scoring are pending. See [the evaluation guide](docs/AGENT_EVALUATION.md).
+
 A small checked-in recorded corpus demonstrates the non-synthetic data path:
 
 ```bash

@@ -2,9 +2,102 @@
 
 Last updated: 2026-09-15
 
-Current milestone: M10 complete — optional DeepSeek trace producer and development pilot
+Current milestone: M11a complete — corpus/review/evaluation engineering baseline; M11b live evaluation pending
 
-Working branch: `feat/m10-deepseek-collector`
+Working branch: `feat/m11-evaluation-baseline`
+
+## M11a update
+
+Implemented the next testable engineering baseline, not a fabricated empirical
+result. No paid calls were made in this iteration, no new model-test results
+were collected or inspected, and no credentials or `.env` files were read.
+No push, PR or merge was performed. Upstream core, rules and MIT license remain
+byte-for-byte unchanged from the audited baseline.
+
+- Added a committed 30-task synthetic plan: compile 10, development 8, test 12.
+  Freeze and validate complete groups, entity identities, typed input/state and
+  explicit independent business expectations. The Agent receives only inputs;
+  expected answers, scenario labels and state snapshots are not model context.
+- Allow an isolated case simulator to be injected into the existing collector,
+  preserving its framework loop, guards, typed recording and zero-call policy.
+  Record task-group and plan/case context without treating it as model input.
+- Added source/plan/prompt freeze and final workflow/compile artifact pinning.
+  The local manifest is a logical seal, not access control or authenticity
+  attestation, and does not claim it can detect prior human test inspection.
+- Added deliberately unapproved review drafts and exhaustive checked review
+  intake: every occurrence and parameter, typed sources, preceding edges,
+  registered effects, reviewer/effort/rationale and hashes. Incomplete or failed
+  recordings stay out of executable mining but remain evaluation cases.
+- Added `agent_build`: combine only one reviewed compile role/plan, call the
+  real upstream-backed miner, translate only agreeing declarations and preserve
+  conflicts as IR blockers. Save source, candidate, resolution and Workflow IR.
+- Added planned-task Agent scoring and fresh-state workflow scoring. Pending,
+  failed and zero-call runs are not dropped; repeat trials must be predeclared.
+  Compare final business output and all customer/order/ticket state. Report
+  coverage, accepted correctness and unsafe attempts/acceptances separately.
+  Customer/order admission is explicitly declared, not a synthesized branch;
+  final-chat quality remains unmeasured.
+- Added 20 offline tests and `docs/AGENT_EVALUATION.md`. Skills used for this
+  extension preserve the existing LangChain Agent loop and middleware-based
+  guard boundary; no parallel Agent architecture or new framework was built.
+
+### Actual validation (final implementation)
+
+```text
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 111 tests in 17.493s
+OK (no skips, no paid calls)
+
+$ .venv/bin/python -m unittest discover -s tests -p test_agent_corpus.py -v
+Ran 20 tests in 0.422s
+OK
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py
+exit 0
+
+$ uv lock --check --offline
+Resolved 202 packages
+
+$ uv build --out-dir /tmp/trace2flow-m11-build.X5kecW
+Successfully built sdist and wheel, including all four new M11 modules
+
+$ .venv/bin/python -m trace2flow.agent_corpus examples/customer-support-agent/corpus-plan.json
+{"compile": 10, "development": 8, "test": 12}
+
+$ .venv/bin/python -m trace2flow.agent_corpus examples/customer-support-agent/corpus-plan.json --freeze data-private/agent-corpus-v1-freeze
+exit 0: 30 tasks, 9 selected source hashes, logical-only test seal
+plan SHA-256: 801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225
+
+$ .venv/bin/python -m trace2flow.agent_evaluation examples/customer-support-agent/corpus-plan.json data-private/agent-corpus-v1/development --partition development --manifest data-private/agent-corpus-v1-freeze/manifest.json
+planned=8, evaluated=0, pending=8, score_final=false
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0
+```
+
+The offline integration creates three explicitly scripted compile recordings,
+uses actual Clingo mining and checked declarations, and independently executes
+the resulting five-node workflow on eight development fixtures: four admitted
+and correct, four safely refused, zero unsafe acceptances, coverage 4/8. This
+is a controlled regression result, not a DeepSeek success rate or holdout claim.
+The empty live inventory deliberately has no final score. Streamlit bare-mode
+warnings and a temporary local Prefect server during existing tests are
+expected; all assertions passed. `uv` uses the absolute path noted under M10.
+
+### Remaining work / next milestone (M11b)
+
+No engineering blocker was encountered. Full empirical M11 acceptance is not
+complete: collect all compile/development DeepSeek cases once, review actual
+occurrences and record honest reviewer effort, resolve only justified bindings
+and effects, then freeze a final workflow/source before unlocking all 12 test
+cases. Any ambiguous business binding requires reviewer clarification; do not
+invent a human approval or infer lineage just to finish. Report all failures and
+unsupported structures. The corpus remains simulated business evidence, not
+real customer-system traces. No publication is authorized by this implementation
+request; hosted CI for this branch has not run.
 
 ## M10 update
 

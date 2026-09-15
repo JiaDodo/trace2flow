@@ -110,6 +110,9 @@ class Collector:
         max_model_calls: int = 10,
         max_tool_calls: int = 12,
         allow_read_batches: bool = False,
+        simulator: CustomerSupportSimulator | None = None,
+        task_group_id: str | None = None,
+        collection_context: dict[str, JsonValue] | None = None,
     ) -> None:
         if max_model_calls < 1 or max_tool_calls < 1:
             raise ValueError("call budgets must be positive")
@@ -119,6 +122,8 @@ class Collector:
         self.max_model_calls = max_model_calls
         self.max_tool_calls = max_tool_calls
         self.allow_read_batches = allow_read_batches
+        self.task_group_id = task_group_id or task.task_id
+        self.collection_context = copy.deepcopy(collection_context or {})
         self.model_calls = 0
         self.events: list[dict[str, JsonValue]] = []
         self.calls: list[dict[str, JsonValue]] = []
@@ -134,6 +139,8 @@ class Collector:
         )
         if task.ticket_id == "UNRELATED":
             raise ValueError("reserved ticket ID")
+        if simulator is not None:
+            self.simulator = copy.deepcopy(simulator)
         self.registry = self.simulator.registry()
         self.state_before = self.snapshot()
         self.ending = "not_started"
@@ -268,6 +275,8 @@ class Collector:
             "system_prompt": SYSTEM_PROMPT,
             "prompt_sha256": hashlib.sha256(SYSTEM_PROMPT.encode()).hexdigest(),
             "tool_contract_version": "customer-support-tools/1.0",
+            "task_group_id": self.task_group_id,
+            "collection_context": copy.deepcopy(self.collection_context),
             "producer_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "environment": "synthetic_local_simulator",
             "scripted_model": self.scripted,
@@ -340,7 +349,7 @@ class Collector:
                             "source": "trace2flow/customer-support-agent/v1",
                             "source_run_id": self.run_id,
                             "source_revision": PROMPT_VERSION,
-                            "task_group_id": self.task.task_id,
+                            "task_group_id": self.task_group_id,
                             "execution_context": "local_simulator",
                             "contains_real_customer_data": False,
                         },
@@ -450,6 +459,21 @@ def save_recording(collector: Collector, directory: Path) -> None:
             stream.write(normalized.model_dump_json(indent=2) + "\n")
 
 
+def deepseek_model(model_id: str = DEFAULT_MODEL):
+    """Lazy provider construction; callers must authorize live requests first."""
+    from langchain_deepseek import ChatDeepSeek
+
+    return ChatDeepSeek(
+        model=model_id,
+        api_base="https://api.deepseek.com",
+        temperature=0,
+        max_tokens=2048,
+        timeout=30,
+        max_retries=0,
+        extra_body={"thinking": {"type": "disabled"}},
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Collect one DeepSeek run on synthetic local tools"
@@ -475,17 +499,7 @@ def main(argv: list[str] | None = None) -> int:
     task = AgentTask.model_validate(
         loads_json_document(args.task.read_text(encoding="utf-8"))
     )
-    from langchain_deepseek import ChatDeepSeek
-
-    model = ChatDeepSeek(
-        model=args.model,
-        api_base="https://api.deepseek.com",
-        temperature=0,
-        max_tokens=2048,
-        timeout=30,
-        max_retries=0,
-        extra_body={"thinking": {"type": "disabled"}},
-    )
+    model = deepseek_model(args.model)
     collector = Collector(task, model_id=args.model, allow_read_batches=True)
     run_agent(collector, model)
     save_recording(collector, args.output)
