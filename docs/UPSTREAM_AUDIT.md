@@ -21,7 +21,11 @@ they are Trace2Flow contributions, not upstream capabilities. The M11 offline
 integration invokes the existing adapter/candidate path and actual Clingo
 mining, then builds the occurrence-level IR separately. A declared admission
 guard and reviewed binding are not claims of automatic branch/lineage discovery.
-See `docs/AGENT_EVALUATION.md`; full live held-out Agent scoring remains pending.
+See `docs/AGENT_EVALUATION.md`. M11b subsequently completed a frozen twelve-task
+local-model test: eight workflow executions match independent output/full-state
+expectations, four are safely refused. Model runs use synthetic business state,
+explicit AI-reviewed contracts and declared admission guards; this does not
+extend the upstream compiler's automatic lineage or branch capabilities.
 
 ## Provenance, license, and layout
 

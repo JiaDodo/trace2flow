@@ -1,0 +1,2176 @@
+{
+  "schema_version": "workflow-ir/1.0",
+  "workflow_id": "agent-corpus-v1-compile-workflow",
+  "source_dataset_id": "agent-corpus-v1-compile",
+  "source_sha256": "43a6a8db9ee265f62426b2e66fd099fe091f85b6bb810a2350d18bc44df0d35a",
+  "candidate_schema_version": "candidate-dag/1.0",
+  "nodes": [
+    {
+      "id": "node_034187e584c6",
+      "tool": "update_ticket",
+      "occurrences": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "step_id": "call_00_N99gShcjy3wyFpsnxwYB0360",
+          "qualified_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "step_id": "call_00_mkB1KyjzIc6TodverXhU3267",
+          "qualified_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "step_id": "call_00_WP6rZPpPOuDJjJkTVooh3519",
+          "qualified_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "step_id": "call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+          "qualified_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "step_id": "call_00_E4e48aDr6yy3I7KDngdv9494",
+          "qualified_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "step_id": "call_00_Y1ubpyquhH71b1cRNlX78231",
+          "qualified_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "step_id": "call_00_RxDzEPwM9kHJCwIabuSX9194",
+          "qualified_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "step_id": "call_00_XQeKUH3m5wrb488tluAr5902",
+          "qualified_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "step_id": "call_00_Id3fjDWDj1f1QixMqF4m5740",
+          "qualified_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740"
+        }
+      ],
+      "parameters": {
+        "issue_type": {
+          "kind": "tool_output",
+          "source_node_id": "node_7d752d73063d",
+          "path": [
+            "issue_type"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "recommendation": {
+          "kind": "tool_output",
+          "source_node_id": "node_7d752d73063d",
+          "path": [
+            "recommendation"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "observed_value": "replacement_offer",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "observed_value": "manual_refund_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "observed_value": "carrier_investigation",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "observed_value": "manual_refund_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "observed_value": "carrier_investigation",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "observed_value": "replacement_offer",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "observed_value": "carrier_investigation",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "observed_value": "manual_refund_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740",
+              "source_kind": "tool_output",
+              "source_path": [
+                "recommendation"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "observed_value": "replacement_offer",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "status": {
+          "kind": "tool_output",
+          "source_node_id": "node_7d752d73063d",
+          "path": [
+            "status"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "observed_value": "replacement_offered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "observed_value": "pending_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "observed_value": "pending_carrier",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "observed_value": "pending_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "observed_value": "pending_carrier",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "observed_value": "replacement_offered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "observed_value": "pending_carrier",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "observed_value": "pending_review",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "observed_value": "replacement_offered",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "ticket_id": {
+          "kind": "task_input",
+          "path": [
+            "ticket_id"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-05",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-09",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-07",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-06",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-01",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-08",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-04",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-03",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "T-compile-02",
+              "validation": "observed_value_match"
+            }
+          ]
+        }
+      },
+      "side_effects": [
+        {
+          "kind": "write",
+          "target": "mock.tickets",
+          "reversible": true
+        }
+      ],
+      "alignment_status": "aligned",
+      "branch_resolution": "resolved",
+      "branch_reason": null,
+      "side_effect_resolution": "resolved",
+      "side_effect_reason": null
+    },
+    {
+      "id": "node_04ec0affeb6e",
+      "tool": "lookup_order",
+      "occurrences": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "step_id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+          "qualified_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "step_id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+          "qualified_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "step_id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+          "qualified_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "step_id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+          "qualified_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "step_id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+          "qualified_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "step_id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+          "qualified_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "step_id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+          "qualified_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "step_id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+          "qualified_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "step_id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+          "qualified_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305"
+        }
+      ],
+      "parameters": {
+        "customer_id": {
+          "kind": "task_input",
+          "path": [
+            "customer_id"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-05",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-09",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-07",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-06",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-01",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-08",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-04",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-03",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-02",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "order_id": {
+          "kind": "task_input",
+          "path": [
+            "order_id"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-05",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-09",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-07",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-06",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-01",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-08",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-04",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-03",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "source_kind": "task_input",
+              "source_path": [
+                "order_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "O-compile-02",
+              "validation": "observed_value_match"
+            }
+          ]
+        }
+      },
+      "side_effects": [
+        {
+          "kind": "read",
+          "target": "mock.orders",
+          "reversible": null
+        }
+      ],
+      "alignment_status": "aligned",
+      "branch_resolution": "resolved",
+      "branch_reason": null,
+      "side_effect_resolution": "resolved",
+      "side_effect_reason": null
+    },
+    {
+      "id": "node_0d9843881654",
+      "tool": "classify_issue",
+      "occurrences": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "step_id": "call_00_UatVGAaBeco63pGY6NCi0414",
+          "qualified_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "step_id": "call_00_CW3eL3LWyP5vPVYo0myy8579",
+          "qualified_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "step_id": "call_00_jr1DLYqYjDbfQF6JqICJ0706",
+          "qualified_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "step_id": "call_00_3MkeFnVHLONPHGoi8xGj9024",
+          "qualified_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "step_id": "call_00_48uv2uPv2yJYwd980XyY3593",
+          "qualified_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "step_id": "call_00_IxbLdM2nGvyaCj5a5p043966",
+          "qualified_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "step_id": "call_00_cQPNRdazuBpsiVSKxMQk7971",
+          "qualified_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "step_id": "call_00_z45Ybw20aBHCyiVsSXNP2741",
+          "qualified_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "step_id": "call_00_KbCA7TBqk4MmuIRwydDg6890",
+          "qualified_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890"
+        }
+      ],
+      "parameters": {
+        "damaged": {
+          "kind": "tool_output",
+          "source_node_id": "node_04ec0affeb6e",
+          "path": [
+            "damaged"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "source_kind": "tool_output",
+              "source_path": [
+                "damaged"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "delivered": {
+          "kind": "tool_output",
+          "source_node_id": "node_04ec0affeb6e",
+          "path": [
+            "delivered"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "source_kind": "tool_output",
+              "source_path": [
+                "delivered"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "duplicate_charge": {
+          "kind": "tool_output",
+          "source_node_id": "node_04ec0affeb6e",
+          "path": [
+            "duplicate_charge"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "source_kind": "tool_output",
+              "source_path": [
+                "duplicate_charge"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "order_status": {
+          "kind": "tool_output",
+          "source_node_id": "node_04ec0affeb6e",
+          "path": [
+            "status"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+              "observed_value": "shipped",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+              "observed_value": "shipped",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+              "observed_value": "shipped",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "source_kind": "tool_output",
+              "source_path": [
+                "status"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+              "observed_value": "delivered",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "ticket_text": {
+          "kind": "task_input",
+          "path": [
+            "ticket_text"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "包裹里的商品破损，请查看订单事实。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "重复扣费请先审核，不要真的退款。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "运输还没完成，请记录后续处理。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "账单疑似重复收费，麻烦查证。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "订单没收到，请查询并记录建议。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "商品坏了，请给出符合政策的建议。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "包裹迟迟没到，我需要处理建议。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "好像扣款两次，请核实并更新工单。",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "source_kind": "task_input",
+              "source_path": [
+                "ticket_text"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "收到的商品损坏了，请核实处理。",
+              "validation": "observed_value_match"
+            }
+          ]
+        }
+      },
+      "side_effects": [
+        {
+          "kind": "none",
+          "target": null,
+          "reversible": null
+        }
+      ],
+      "alignment_status": "aligned",
+      "branch_resolution": "resolved",
+      "branch_reason": null,
+      "side_effect_resolution": "resolved",
+      "side_effect_reason": null
+    },
+    {
+      "id": "node_7d752d73063d",
+      "tool": "recommend_action",
+      "occurrences": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "step_id": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+          "qualified_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "step_id": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+          "qualified_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "step_id": "call_00_suTquckUUBL0LhvvwC176691",
+          "qualified_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "step_id": "call_00_yt88mom0ecwoX9t5HDaj8202",
+          "qualified_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "step_id": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+          "qualified_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "step_id": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+          "qualified_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "step_id": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+          "qualified_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "step_id": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+          "qualified_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "step_id": "call_00_VjxKgcpanizlXix8pt2l6221",
+          "qualified_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221"
+        }
+      ],
+      "parameters": {
+        "eligible": {
+          "kind": "tool_output",
+          "source_node_id": "node_0d9843881654",
+          "path": [
+            "eligible"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "observed_value": false,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "source_kind": "tool_output",
+              "source_path": [
+                "eligible"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "observed_value": true,
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "issue_type": {
+          "kind": "tool_output",
+          "source_node_id": "node_0d9843881654",
+          "path": [
+            "issue_type"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+              "observed_value": "delivery_delay",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+              "observed_value": "billing_duplicate",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "source_kind": "tool_output",
+              "source_path": [
+                "issue_type"
+              ],
+              "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+              "observed_value": "damaged_item",
+              "validation": "observed_value_match"
+            }
+          ]
+        },
+        "policy_version": {
+          "kind": "task_input",
+          "path": [
+            "policy_version"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+              "source_kind": "task_input",
+              "source_path": [
+                "policy_version"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "v1",
+              "validation": "observed_value_match"
+            }
+          ]
+        }
+      },
+      "side_effects": [
+        {
+          "kind": "none",
+          "target": null,
+          "reversible": null
+        }
+      ],
+      "alignment_status": "aligned",
+      "branch_resolution": "resolved",
+      "branch_reason": null,
+      "side_effect_resolution": "resolved",
+      "side_effect_reason": null
+    },
+    {
+      "id": "node_a7583bb9c049",
+      "tool": "lookup_customer",
+      "occurrences": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "step_id": "call_00_Es0wZLPRs1xCJvbJCOn81674",
+          "qualified_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_Es0wZLPRs1xCJvbJCOn81674"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "step_id": "call_00_iya6VIqULtKFmdDGwAYr4111",
+          "qualified_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_iya6VIqULtKFmdDGwAYr4111"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "step_id": "call_00_dQdU6WHztB6QLZ2WJMOt8250",
+          "qualified_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_dQdU6WHztB6QLZ2WJMOt8250"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "step_id": "call_00_zVL0rkgBYiuSmECmFIRk3090",
+          "qualified_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_zVL0rkgBYiuSmECmFIRk3090"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "step_id": "call_00_sfbyJARnuMDyfbGPqcVW8855",
+          "qualified_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_sfbyJARnuMDyfbGPqcVW8855"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "step_id": "call_00_RvZsLDygOmXFNpi90m2M8383",
+          "qualified_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_RvZsLDygOmXFNpi90m2M8383"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "step_id": "call_00_Vqq712RWOlFDlFo5w0AJ2964",
+          "qualified_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_Vqq712RWOlFDlFo5w0AJ2964"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "step_id": "call_00_AMwnSnZkeEYHQUbokJZz4875",
+          "qualified_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_AMwnSnZkeEYHQUbokJZz4875"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "step_id": "call_00_KzlVyGg0qpWt9rbqgVN10875",
+          "qualified_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KzlVyGg0qpWt9rbqgVN10875"
+        }
+      ],
+      "parameters": {
+        "customer_id": {
+          "kind": "task_input",
+          "path": [
+            "customer_id"
+          ],
+          "declared": true,
+          "rationale": "explicit_declaration",
+          "evidence_mode": "observed_value_match",
+          "evidence": [
+            {
+              "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+              "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_Es0wZLPRs1xCJvbJCOn81674",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-05",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+              "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_iya6VIqULtKFmdDGwAYr4111",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-09",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+              "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_dQdU6WHztB6QLZ2WJMOt8250",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-07",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+              "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_zVL0rkgBYiuSmECmFIRk3090",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-06",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+              "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_sfbyJARnuMDyfbGPqcVW8855",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-01",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+              "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_RvZsLDygOmXFNpi90m2M8383",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-08",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+              "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_Vqq712RWOlFDlFo5w0AJ2964",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-04",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+              "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_AMwnSnZkeEYHQUbokJZz4875",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-03",
+              "validation": "observed_value_match"
+            },
+            {
+              "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+              "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KzlVyGg0qpWt9rbqgVN10875",
+              "source_kind": "task_input",
+              "source_path": [
+                "customer_id"
+              ],
+              "source_occurrence_id": null,
+              "observed_value": "C-compile-02",
+              "validation": "observed_value_match"
+            }
+          ]
+        }
+      },
+      "side_effects": [
+        {
+          "kind": "read",
+          "target": "mock.customers",
+          "reversible": null
+        }
+      ],
+      "alignment_status": "aligned",
+      "branch_resolution": "resolved",
+      "branch_reason": null,
+      "side_effect_resolution": "resolved",
+      "side_effect_reason": null
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_9897eff43a0e",
+      "source_node_id": "node_7d752d73063d",
+      "target_node_id": "node_034187e584c6",
+      "evidence": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+          "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_N99gShcjy3wyFpsnxwYB0360",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+          "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_mkB1KyjzIc6TodverXhU3267",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+          "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_WP6rZPpPOuDJjJkTVooh3519",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+          "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+          "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_E4e48aDr6yy3I7KDngdv9494",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+          "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_Y1ubpyquhH71b1cRNlX78231",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+          "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_RxDzEPwM9kHJCwIabuSX9194",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+          "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_XQeKUH3m5wrb488tluAr5902",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+          "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_Id3fjDWDj1f1QixMqF4m5740",
+          "declaration": "depends_on"
+        }
+      ],
+      "rationale": "explicit_depends_on"
+    },
+    {
+      "id": "edge_b437b87bf55c",
+      "source_node_id": "node_04ec0affeb6e",
+      "target_node_id": "node_0d9843881654",
+      "evidence": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_01_RF4CFB1mZZmWTovBeAde9712",
+          "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_01_YKB0jcmQjB6qURkZpx6u6067",
+          "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_01_h0kvsp1cwCWUqalUeaUy3478",
+          "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_01_9URqdLAtHESoDOcJCiFn6513",
+          "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_01_m1gqGDrP0R4WghZpLzFU3697",
+          "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_01_GlUhx7dceo71zfyoCcsP1104",
+          "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_01_i3zcSlCqeMZYn9rzqfnb5646",
+          "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_01_nFQF8fnq0ig7t8QXahFs5964",
+          "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_01_bf9Knfg0d9aO0mDuaaSH5305",
+          "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+          "declaration": "depends_on"
+        }
+      ],
+      "rationale": "explicit_depends_on"
+    },
+    {
+      "id": "edge_d574a111ce75",
+      "source_node_id": "node_0d9843881654",
+      "target_node_id": "node_7d752d73063d",
+      "evidence": [
+        {
+          "run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+          "source_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_UatVGAaBeco63pGY6NCi0414",
+          "target_occurrence_id": "agent_20e07fd140314bed952a0e9cb1f8eab1:call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+          "source_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_CW3eL3LWyP5vPVYo0myy8579",
+          "target_occurrence_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd:call_00_LwGyEuIRtNt04Z1WVAbR4045",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+          "source_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_jr1DLYqYjDbfQF6JqICJ0706",
+          "target_occurrence_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f:call_00_suTquckUUBL0LhvvwC176691",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+          "source_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_3MkeFnVHLONPHGoi8xGj9024",
+          "target_occurrence_id": "agent_3b747131cb764e18829b0e66e81bece5:call_00_yt88mom0ecwoX9t5HDaj8202",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+          "source_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_48uv2uPv2yJYwd980XyY3593",
+          "target_occurrence_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950:call_00_y9LXAkxepoGDAgfTZfIl5998",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a359c50ee810439a93169098f5fd3862",
+          "source_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_IxbLdM2nGvyaCj5a5p043966",
+          "target_occurrence_id": "agent_a359c50ee810439a93169098f5fd3862:call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+          "source_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_cQPNRdazuBpsiVSKxMQk7971",
+          "target_occurrence_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557:call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+          "source_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_z45Ybw20aBHCyiVsSXNP2741",
+          "target_occurrence_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8:call_00_6oS8uMJiaHSF0u5TANtY9083",
+          "declaration": "depends_on"
+        },
+        {
+          "run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+          "source_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_KbCA7TBqk4MmuIRwydDg6890",
+          "target_occurrence_id": "agent_d53108f734604ddba3b21c9d9a1e9538:call_00_VjxKgcpanizlXix8pt2l6221",
+          "declaration": "depends_on"
+        }
+      ],
+      "rationale": "explicit_depends_on"
+    }
+  ],
+  "unresolved_dependencies": 0,
+  "output_node_ids": [
+    "node_034187e584c6"
+  ]
+}

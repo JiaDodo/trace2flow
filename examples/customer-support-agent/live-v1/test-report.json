@@ -1,0 +1,699 @@
+{
+  "schema_version": "agent-workflow-report/1.0",
+  "scope": "recorded_model_calls_in_synthetic_local_business_environment",
+  "partition": "test",
+  "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+  "agent": {
+    "scope": "synthetic_local_business_outcomes",
+    "partition": "test",
+    "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+    "planned_cases": 12,
+    "evaluated_cases": 12,
+    "pending_cases": 0,
+    "correct_cases": 12,
+    "unsafe_write_attempts": 0,
+    "score_final": true,
+    "results": [
+      {
+        "case_id": "test-01",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-02",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-03",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-04",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-05",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-06",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-07",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "test-08",
+        "partition": "test",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 3,
+        "tool_calls": 3
+      },
+      {
+        "case_id": "test-09",
+        "partition": "test",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 2,
+        "tool_calls": 1
+      },
+      {
+        "case_id": "test-10",
+        "partition": "test",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 2,
+        "tool_calls": 1
+      },
+      {
+        "case_id": "test-11",
+        "partition": "test",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 1,
+        "tool_calls": 0
+      },
+      {
+        "case_id": "test-12",
+        "partition": "test",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      }
+    ]
+  },
+  "agent_usage": {
+    "recorded_cases": 12,
+    "model_calls": 48,
+    "tool_calls": 45,
+    "failed_tool_calls": 3,
+    "input_tokens": 59615,
+    "output_tokens": 5228,
+    "usage_complete": true,
+    "results": [
+      {
+        "case_id": "test-01",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6417,
+        "output_tokens": 524,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.484062062110752
+      },
+      {
+        "case_id": "test-02",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6416,
+        "output_tokens": 527,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.036263291025534
+      },
+      {
+        "case_id": "test-03",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6414,
+        "output_tokens": 554,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.087222608039156
+      },
+      {
+        "case_id": "test-04",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6396,
+        "output_tokens": 567,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.098632828798145
+      },
+      {
+        "case_id": "test-05",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6417,
+        "output_tokens": 579,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.879245021846145
+      },
+      {
+        "case_id": "test-06",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6424,
+        "output_tokens": 534,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.39064454101026
+      },
+      {
+        "case_id": "test-07",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6438,
+        "output_tokens": 546,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.56541622010991
+      },
+      {
+        "case_id": "test-08",
+        "model_calls": 3,
+        "tool_calls": 3,
+        "failed_tool_calls": 2,
+        "usage_events": 3,
+        "input_tokens": 3282,
+        "output_tokens": 338,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 9.88243660214357
+      },
+      {
+        "case_id": "test-09",
+        "model_calls": 2,
+        "tool_calls": 1,
+        "failed_tool_calls": 0,
+        "usage_events": 2,
+        "input_tokens": 1975,
+        "output_tokens": 179,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 6.912698708008975
+      },
+      {
+        "case_id": "test-10",
+        "model_calls": 2,
+        "tool_calls": 1,
+        "failed_tool_calls": 1,
+        "usage_events": 2,
+        "input_tokens": 1993,
+        "output_tokens": 166,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 6.584989134920761
+      },
+      {
+        "case_id": "test-11",
+        "model_calls": 1,
+        "tool_calls": 0,
+        "failed_tool_calls": 0,
+        "usage_events": 1,
+        "input_tokens": 946,
+        "output_tokens": 111,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 5.14628253900446
+      },
+      {
+        "case_id": "test-12",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6497,
+        "output_tokens": 603,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.71021317713894
+      }
+    ]
+  },
+  "limitations": [
+    "synthetic business tasks and deterministic classification/recommendation tools",
+    "reviewed execution contract, not automatic lineage or branch discovery",
+    "final customer-facing chat correctness is not measured",
+    "Agent timer includes model/framework/collection; workflow timer is local execution only",
+    "single trial per task, no statistical/generalization or production speedup claim",
+    "token usage is measured where available; money/cost savings are not estimated"
+  ],
+  "workflow": {
+    "scope": "independent_synthetic_local_execution",
+    "partition": "test",
+    "admission_policy": "declared_customer_order_identity_contract_not_mined_branch",
+    "planned_cases": 12,
+    "accepted_cases": 8,
+    "coverage": 0.6666666666666666,
+    "accepted_correct_cases": 8,
+    "accepted_case_correctness": 1.0,
+    "unsafe_acceptances": 0,
+    "correct_cases": 12,
+    "results": [
+      {
+        "case_id": "test-01",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-02",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-03",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-04",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-05",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-06",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-07",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-08",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-09",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-10",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-11",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "test-12",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      }
+    ]
+  },
+  "matched_accepted_cases": {
+    "cases": 8,
+    "agent_model_calls": 40,
+    "workflow_model_calls": 0,
+    "agent_tool_calls": 40,
+    "workflow_tool_calls": 40,
+    "agent_collection_elapsed_median_seconds": 13.09292771841865,
+    "workflow_execution_elapsed_median_seconds": 9.696849156171083e-05,
+    "results": [
+      {
+        "case_id": "test-01",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 0.0001017421018332243,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6417,
+          "output_tokens": 524,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.484062062110752
+        }
+      },
+      {
+        "case_id": "test-02",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.840098209679127e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6416,
+          "output_tokens": 527,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.036263291025534
+        }
+      },
+      {
+        "case_id": "test-03",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.77709423750639e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6414,
+          "output_tokens": 554,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 13.087222608039156
+        }
+      },
+      {
+        "case_id": "test-04",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.720702655613422e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6396,
+          "output_tokens": 567,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 13.098632828798145
+        }
+      },
+      {
+        "case_id": "test-05",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.609595872461796e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6417,
+          "output_tokens": 579,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 13.879245021846145
+        }
+      },
+      {
+        "case_id": "test-06",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.596999734640121e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6424,
+          "output_tokens": 534,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.39064454101026
+        }
+      },
+      {
+        "case_id": "test-07",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.669293649494648e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6438,
+          "output_tokens": 546,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 13.56541622010991
+        }
+      },
+      {
+        "case_id": "test-12",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.672995656728745e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6497,
+          "output_tokens": 603,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 13.71021317713894
+        }
+      }
+    ]
+  },
+  "review_effort": {
+    "reviewer_kind": "ai_declared_contract_and_automated_validation",
+    "human_review_minutes": 0,
+    "ai_reasoning_review_minutes": null,
+    "automated_contract_check_minutes": 0.000516883838766565,
+    "manual_ai_effort_measured": false
+  },
+  "workflow_sha256": "5b9dc1bb54c87f34221d4a7d85fa27caf39ebc5f166f98e882dde44c0251a201",
+  "compile_sha256": "5c0caf7b9eca3c1cab9c0e37ad2dd3b46b6fcc42e3076a492dfd6c1293a04ad0",
+  "report_source_sha256": "fcd1bc993c13527c06f640ea51004a39eecb833248c421dbad15bf8dc697df40",
+  "raw_inventory": [
+    {
+      "case_id": "test-01",
+      "raw_sha256": "15c7bfb061815441eccac6f70bb2397bf2e68842b8b21e2a620ee074594b09b8"
+    },
+    {
+      "case_id": "test-02",
+      "raw_sha256": "710d947459ff34aed18e29eb0481b5c3703c4d468db2143028d7bf89e7d219cb"
+    },
+    {
+      "case_id": "test-03",
+      "raw_sha256": "46f1759f83777c82c1c5462b8e8ec240fa389fa7744216c788a9a485afdd8dc8"
+    },
+    {
+      "case_id": "test-04",
+      "raw_sha256": "f33bcb073ba0da6619377fd0f0ba072defc7e14f52f39adcac63c7c5c3459ceb"
+    },
+    {
+      "case_id": "test-05",
+      "raw_sha256": "407fe00d48edeb14bb47f7d9313d2be5dd9dd4cae16a12306b2a8375b0337978"
+    },
+    {
+      "case_id": "test-06",
+      "raw_sha256": "d7f0cc8bfb97a7989a94866afbf78183d71b6f78c63957c95e851a1ad5d6eae8"
+    },
+    {
+      "case_id": "test-07",
+      "raw_sha256": "deb9001c527496c8d4da7f141c7e8723d8ca4125c1eb2172b5a88801312e8908"
+    },
+    {
+      "case_id": "test-08",
+      "raw_sha256": "481d50abb595dbd38e23f3ba46e70245ac27b5e19e2454484d0b99c90cdf7564"
+    },
+    {
+      "case_id": "test-09",
+      "raw_sha256": "47dd738c144ec7fe71eabd4c854e835468fd5fee5e999282e6f8e88997a479a5"
+    },
+    {
+      "case_id": "test-10",
+      "raw_sha256": "437381c73786c4e1374807ba9038d51413d32bc8e17cc57184f8bfedfcda2606"
+    },
+    {
+      "case_id": "test-11",
+      "raw_sha256": "0350e3af05f68e6e042aa5bcd76afb851c11c90d438b3b5d77e0d3a64fd83573"
+    },
+    {
+      "case_id": "test-12",
+      "raw_sha256": "baaa02b31fc87978be0a15fd972332e60cc87005b56ffe4f3243dfefda71a3f8"
+    }
+  ]
+}

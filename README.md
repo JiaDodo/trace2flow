@@ -32,10 +32,13 @@ not a new compiler: raw evidence is saved locally, normalized output requires
 dependency review, and live calls need an explicit paid-call flag. See
 [the Agent collector guide](docs/AGENT_COLLECTOR.md).
 
-The next evaluation stage has a predeclared 30-task synthetic plan, hash-bound
-explicit review intake and independent Agent/workflow outcome scoring. The
-engineering baseline is tested; full live corpus collection and untouched
-model-test scoring are pending. See [the evaluation guide](docs/AGENT_EVALUATION.md).
+The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
+explicit review intake and independent Agent/workflow outcome scoring. All
+30 tasks were collected with DeepSeek. On the frozen twelve-task test set the
+workflow correctly executed 8 accepted cases and safely refused 4; coverage
+is 8/12. This is controlled simulated-business evidence, not real-customer or
+general model reliability. See [the experiment record](docs/AGENT_EXPERIMENT.md)
+and [the evaluation guide](docs/AGENT_EVALUATION.md).
 
 A small checked-in recorded corpus demonstrates the non-synthetic data path:
 

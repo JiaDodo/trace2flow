@@ -223,6 +223,15 @@ blockers. Excluded compile records stay in the planned-task evaluation.
 `agent_build` may compile only included reviewed compile-role data. A declared
 customer/order admission guard must not be described as mined branching.
 
+M11b evidence is archived under `examples/customer-support-agent/live-v1/`.
+Read `docs/AGENT_EXPERIMENT.md` and `SOURCE.md` before making claims. Contract
+review names exact occurrence IDs and is AI-reviewed, not human. Machine check
+time is not manual AI/human effort. Zero-tool `test-11` stays raw-only. These
+task fixtures are now known regression data: do not reuse them as untouched
+holdout after policy/workflow changes. Keep the historical frozen report and
+pipeline separate from any newly tuned version. A public archive without raw
+recordings reproduces workflow simulation, not provider authenticity.
+
 Run the offline baseline with:
 
 ```bash

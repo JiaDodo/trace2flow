@@ -1,0 +1,351 @@
+{
+  "schema_version": "agent-workflow-report/1.0",
+  "scope": "recorded_model_calls_in_synthetic_local_business_environment",
+  "partition": "compile",
+  "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+  "agent": {
+    "scope": "synthetic_local_business_outcomes",
+    "partition": "compile",
+    "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+    "planned_cases": 10,
+    "evaluated_cases": 10,
+    "pending_cases": 0,
+    "correct_cases": 10,
+    "unsafe_write_attempts": 0,
+    "score_final": true,
+    "results": [
+      {
+        "case_id": "compile-01",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-02",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-03",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-04",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-05",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-06",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-07",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-08",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-09",
+        "partition": "compile",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "compile-10",
+        "partition": "compile",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 3,
+        "tool_calls": 3
+      }
+    ]
+  },
+  "agent_usage": {
+    "recorded_cases": 10,
+    "model_calls": 48,
+    "tool_calls": 48,
+    "failed_tool_calls": 2,
+    "input_tokens": 61394,
+    "output_tokens": 5192,
+    "usage_complete": true,
+    "results": [
+      {
+        "case_id": "compile-01",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6458,
+        "output_tokens": 542,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.90622385009192
+      },
+      {
+        "case_id": "compile-02",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6441,
+        "output_tokens": 520,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.24470555409789
+      },
+      {
+        "case_id": "compile-03",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6479,
+        "output_tokens": 562,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.54206469305791
+      },
+      {
+        "case_id": "compile-04",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6450,
+        "output_tokens": 526,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.564636346884072
+      },
+      {
+        "case_id": "compile-05",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6449,
+        "output_tokens": 559,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 13.398940232116729
+      },
+      {
+        "case_id": "compile-06",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6455,
+        "output_tokens": 554,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 14.609158857027069
+      },
+      {
+        "case_id": "compile-07",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6450,
+        "output_tokens": 530,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.98136015003547
+      },
+      {
+        "case_id": "compile-08",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6441,
+        "output_tokens": 525,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.36789790680632
+      },
+      {
+        "case_id": "compile-09",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6471,
+        "output_tokens": 546,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.734113627113402
+      },
+      {
+        "case_id": "compile-10",
+        "model_calls": 3,
+        "tool_calls": 3,
+        "failed_tool_calls": 2,
+        "usage_events": 3,
+        "input_tokens": 3300,
+        "output_tokens": 328,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 9.594753891928121
+      }
+    ]
+  },
+  "limitations": [
+    "synthetic business tasks and deterministic classification/recommendation tools",
+    "reviewed execution contract, not automatic lineage or branch discovery",
+    "final customer-facing chat correctness is not measured",
+    "Agent timer includes model/framework/collection; workflow timer is local execution only",
+    "single trial per task, no statistical/generalization or production speedup claim",
+    "token usage is measured where available; money/cost savings are not estimated"
+  ],
+  "report_source_sha256": "fcd1bc993c13527c06f640ea51004a39eecb833248c421dbad15bf8dc697df40",
+  "raw_inventory": [
+    {
+      "case_id": "compile-01",
+      "raw_sha256": "43e7417c602d84fb345f3e59520dede7bac552de57c079a8c5ecd6643215951b"
+    },
+    {
+      "case_id": "compile-02",
+      "raw_sha256": "34afe0a43e6f5fa190d78327a74b39fc9b1003224fc2a21dcded851b69b7cdc4"
+    },
+    {
+      "case_id": "compile-03",
+      "raw_sha256": "d92dc1d338fd7a46a1c6b1d9738bd767dc128e9d65599aae90369e1ac4f7ffda"
+    },
+    {
+      "case_id": "compile-04",
+      "raw_sha256": "e3a42de34d47f682bf34349f654905d8643643942e0f089947568cfd3d0208c1"
+    },
+    {
+      "case_id": "compile-05",
+      "raw_sha256": "ca7bb55a93e412f5cf397e17bd59d458b8471a9d1f9bdb160cf099653e062cc5"
+    },
+    {
+      "case_id": "compile-06",
+      "raw_sha256": "5774c561cf401bdb5904f0ab206e20279043f41bb8df7dd044950d1c82147d47"
+    },
+    {
+      "case_id": "compile-07",
+      "raw_sha256": "6a83d76f69ad71571f850a345195abea092f4dc3393978ff8ea61eb37ff3ad64"
+    },
+    {
+      "case_id": "compile-08",
+      "raw_sha256": "dc36d9343392edb9297c9d5cc8eb9ca8b0e88aefdfeedf8ea4e7f280c335292a"
+    },
+    {
+      "case_id": "compile-09",
+      "raw_sha256": "c9eba8042a556a060bffcda89f5835385db54f39aa8f99b5bc5d27ced1903644"
+    },
+    {
+      "case_id": "compile-10",
+      "raw_sha256": "ca594d886cbc561e57fd317ecfc12f45315119e0e1e6a3d6738cfc4a2d69656e"
+    }
+  ]
+}

@@ -102,8 +102,22 @@ measures local execution only. These are descriptive timings, not a valid
 production speedup multiplier. Token totals include only provider-reported
 usage and mark incomplete accounting. Costs are not estimated.
 
-## Current experiment stage
+## Completed experiment
 
-Compile and development collection/review passed. Test collection has not run
-at this pre-test source checkpoint. See `docs/STATUS.md` for the subsequent
-actual results; the workflow and scoring code must not be tuned on test output.
+The pre-test checkpoint is commit `81acf50`. The workflow/report were frozen
+before test collection; pipeline, declarations and scorer remained unchanged
+after observing results. All 30 planned live tasks were recorded once. Test
+outcomes: Agent 8 correct updates plus 4 safe unchanged outcomes; workflow
+accepts 8/12, executes all accepted cases correctly and refuses 4 safely. There
+are no unsafe write attempts/acceptances. This is not a customer-chat quality
+score or production success-rate claim.
+
+Accepted test tasks use 40 Agent model calls versus 0 workflow model calls;
+both dispatch 40 tool calls. All 30 runs report 155,992 input and 13,597 output
+tokens, with 125 requests and 120 dispatched calls, including 10 failed calls.
+No paid recording was discarded. The test includes a zero-call raw-only run.
+The generated target also passed a real local Prefect run with exact output
+and full-state assertions. See the
+[archive/source record](../examples/customer-support-agent/live-v1/SOURCE.md)
+and three JSON reports for results and limitations. These fixtures are now
+known archived regressions; future iterations require a newly declared holdout.

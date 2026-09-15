@@ -173,7 +173,7 @@ and partial recording. Unreviewed normalized output cannot enter mining. Run a
 small explicitly authorized DeepSeek development pilot; report actual results
 without treating the pilot as a holdout score or claiming automatic lineage.
 
-## M11 — Reviewed agent corpus and independent evaluation (in progress)
+## M11 — Reviewed agent corpus and independent evaluation (complete, controlled local experiment)
 
 Freeze task partitions before collecting a larger corpus. Add a checked,
 source-pinned review intake for collector recordings, preserving original raw
@@ -196,12 +196,25 @@ M11a engineering baseline is complete:
 - Planned-task Agent evaluation and fresh-state workflow execution with
   separate admission coverage, correctness and safety; twenty offline tests.
 
-M11b empirical acceptance remains pending: collect every compile/development
-task with DeepSeek, review actual occurrences with honestly recorded effort,
-resolve only supported declarations, freeze a final workflow, then collect all
-untouched test tasks once. Publish a reproducible report including all failures,
-pending runs, unsupported structures, coverage and unsafe attempts. The baseline
-scripted test results do not satisfy this empirical acceptance.
+M11b completed all thirty predeclared live tasks once, explicitly AI-reviewed
+the compile population, recorded machine-check time while labeling manual AI
+effort unmeasured, froze the workflow/report before test collection, and archived
+complete reports including failed calls and a zero-call run. Workflow test
+coverage is 8/12; all eight accepted output/full-state comparisons pass with
+zero unsafe acceptances. A real local Prefect target run also passes. These
+are controlled synthetic-business results, not automatic lineage discovery,
+human-review evidence or production/generalization claims.
+
+## M12 — Live-evidence demo handoff (next)
+
+Integrate the archived DeepSeek corpus/result into the existing Streamlit
+inspection story without a new frontend architecture. Show one raw task/tool
+recording, occurrence DAG, declared bindings, independent execution/state diff
+and coverage alongside accepted correctness. Keep AI-review and synthetic-state
+labels prominent and expose failure/zero-call evidence. Add a concise Chinese
+demo script and screenshots. Reuse known archived fixtures for UI regression,
+not a fresh holdout score. Any policy/workflow tuning needs a new predeclared
+test population. No live customer integration or self-evolution loop is implied.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

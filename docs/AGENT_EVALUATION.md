@@ -1,8 +1,9 @@
 # Agent corpus and independent evaluation (M11a)
 
-The engineering baseline is implemented. A larger live DeepSeek corpus and
-untouched model-test evaluation have **not** run. M10 pilots remain development
-evidence and are not retroactively inserted into this corpus.
+The M11a engineering baseline and M11b controlled live experiment are complete.
+See [the experiment record](AGENT_EXPERIMENT.md) for the actual thirty-task
+DeepSeek results and limitations. M10 pilots remain development evidence and
+are not retroactively inserted into this corpus.
 
 ## Task plan and evidence boundaries
 
@@ -148,7 +149,7 @@ scoring only: correctness of the final customer-facing chat is not measured.
 Workflow admission is reported separately; no generalization, cost-saving or
 LLM-call-reduction claim follows from fewer tool calls.
 
-## Final workflow freeze and one-shot test evaluation (not run yet)
+## Final workflow freeze and one-shot test evaluation
 
 Once compile/development review is complete, freeze the final artifacts before
 collecting test model runs:
@@ -181,4 +182,5 @@ translation, and independent execution on eight development fixture tasks:
 four accepted and correct, four safely refused, zero unsafe acceptances.
 Coverage is 4/8. These numbers are regression assertions, **not DeepSeek
 performance or held-out model results**. No test model result was collected or
-inspected while implementing this baseline.
+inspected while implementing the original M11a baseline. The later M11b
+experiment froze its scoring code before collecting all twelve test tasks.

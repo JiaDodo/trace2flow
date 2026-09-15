@@ -1,0 +1,467 @@
+{
+  "schema_version": "agent-workflow-report/1.0",
+  "scope": "recorded_model_calls_in_synthetic_local_business_environment",
+  "partition": "development",
+  "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+  "agent": {
+    "scope": "synthetic_local_business_outcomes",
+    "partition": "development",
+    "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+    "planned_cases": 8,
+    "evaluated_cases": 8,
+    "pending_cases": 0,
+    "correct_cases": 8,
+    "unsafe_write_attempts": 0,
+    "score_final": true,
+    "results": [
+      {
+        "case_id": "dev-01",
+        "partition": "development",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "dev-02",
+        "partition": "development",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "dev-03",
+        "partition": "development",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "dev-04",
+        "partition": "development",
+        "expected_action": "execute",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": true,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 5,
+        "tool_calls": 5
+      },
+      {
+        "case_id": "dev-05",
+        "partition": "development",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 3,
+        "tool_calls": 3
+      },
+      {
+        "case_id": "dev-06",
+        "partition": "development",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 2,
+        "tool_calls": 1
+      },
+      {
+        "case_id": "dev-07",
+        "partition": "development",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 2,
+        "tool_calls": 2
+      },
+      {
+        "case_id": "dev-08",
+        "partition": "development",
+        "expected_action": "refuse",
+        "status": "evaluated",
+        "ending": "model_finished",
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "write_attempted": false,
+        "unsafe_write_attempt": false,
+        "chat_claim_correctness_measured": false,
+        "scripted_model": false,
+        "model_calls": 2,
+        "tool_calls": 1
+      }
+    ]
+  },
+  "agent_usage": {
+    "recorded_cases": 8,
+    "model_calls": 29,
+    "tool_calls": 27,
+    "failed_tool_calls": 5,
+    "input_tokens": 34983,
+    "output_tokens": 3177,
+    "usage_complete": true,
+    "results": [
+      {
+        "case_id": "dev-01",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6409,
+        "output_tokens": 547,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.740384279983118
+      },
+      {
+        "case_id": "dev-02",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6400,
+        "output_tokens": 539,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.648332186974585
+      },
+      {
+        "case_id": "dev-03",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6422,
+        "output_tokens": 544,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.594767291797325
+      },
+      {
+        "case_id": "dev-04",
+        "model_calls": 5,
+        "tool_calls": 5,
+        "failed_tool_calls": 0,
+        "usage_events": 5,
+        "input_tokens": 6396,
+        "output_tokens": 520,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 12.626746866852045
+      },
+      {
+        "case_id": "dev-05",
+        "model_calls": 3,
+        "tool_calls": 3,
+        "failed_tool_calls": 2,
+        "usage_events": 3,
+        "input_tokens": 3289,
+        "output_tokens": 376,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 10.749166924972087
+      },
+      {
+        "case_id": "dev-06",
+        "model_calls": 2,
+        "tool_calls": 1,
+        "failed_tool_calls": 0,
+        "usage_events": 2,
+        "input_tokens": 1977,
+        "output_tokens": 185,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 7.285047843120992
+      },
+      {
+        "case_id": "dev-07",
+        "model_calls": 2,
+        "tool_calls": 2,
+        "failed_tool_calls": 2,
+        "usage_events": 2,
+        "input_tokens": 2081,
+        "output_tokens": 268,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 8.285005271900445
+      },
+      {
+        "case_id": "dev-08",
+        "model_calls": 2,
+        "tool_calls": 1,
+        "failed_tool_calls": 1,
+        "usage_events": 2,
+        "input_tokens": 2009,
+        "output_tokens": 198,
+        "usage_complete": true,
+        "agent_collection_elapsed_seconds": 7.367346854880452
+      }
+    ]
+  },
+  "limitations": [
+    "synthetic business tasks and deterministic classification/recommendation tools",
+    "reviewed execution contract, not automatic lineage or branch discovery",
+    "final customer-facing chat correctness is not measured",
+    "Agent timer includes model/framework/collection; workflow timer is local execution only",
+    "single trial per task, no statistical/generalization or production speedup claim",
+    "token usage is measured where available; money/cost savings are not estimated"
+  ],
+  "workflow": {
+    "scope": "independent_synthetic_local_execution",
+    "partition": "development",
+    "admission_policy": "declared_customer_order_identity_contract_not_mined_branch",
+    "planned_cases": 8,
+    "accepted_cases": 4,
+    "coverage": 0.5,
+    "accepted_correct_cases": 4,
+    "accepted_case_correctness": 1.0,
+    "unsafe_acceptances": 0,
+    "correct_cases": 8,
+    "results": [
+      {
+        "case_id": "dev-01",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-02",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-03",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-04",
+        "admitted": true,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-05",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-06",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-07",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      },
+      {
+        "case_id": "dev-08",
+        "admitted": false,
+        "correct": true,
+        "output_match": true,
+        "complete_state_match": true,
+        "unsafe_acceptance": false,
+        "error": null
+      }
+    ]
+  },
+  "matched_accepted_cases": {
+    "cases": 4,
+    "agent_model_calls": 20,
+    "workflow_model_calls": 0,
+    "agent_tool_calls": 20,
+    "workflow_tool_calls": 20,
+    "agent_collection_elapsed_median_seconds": 12.637539526913315,
+    "workflow_execution_elapsed_median_seconds": 0.00010267854668200016,
+    "results": [
+      {
+        "case_id": "dev-01",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 0.00010744109749794006,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6409,
+          "output_tokens": 547,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.740384279983118
+        }
+      },
+      {
+        "case_id": "dev-02",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 0.00012161699123680592,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6400,
+          "output_tokens": 539,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.648332186974585
+        }
+      },
+      {
+        "case_id": "dev-03",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.791599586606026e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6422,
+          "output_tokens": 544,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.594767291797325
+        }
+      },
+      {
+        "case_id": "dev-04",
+        "workflow_tool_calls": 5,
+        "workflow_model_calls": 0,
+        "workflow_execution_elapsed_seconds": 9.588594548404217e-05,
+        "independent_measurement_correct": true,
+        "error": null,
+        "agent": {
+          "model_calls": 5,
+          "tool_calls": 5,
+          "failed_tool_calls": 0,
+          "usage_events": 5,
+          "input_tokens": 6396,
+          "output_tokens": 520,
+          "usage_complete": true,
+          "agent_collection_elapsed_seconds": 12.626746866852045
+        }
+      }
+    ]
+  },
+  "review_effort": {
+    "reviewer_kind": "ai_declared_contract_and_automated_validation",
+    "human_review_minutes": 0,
+    "ai_reasoning_review_minutes": null,
+    "automated_contract_check_minutes": 0.000516883838766565,
+    "manual_ai_effort_measured": false
+  },
+  "workflow_sha256": "5b9dc1bb54c87f34221d4a7d85fa27caf39ebc5f166f98e882dde44c0251a201",
+  "compile_sha256": "5c0caf7b9eca3c1cab9c0e37ad2dd3b46b6fcc42e3076a492dfd6c1293a04ad0",
+  "report_source_sha256": "fcd1bc993c13527c06f640ea51004a39eecb833248c421dbad15bf8dc697df40",
+  "raw_inventory": [
+    {
+      "case_id": "dev-01",
+      "raw_sha256": "de0837c44a00d3ccaa576a43fef703d446d1685712e6aff2a9ebb73d0232e573"
+    },
+    {
+      "case_id": "dev-02",
+      "raw_sha256": "b6207fe088fc53c9e06b4d774878e211e028d83f7750040ad2a2d145945cb423"
+    },
+    {
+      "case_id": "dev-03",
+      "raw_sha256": "94442afcd23fa684e66d782ca54738d48d6910c5e4a0cf2ed5ca53d1f9aa04bc"
+    },
+    {
+      "case_id": "dev-04",
+      "raw_sha256": "2f9a40ec9c404797c63a0a39a5abf674578b7d1ebee4f0144b5e54f19d8efe67"
+    },
+    {
+      "case_id": "dev-05",
+      "raw_sha256": "fa3dde144b9957507b8d29bf6eb74dc647e25e784ab56c20addf4afdf3bf01e4"
+    },
+    {
+      "case_id": "dev-06",
+      "raw_sha256": "516a139fb950461306e5a894e52e135fd93de128bc4a610c48f8cdd24f4f0f23"
+    },
+    {
+      "case_id": "dev-07",
+      "raw_sha256": "bb9f2230a217e835c5ce4b8f731ecf6aa922b867f0f4f2be92e839c3720000f9"
+    },
+    {
+      "case_id": "dev-08",
+      "raw_sha256": "1670d8fabf8e90c7f363137ffee8df5c5bbfb2cd5c5e8ab802e657df3dec48f7"
+    }
+  ]
+}

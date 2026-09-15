@@ -1,0 +1,176 @@
+{
+  "binding_overrides": [
+    {
+      "node_id": "node_034187e584c6",
+      "parameter": "issue_type",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_7d752d73063d",
+        "path": [
+          "issue_type"
+        ]
+      }
+    },
+    {
+      "node_id": "node_034187e584c6",
+      "parameter": "recommendation",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_7d752d73063d",
+        "path": [
+          "recommendation"
+        ]
+      }
+    },
+    {
+      "node_id": "node_034187e584c6",
+      "parameter": "status",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_7d752d73063d",
+        "path": [
+          "status"
+        ]
+      }
+    },
+    {
+      "node_id": "node_034187e584c6",
+      "parameter": "ticket_id",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "ticket_id"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    },
+    {
+      "node_id": "node_04ec0affeb6e",
+      "parameter": "customer_id",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "customer_id"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    },
+    {
+      "node_id": "node_04ec0affeb6e",
+      "parameter": "order_id",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "order_id"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    },
+    {
+      "node_id": "node_0d9843881654",
+      "parameter": "damaged",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_04ec0affeb6e",
+        "path": [
+          "damaged"
+        ]
+      }
+    },
+    {
+      "node_id": "node_0d9843881654",
+      "parameter": "delivered",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_04ec0affeb6e",
+        "path": [
+          "delivered"
+        ]
+      }
+    },
+    {
+      "node_id": "node_0d9843881654",
+      "parameter": "duplicate_charge",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_04ec0affeb6e",
+        "path": [
+          "duplicate_charge"
+        ]
+      }
+    },
+    {
+      "node_id": "node_0d9843881654",
+      "parameter": "order_status",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_04ec0affeb6e",
+        "path": [
+          "status"
+        ]
+      }
+    },
+    {
+      "node_id": "node_0d9843881654",
+      "parameter": "ticket_text",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "ticket_text"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    },
+    {
+      "node_id": "node_7d752d73063d",
+      "parameter": "eligible",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_0d9843881654",
+        "path": [
+          "eligible"
+        ]
+      }
+    },
+    {
+      "node_id": "node_7d752d73063d",
+      "parameter": "issue_type",
+      "binding": {
+        "kind": "tool_output",
+        "source_node_id": "node_0d9843881654",
+        "path": [
+          "issue_type"
+        ]
+      }
+    },
+    {
+      "node_id": "node_7d752d73063d",
+      "parameter": "policy_version",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "policy_version"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    },
+    {
+      "node_id": "node_a7583bb9c049",
+      "parameter": "customer_id",
+      "binding": {
+        "kind": "task_input",
+        "path": [
+          "customer_id"
+        ],
+        "evidence_mode": "observed_value_match"
+      }
+    }
+  ],
+  "confirmed_branch_nodes": [],
+  "confirmed_side_effect_nodes": [
+    "node_034187e584c6"
+  ],
+  "output_node_ids": [
+    "node_034187e584c6"
+  ]
+}

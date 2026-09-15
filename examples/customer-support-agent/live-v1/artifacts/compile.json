@@ -1,0 +1,3650 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "agent-corpus-v1-compile",
+  "partition": "compile",
+  "runs": [
+    {
+      "id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_9ef32b89c3d54bb5b7a6e3060d8f1950",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-01",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-01",
+        "ticket_id": "T-compile-01",
+        "customer_id": "C-compile-01",
+        "order_id": "O-compile-01",
+        "ticket_text": "订单没收到，请查询并记录建议。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_sfbyJARnuMDyfbGPqcVW8855",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-01"
+          },
+          "output": {
+            "customer_id": "C-compile-01"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-01",
+            "order_id": "O-compile-01"
+          },
+          "output": {
+            "customer_id": "C-compile-01",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-01",
+            "status": "shipped"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_48uv2uPv2yJYwd980XyY3593",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_status": "shipped",
+            "ticket_text": "订单没收到，请查询并记录建议。"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay"
+          },
+          "depends_on": [
+            "call_01_m1gqGDrP0R4WghZpLzFU3697"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_m1gqGDrP0R4WghZpLzFU3697",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier"
+          },
+          "depends_on": [
+            "call_00_48uv2uPv2yJYwd980XyY3593"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_48uv2uPv2yJYwd980XyY3593",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_48uv2uPv2yJYwd980XyY3593",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_E4e48aDr6yy3I7KDngdv9494",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-01"
+          },
+          "output": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-01"
+          },
+          "depends_on": [
+            "call_00_y9LXAkxepoGDAgfTZfIl5998"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_y9LXAkxepoGDAgfTZfIl5998",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "delivery_delay",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier",
+        "ticket_id": "T-compile-01"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-01": {
+            "customer_id": "C-compile-01"
+          },
+          "C-other-compile-01": {
+            "customer_id": "C-other-compile-01"
+          }
+        },
+        "orders": {
+          "O-compile-01": {
+            "order_id": "O-compile-01",
+            "customer_id": "C-compile-01",
+            "status": "shipped",
+            "delivered": false,
+            "damaged": false,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-01": {
+            "ticket_id": "T-compile-01",
+            "status": "open"
+          },
+          "T-unrelated-compile-01": {
+            "ticket_id": "T-unrelated-compile-01",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-01": {
+            "customer_id": "C-compile-01"
+          },
+          "C-other-compile-01": {
+            "customer_id": "C-other-compile-01"
+          }
+        },
+        "orders": {
+          "O-compile-01": {
+            "customer_id": "C-compile-01",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-01",
+            "status": "shipped"
+          }
+        },
+        "tickets": {
+          "T-compile-01": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-01"
+          },
+          "T-unrelated-compile-01": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-01"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "43e7417c602d84fb345f3e59520dede7bac552de57c079a8c5ecd6643215951b",
+        "review_sha256": "9ddd07aabe2b7b4304170814f9edff4603e97f1df59c907ba68587252e6a0e20",
+        "collection_context": {
+          "case_sha256": "ce3bc538a3a32ed57b17ad345b837155583486e9cb02df5483676a28e9ccfabb",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_d53108f734604ddba3b21c9d9a1e9538",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-02",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-02",
+        "ticket_id": "T-compile-02",
+        "customer_id": "C-compile-02",
+        "order_id": "O-compile-02",
+        "ticket_text": "收到的商品损坏了，请核实处理。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_KzlVyGg0qpWt9rbqgVN10875",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-02"
+          },
+          "output": {
+            "customer_id": "C-compile-02"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-02",
+            "order_id": "O-compile-02"
+          },
+          "output": {
+            "customer_id": "C-compile-02",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-02",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_KbCA7TBqk4MmuIRwydDg6890",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_status": "delivered",
+            "ticket_text": "收到的商品损坏了，请核实处理。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item"
+          },
+          "depends_on": [
+            "call_01_bf9Knfg0d9aO0mDuaaSH5305"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_bf9Knfg0d9aO0mDuaaSH5305",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_VjxKgcpanizlXix8pt2l6221",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered"
+          },
+          "depends_on": [
+            "call_00_KbCA7TBqk4MmuIRwydDg6890"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_KbCA7TBqk4MmuIRwydDg6890",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_KbCA7TBqk4MmuIRwydDg6890",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_Id3fjDWDj1f1QixMqF4m5740",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-02"
+          },
+          "output": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-02"
+          },
+          "depends_on": [
+            "call_00_VjxKgcpanizlXix8pt2l6221"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_VjxKgcpanizlXix8pt2l6221",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_VjxKgcpanizlXix8pt2l6221",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_VjxKgcpanizlXix8pt2l6221",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "damaged_item",
+        "recommendation": "replacement_offer",
+        "status": "replacement_offered",
+        "ticket_id": "T-compile-02"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-02": {
+            "customer_id": "C-compile-02"
+          },
+          "C-other-compile-02": {
+            "customer_id": "C-other-compile-02"
+          }
+        },
+        "orders": {
+          "O-compile-02": {
+            "order_id": "O-compile-02",
+            "customer_id": "C-compile-02",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": true,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-02": {
+            "ticket_id": "T-compile-02",
+            "status": "open"
+          },
+          "T-unrelated-compile-02": {
+            "ticket_id": "T-unrelated-compile-02",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-02": {
+            "customer_id": "C-compile-02"
+          },
+          "C-other-compile-02": {
+            "customer_id": "C-other-compile-02"
+          }
+        },
+        "orders": {
+          "O-compile-02": {
+            "customer_id": "C-compile-02",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-02",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-02": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-02"
+          },
+          "T-unrelated-compile-02": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-02"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "34afe0a43e6f5fa190d78327a74b39fc9b1003224fc2a21dcded851b69b7cdc4",
+        "review_sha256": "a486fbe712bf565a3cec11868272d6db9b26fed1b84ac0304639102a912eb5c6",
+        "collection_context": {
+          "case_sha256": "019e62b7168d6c95d3a6b01502d16eac7018363e86d9d46b05c84b232f63c392",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_ba7f3c25ef79424483d496f2b8c7ede8",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-03",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-03",
+        "ticket_id": "T-compile-03",
+        "customer_id": "C-compile-03",
+        "order_id": "O-compile-03",
+        "ticket_text": "好像扣款两次，请核实并更新工单。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_AMwnSnZkeEYHQUbokJZz4875",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-03"
+          },
+          "output": {
+            "customer_id": "C-compile-03"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-03",
+            "order_id": "O-compile-03"
+          },
+          "output": {
+            "customer_id": "C-compile-03",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-03",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_z45Ybw20aBHCyiVsSXNP2741",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_status": "delivered",
+            "ticket_text": "好像扣款两次，请核实并更新工单。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate"
+          },
+          "depends_on": [
+            "call_01_nFQF8fnq0ig7t8QXahFs5964"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_nFQF8fnq0ig7t8QXahFs5964",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review"
+          },
+          "depends_on": [
+            "call_00_z45Ybw20aBHCyiVsSXNP2741"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_z45Ybw20aBHCyiVsSXNP2741",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_z45Ybw20aBHCyiVsSXNP2741",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_XQeKUH3m5wrb488tluAr5902",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-03"
+          },
+          "output": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-03"
+          },
+          "depends_on": [
+            "call_00_6oS8uMJiaHSF0u5TANtY9083"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_6oS8uMJiaHSF0u5TANtY9083",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "billing_duplicate",
+        "recommendation": "manual_refund_review",
+        "status": "pending_review",
+        "ticket_id": "T-compile-03"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-03": {
+            "customer_id": "C-compile-03"
+          },
+          "C-other-compile-03": {
+            "customer_id": "C-other-compile-03"
+          }
+        },
+        "orders": {
+          "O-compile-03": {
+            "order_id": "O-compile-03",
+            "customer_id": "C-compile-03",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": false,
+            "duplicate_charge": true
+          }
+        },
+        "tickets": {
+          "T-compile-03": {
+            "ticket_id": "T-compile-03",
+            "status": "open"
+          },
+          "T-unrelated-compile-03": {
+            "ticket_id": "T-unrelated-compile-03",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-03": {
+            "customer_id": "C-compile-03"
+          },
+          "C-other-compile-03": {
+            "customer_id": "C-other-compile-03"
+          }
+        },
+        "orders": {
+          "O-compile-03": {
+            "customer_id": "C-compile-03",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-03",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-03": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-03"
+          },
+          "T-unrelated-compile-03": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-03"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "d92dc1d338fd7a46a1c6b1d9738bd767dc128e9d65599aae90369e1ac4f7ffda",
+        "review_sha256": "1cd250a55098b950a8365399bb654c1a4290bb269f4466aab2cf732c918ad723",
+        "collection_context": {
+          "case_sha256": "8193cef75083b08bf107d3365b9b8c50485cd86e07a0df0c671ea1703ea9b571",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_a824f58ef7a14317bcfa1ac8ef99b557",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-04",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-04",
+        "ticket_id": "T-compile-04",
+        "customer_id": "C-compile-04",
+        "order_id": "O-compile-04",
+        "ticket_text": "包裹迟迟没到，我需要处理建议。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_Vqq712RWOlFDlFo5w0AJ2964",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-04"
+          },
+          "output": {
+            "customer_id": "C-compile-04"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-04",
+            "order_id": "O-compile-04"
+          },
+          "output": {
+            "customer_id": "C-compile-04",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-04",
+            "status": "shipped"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_cQPNRdazuBpsiVSKxMQk7971",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_status": "shipped",
+            "ticket_text": "包裹迟迟没到，我需要处理建议。"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay"
+          },
+          "depends_on": [
+            "call_01_i3zcSlCqeMZYn9rzqfnb5646"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_i3zcSlCqeMZYn9rzqfnb5646",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier"
+          },
+          "depends_on": [
+            "call_00_cQPNRdazuBpsiVSKxMQk7971"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_cQPNRdazuBpsiVSKxMQk7971",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_cQPNRdazuBpsiVSKxMQk7971",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_RxDzEPwM9kHJCwIabuSX9194",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-04"
+          },
+          "output": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-04"
+          },
+          "depends_on": [
+            "call_00_2MUi5VPtJkyZ1ioWbonZ6950"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_2MUi5VPtJkyZ1ioWbonZ6950",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "delivery_delay",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier",
+        "ticket_id": "T-compile-04"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-04": {
+            "customer_id": "C-compile-04"
+          },
+          "C-other-compile-04": {
+            "customer_id": "C-other-compile-04"
+          }
+        },
+        "orders": {
+          "O-compile-04": {
+            "order_id": "O-compile-04",
+            "customer_id": "C-compile-04",
+            "status": "shipped",
+            "delivered": false,
+            "damaged": false,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-04": {
+            "ticket_id": "T-compile-04",
+            "status": "open"
+          },
+          "T-unrelated-compile-04": {
+            "ticket_id": "T-unrelated-compile-04",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-04": {
+            "customer_id": "C-compile-04"
+          },
+          "C-other-compile-04": {
+            "customer_id": "C-other-compile-04"
+          }
+        },
+        "orders": {
+          "O-compile-04": {
+            "customer_id": "C-compile-04",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-04",
+            "status": "shipped"
+          }
+        },
+        "tickets": {
+          "T-compile-04": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-04"
+          },
+          "T-unrelated-compile-04": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-04"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "e3a42de34d47f682bf34349f654905d8643643942e0f089947568cfd3d0208c1",
+        "review_sha256": "5ef38ba9e6b27a2233e0d96e837efd3233701fb272ec92ea3b5cd0bcb619a975",
+        "collection_context": {
+          "case_sha256": "f97872b061f23b91727c1f62a1f29a7fa8b6da7ea3d1bb5959f2959d85a7b53c",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_20e07fd140314bed952a0e9cb1f8eab1",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-05",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-05",
+        "ticket_id": "T-compile-05",
+        "customer_id": "C-compile-05",
+        "order_id": "O-compile-05",
+        "ticket_text": "包裹里的商品破损，请查看订单事实。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_Es0wZLPRs1xCJvbJCOn81674",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-05"
+          },
+          "output": {
+            "customer_id": "C-compile-05"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-05",
+            "order_id": "O-compile-05"
+          },
+          "output": {
+            "customer_id": "C-compile-05",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-05",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_UatVGAaBeco63pGY6NCi0414",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_status": "delivered",
+            "ticket_text": "包裹里的商品破损，请查看订单事实。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item"
+          },
+          "depends_on": [
+            "call_01_RF4CFB1mZZmWTovBeAde9712"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_RF4CFB1mZZmWTovBeAde9712",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered"
+          },
+          "depends_on": [
+            "call_00_UatVGAaBeco63pGY6NCi0414"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_UatVGAaBeco63pGY6NCi0414",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_UatVGAaBeco63pGY6NCi0414",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_N99gShcjy3wyFpsnxwYB0360",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-05"
+          },
+          "output": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-05"
+          },
+          "depends_on": [
+            "call_00_ZaGAQjsOOGjgXmSIWxWc9926"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_ZaGAQjsOOGjgXmSIWxWc9926",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "damaged_item",
+        "recommendation": "replacement_offer",
+        "status": "replacement_offered",
+        "ticket_id": "T-compile-05"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-05": {
+            "customer_id": "C-compile-05"
+          },
+          "C-other-compile-05": {
+            "customer_id": "C-other-compile-05"
+          }
+        },
+        "orders": {
+          "O-compile-05": {
+            "order_id": "O-compile-05",
+            "customer_id": "C-compile-05",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": true,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-05": {
+            "ticket_id": "T-compile-05",
+            "status": "open"
+          },
+          "T-unrelated-compile-05": {
+            "ticket_id": "T-unrelated-compile-05",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-05": {
+            "customer_id": "C-compile-05"
+          },
+          "C-other-compile-05": {
+            "customer_id": "C-other-compile-05"
+          }
+        },
+        "orders": {
+          "O-compile-05": {
+            "customer_id": "C-compile-05",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-05",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-05": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-05"
+          },
+          "T-unrelated-compile-05": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-05"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "ca7bb55a93e412f5cf397e17bd59d458b8471a9d1f9bdb160cf099653e062cc5",
+        "review_sha256": "3d620904ade55a5f6fe683a47f88d5841cf2ab3419bb924d0d031f7d9bad2e5b",
+        "collection_context": {
+          "case_sha256": "b733a8cda418ea100d156d95aa5fb7440b5f75150f5df008628bf7ecd75e1c7a",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_3b747131cb764e18829b0e66e81bece5",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_3b747131cb764e18829b0e66e81bece5",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-06",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-06",
+        "ticket_id": "T-compile-06",
+        "customer_id": "C-compile-06",
+        "order_id": "O-compile-06",
+        "ticket_text": "账单疑似重复收费，麻烦查证。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_zVL0rkgBYiuSmECmFIRk3090",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-06"
+          },
+          "output": {
+            "customer_id": "C-compile-06"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-06",
+            "order_id": "O-compile-06"
+          },
+          "output": {
+            "customer_id": "C-compile-06",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-06",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_3MkeFnVHLONPHGoi8xGj9024",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_status": "delivered",
+            "ticket_text": "账单疑似重复收费，麻烦查证。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate"
+          },
+          "depends_on": [
+            "call_01_9URqdLAtHESoDOcJCiFn6513"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_9URqdLAtHESoDOcJCiFn6513",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_yt88mom0ecwoX9t5HDaj8202",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review"
+          },
+          "depends_on": [
+            "call_00_3MkeFnVHLONPHGoi8xGj9024"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_3MkeFnVHLONPHGoi8xGj9024",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_3MkeFnVHLONPHGoi8xGj9024",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_6cazWQjGXg7Vk7sTFlBJ4675",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-06"
+          },
+          "output": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-06"
+          },
+          "depends_on": [
+            "call_00_yt88mom0ecwoX9t5HDaj8202"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_yt88mom0ecwoX9t5HDaj8202",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_yt88mom0ecwoX9t5HDaj8202",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_yt88mom0ecwoX9t5HDaj8202",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "billing_duplicate",
+        "recommendation": "manual_refund_review",
+        "status": "pending_review",
+        "ticket_id": "T-compile-06"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-06": {
+            "customer_id": "C-compile-06"
+          },
+          "C-other-compile-06": {
+            "customer_id": "C-other-compile-06"
+          }
+        },
+        "orders": {
+          "O-compile-06": {
+            "order_id": "O-compile-06",
+            "customer_id": "C-compile-06",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": false,
+            "duplicate_charge": true
+          }
+        },
+        "tickets": {
+          "T-compile-06": {
+            "ticket_id": "T-compile-06",
+            "status": "open"
+          },
+          "T-unrelated-compile-06": {
+            "ticket_id": "T-unrelated-compile-06",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-06": {
+            "customer_id": "C-compile-06"
+          },
+          "C-other-compile-06": {
+            "customer_id": "C-other-compile-06"
+          }
+        },
+        "orders": {
+          "O-compile-06": {
+            "customer_id": "C-compile-06",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-06",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-06": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-06"
+          },
+          "T-unrelated-compile-06": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-06"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "5774c561cf401bdb5904f0ab206e20279043f41bb8df7dd044950d1c82147d47",
+        "review_sha256": "0e0c92d21bb7a5cfb64b03497b874a96311be1a6a21b3454ea9f49d8a9298407",
+        "collection_context": {
+          "case_sha256": "7f50ad726f8186eadf17382275665d18c8636948929ed63b495753dbc06c72ce",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_2b04aa0891ab4a27acf35cf441b24c4f",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-07",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-07",
+        "ticket_id": "T-compile-07",
+        "customer_id": "C-compile-07",
+        "order_id": "O-compile-07",
+        "ticket_text": "运输还没完成，请记录后续处理。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_dQdU6WHztB6QLZ2WJMOt8250",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-07"
+          },
+          "output": {
+            "customer_id": "C-compile-07"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-07",
+            "order_id": "O-compile-07"
+          },
+          "output": {
+            "customer_id": "C-compile-07",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-07",
+            "status": "shipped"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_jr1DLYqYjDbfQF6JqICJ0706",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_status": "shipped",
+            "ticket_text": "运输还没完成，请记录后续处理。"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay"
+          },
+          "depends_on": [
+            "call_01_h0kvsp1cwCWUqalUeaUy3478"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_h0kvsp1cwCWUqalUeaUy3478",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_suTquckUUBL0LhvvwC176691",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": false,
+            "issue_type": "delivery_delay",
+            "policy_version": "v1",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier"
+          },
+          "depends_on": [
+            "call_00_jr1DLYqYjDbfQF6JqICJ0706"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_jr1DLYqYjDbfQF6JqICJ0706",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_jr1DLYqYjDbfQF6JqICJ0706",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_WP6rZPpPOuDJjJkTVooh3519",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-07"
+          },
+          "output": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-07"
+          },
+          "depends_on": [
+            "call_00_suTquckUUBL0LhvvwC176691"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_suTquckUUBL0LhvvwC176691",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_suTquckUUBL0LhvvwC176691",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_suTquckUUBL0LhvvwC176691",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "delivery_delay",
+        "recommendation": "carrier_investigation",
+        "status": "pending_carrier",
+        "ticket_id": "T-compile-07"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-07": {
+            "customer_id": "C-compile-07"
+          },
+          "C-other-compile-07": {
+            "customer_id": "C-other-compile-07"
+          }
+        },
+        "orders": {
+          "O-compile-07": {
+            "order_id": "O-compile-07",
+            "customer_id": "C-compile-07",
+            "status": "shipped",
+            "delivered": false,
+            "damaged": false,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-07": {
+            "ticket_id": "T-compile-07",
+            "status": "open"
+          },
+          "T-unrelated-compile-07": {
+            "ticket_id": "T-unrelated-compile-07",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-07": {
+            "customer_id": "C-compile-07"
+          },
+          "C-other-compile-07": {
+            "customer_id": "C-other-compile-07"
+          }
+        },
+        "orders": {
+          "O-compile-07": {
+            "customer_id": "C-compile-07",
+            "damaged": false,
+            "delivered": false,
+            "duplicate_charge": false,
+            "order_id": "O-compile-07",
+            "status": "shipped"
+          }
+        },
+        "tickets": {
+          "T-compile-07": {
+            "issue_type": "delivery_delay",
+            "recommendation": "carrier_investigation",
+            "status": "pending_carrier",
+            "ticket_id": "T-compile-07"
+          },
+          "T-unrelated-compile-07": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-07"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "6a83d76f69ad71571f850a345195abea092f4dc3393978ff8ea61eb37ff3ad64",
+        "review_sha256": "56c9fa9ad79d66e4d54f3123035951b264c63d955e32ab30e8d682279e73c4cc",
+        "collection_context": {
+          "case_sha256": "2d1ce6e86602989d1510d84ef6d9ce38c49a44d8f8ebaf911496f249ce43e781",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_a359c50ee810439a93169098f5fd3862",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_a359c50ee810439a93169098f5fd3862",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-08",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-08",
+        "ticket_id": "T-compile-08",
+        "customer_id": "C-compile-08",
+        "order_id": "O-compile-08",
+        "ticket_text": "商品坏了，请给出符合政策的建议。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_RvZsLDygOmXFNpi90m2M8383",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-08"
+          },
+          "output": {
+            "customer_id": "C-compile-08"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-08",
+            "order_id": "O-compile-08"
+          },
+          "output": {
+            "customer_id": "C-compile-08",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-08",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_IxbLdM2nGvyaCj5a5p043966",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_status": "delivered",
+            "ticket_text": "商品坏了，请给出符合政策的建议。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item"
+          },
+          "depends_on": [
+            "call_01_GlUhx7dceo71zfyoCcsP1104"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_GlUhx7dceo71zfyoCcsP1104",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "damaged_item",
+            "policy_version": "v1",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered"
+          },
+          "depends_on": [
+            "call_00_IxbLdM2nGvyaCj5a5p043966"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_IxbLdM2nGvyaCj5a5p043966",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_IxbLdM2nGvyaCj5a5p043966",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_Y1ubpyquhH71b1cRNlX78231",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-08"
+          },
+          "output": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-08"
+          },
+          "depends_on": [
+            "call_00_AKcAY62bx4Ar0iYzb1Ds4523"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_AKcAY62bx4Ar0iYzb1Ds4523",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "damaged_item",
+        "recommendation": "replacement_offer",
+        "status": "replacement_offered",
+        "ticket_id": "T-compile-08"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-08": {
+            "customer_id": "C-compile-08"
+          },
+          "C-other-compile-08": {
+            "customer_id": "C-other-compile-08"
+          }
+        },
+        "orders": {
+          "O-compile-08": {
+            "order_id": "O-compile-08",
+            "customer_id": "C-compile-08",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": true,
+            "duplicate_charge": false
+          }
+        },
+        "tickets": {
+          "T-compile-08": {
+            "ticket_id": "T-compile-08",
+            "status": "open"
+          },
+          "T-unrelated-compile-08": {
+            "ticket_id": "T-unrelated-compile-08",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-08": {
+            "customer_id": "C-compile-08"
+          },
+          "C-other-compile-08": {
+            "customer_id": "C-other-compile-08"
+          }
+        },
+        "orders": {
+          "O-compile-08": {
+            "customer_id": "C-compile-08",
+            "damaged": true,
+            "delivered": true,
+            "duplicate_charge": false,
+            "order_id": "O-compile-08",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-08": {
+            "issue_type": "damaged_item",
+            "recommendation": "replacement_offer",
+            "status": "replacement_offered",
+            "ticket_id": "T-compile-08"
+          },
+          "T-unrelated-compile-08": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-08"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "dc36d9343392edb9297c9d5cc8eb9ca8b0e88aefdfeedf8ea4e7f280c335292a",
+        "review_sha256": "1dba52c9ed559d2c38ccff71612fca090b01c8f447c2bcf934bbaa7993e883d9",
+        "collection_context": {
+          "case_sha256": "20ff88af4f17e0375f3d5ddf861022d222d7ba178b1aaeaf7656cd68b088d1c9",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    },
+    {
+      "id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+      "provenance": {
+        "kind": "recorded",
+        "source": "trace2flow/customer-support-agent/v1",
+        "source_run_id": "agent_21d9bee4347c4f2c968341c7bbdcd6fd",
+        "source_revision": "customer-support-agent/1.2",
+        "task_group_id": "compile-09",
+        "execution_context": "local_simulator",
+        "contains_real_customer_data": false
+      },
+      "inputs": {
+        "task_id": "compile-09",
+        "ticket_id": "T-compile-09",
+        "customer_id": "C-compile-09",
+        "order_id": "O-compile-09",
+        "ticket_text": "重复扣费请先审核，不要真的退款。",
+        "policy_version": "v1"
+      },
+      "steps": [
+        {
+          "id": "call_00_iya6VIqULtKFmdDGwAYr4111",
+          "tool": "lookup_customer",
+          "params": {
+            "customer_id": "C-compile-09"
+          },
+          "output": {
+            "customer_id": "C-compile-09"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.customers",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+          "tool": "lookup_order",
+          "params": {
+            "customer_id": "C-compile-09",
+            "order_id": "O-compile-09"
+          },
+          "output": {
+            "customer_id": "C-compile-09",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-09",
+            "status": "delivered"
+          },
+          "depends_on": [],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "order_id": {
+                "kind": "task_input",
+                "path": [
+                  "order_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "customer_id": {
+                "kind": "task_input",
+                "path": [
+                  "customer_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_CW3eL3LWyP5vPVYo0myy8579",
+          "tool": "classify_issue",
+          "params": {
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_status": "delivered",
+            "ticket_text": "重复扣费请先审核，不要真的退款。"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate"
+          },
+          "depends_on": [
+            "call_01_YKB0jcmQjB6qURkZpx6u6067"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_text": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_text"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "order_status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "delivered": {
+                "kind": "tool_output",
+                "path": [
+                  "delivered"
+                ],
+                "source_call_id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "damaged": {
+                "kind": "tool_output",
+                "path": [
+                  "damaged"
+                ],
+                "source_call_id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "duplicate_charge": {
+                "kind": "tool_output",
+                "path": [
+                  "duplicate_charge"
+                ],
+                "source_call_id": "call_01_YKB0jcmQjB6qURkZpx6u6067",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+          "tool": "recommend_action",
+          "params": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1"
+          },
+          "output": {
+            "eligible": true,
+            "issue_type": "billing_duplicate",
+            "policy_version": "v1",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review"
+          },
+          "depends_on": [
+            "call_00_CW3eL3LWyP5vPVYo0myy8579"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "none",
+              "target": null,
+              "reversible": null
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "policy_version": {
+                "kind": "task_input",
+                "path": [
+                  "policy_version"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_CW3eL3LWyP5vPVYo0myy8579",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "eligible": {
+                "kind": "tool_output",
+                "path": [
+                  "eligible"
+                ],
+                "source_call_id": "call_00_CW3eL3LWyP5vPVYo0myy8579",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        },
+        {
+          "id": "call_00_mkB1KyjzIc6TodverXhU3267",
+          "tool": "update_ticket",
+          "params": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-09"
+          },
+          "output": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-09"
+          },
+          "depends_on": [
+            "call_00_LwGyEuIRtNt04Z1WVAbR4045"
+          ],
+          "spawned_by": null,
+          "status": "completed",
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "metadata": {
+            "dependency_review_required": false,
+            "effect_is_registered_capability": true,
+            "error_type": null,
+            "binding_declarations": {
+              "ticket_id": {
+                "kind": "task_input",
+                "path": [
+                  "ticket_id"
+                ],
+                "source_call_id": null,
+                "value": null,
+                "rationale": "AI-reviewed explicit task-input execution contract; not value-inferred lineage"
+              },
+              "issue_type": {
+                "kind": "tool_output",
+                "path": [
+                  "issue_type"
+                ],
+                "source_call_id": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "recommendation": {
+                "kind": "tool_output",
+                "path": [
+                  "recommendation"
+                ],
+                "source_call_id": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              },
+              "status": {
+                "kind": "tool_output",
+                "path": [
+                  "status"
+                ],
+                "source_call_id": "call_00_LwGyEuIRtNt04Z1WVAbR4045",
+                "value": null,
+                "rationale": "AI-reviewed explicit source-field execution contract; not equality/chronology proof"
+              }
+            }
+          }
+        }
+      ],
+      "status": "completed",
+      "final_output": {
+        "issue_type": "billing_duplicate",
+        "recommendation": "manual_refund_review",
+        "status": "pending_review",
+        "ticket_id": "T-compile-09"
+      },
+      "state_before": {
+        "customers": {
+          "C-compile-09": {
+            "customer_id": "C-compile-09"
+          },
+          "C-other-compile-09": {
+            "customer_id": "C-other-compile-09"
+          }
+        },
+        "orders": {
+          "O-compile-09": {
+            "order_id": "O-compile-09",
+            "customer_id": "C-compile-09",
+            "status": "delivered",
+            "delivered": true,
+            "damaged": false,
+            "duplicate_charge": true
+          }
+        },
+        "tickets": {
+          "T-compile-09": {
+            "ticket_id": "T-compile-09",
+            "status": "open"
+          },
+          "T-unrelated-compile-09": {
+            "ticket_id": "T-unrelated-compile-09",
+            "status": "open"
+          }
+        }
+      },
+      "state_after": {
+        "customers": {
+          "C-compile-09": {
+            "customer_id": "C-compile-09"
+          },
+          "C-other-compile-09": {
+            "customer_id": "C-other-compile-09"
+          }
+        },
+        "orders": {
+          "O-compile-09": {
+            "customer_id": "C-compile-09",
+            "damaged": false,
+            "delivered": true,
+            "duplicate_charge": true,
+            "order_id": "O-compile-09",
+            "status": "delivered"
+          }
+        },
+        "tickets": {
+          "T-compile-09": {
+            "issue_type": "billing_duplicate",
+            "recommendation": "manual_refund_review",
+            "status": "pending_review",
+            "ticket_id": "T-compile-09"
+          },
+          "T-unrelated-compile-09": {
+            "status": "open",
+            "ticket_id": "T-unrelated-compile-09"
+          }
+        }
+      },
+      "metadata": {
+        "synthetic_environment": true,
+        "ending": "model_finished",
+        "business_success_verified": false,
+        "raw_sha256": "c9eba8042a556a060bffcda89f5835385db54f39aa8f99b5bc5d27ced1903644",
+        "review_sha256": "c616fdbe759e56cbefdde1476705dcdbd39093ac6816c032744ee2fe4f313333",
+        "collection_context": {
+          "case_sha256": "9d7a1ce1e04cc9379dc3464c4d586961812ed08259f7d079b4b9f1582834f4e0",
+          "partition": "compile",
+          "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225"
+        },
+        "reviewer_kind": "ai",
+        "review_minutes_kind": "automated_contract_check_wall_time"
+      }
+    }
+  ],
+  "metadata": {
+    "import_review_status": "complete",
+    "corpus_partition": "compile",
+    "plan_sha256": "801f17d3eb5d3cad7295de86cae0c40b9723fdaf1812e257df18da9510d46225",
+    "binding_resolution_still_required": true,
+    "review_minutes": 0.000516883838766565
+  }
+}

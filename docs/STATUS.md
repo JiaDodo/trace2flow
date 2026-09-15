@@ -2,9 +2,138 @@
 
 Last updated: 2026-09-15
 
-Current milestone: M11a complete — corpus/review/evaluation engineering baseline; M11b live evaluation pending
+Current milestone: M11 complete — controlled DeepSeek corpus and frozen independent evaluation
 
-Working branch: `feat/m11-evaluation-baseline`
+Working branch: `feat/m11-live-evaluation`
+
+## M11b completed experiment
+
+Completed the entire predeclared thirty-task local-model experiment with the
+user's existing DeepSeek credential. Only variable availability was checked;
+no `.bashrc`, `.env`, key value, request headers or provider exception text was
+read/output. Continued the existing LangChain `create_agent` + middleware
+pattern under the selected skills, not a new Agent/LangGraph framework. No
+push, PR, merge or hosted-CI run was performed.
+
+- Collected compile 10, development 8 and test 12 **once each**, with all raw
+  recordings in ignored `data-private/agent-corpus-v1/`. Preserved repeated
+  failed reads and the zero-call raw-only `test-11`; no invented trace steps.
+- AI inspected each compile occurrence/typed argument/result. The exact-ID
+  review plan covers all ten tasks: nine included, one foreign-order run
+  excluded from compilation only, retained in scoring with both failed reads.
+  Explicit future execution contract: six task inputs, nine tool-output paths,
+  zero constants. No human review or automatic model-lineage discovery is
+  claimed. AI reasoning effort is unmeasured; machine check time is labeled as
+  machine time (included compile records only), not human/AI reading effort.
+- Actual upstream-backed mining produced five nodes and three declared evidence
+  edges. Customer/order queries have no invented dependency. Frozen IR has no
+  execution blockers. Upstream core/rules/license remain unchanged.
+- Saved pre-test source checkpoint `81acf50`, then froze exact plan, selected
+  pipeline sources, review population/plan, workflow/compile and report source.
+  No test model result had been collected or inspected at that point. Sources,
+  declarations and scorer stayed unchanged after test inspection (`git diff`
+  against the checkpoint exited 0 for all those paths).
+- Executed frozen workflow against fresh local state, not recorded responses;
+  compared business output and the entire customers/orders/tickets snapshot.
+  Added independently checked call/timing measurements and archived normalized
+  compile data/candidate/resolution/IR/fixed Prefect target plus all three
+  complete reports and pre-test freeze. Raw provider recordings remain private.
+- Added eight contract/report unit tests and three archive integrity/regression
+  tests. Initial archive-test import used a nonexistent convenience loader;
+  corrected it to Pydantic parsing. No scoring code or assertions were weakened.
+
+### Actual results and limitations
+
+| Partition | Planned / recorded | Correct output or safe outcome | Model requests | Tool calls / failed |
+| --- | --- | --- | --- | --- |
+| Compile | 10 / 10 | 10 | 48 | 48 / 2 |
+| Development | 8 / 8 | 8 | 29 | 27 / 5 |
+| Frozen test | 12 / 12 | 12 | 48 | 45 / 3 |
+
+Test outcomes are **8 correct updates + 4 safe unchanged outcomes**, not twelve
+successful update runs. All three reports have zero pending cases. Test unsafe
+write attempts: zero. Final customer-facing chat quality and all instruction-
+following aspects are unmeasured; a blocked invalid read is still a failed call
+even when its safe business outcome matches.
+
+Workflow test admission: **8/12 (66.7% coverage)**; accepted output/full-state
+correctness 8/8; four safely refused; unsafe acceptances zero. Admission is an
+explicit customer/order existence/ownership guard, not automatically compiled
+branch logic. On the same eight accepted tasks: Agent model calls 40 versus
+workflow 0; **both execute 40 tool calls**, so no tool-call reduction is claimed.
+The extra local measurement pass also matches all expected outputs/states.
+
+All thirty live attempts report 155,992 input and 13,597 output tokens (complete
+provider usage), 125 requests, 120 tool calls and ten failed calls. No money or
+cost benefit was estimated. Descriptive accepted-test median elapsed times are
+13.0929277184 seconds for Agent collection and 0.0000969685 seconds for local
+workflow execution. Timer scopes differ and these must not be advertised as a
+production acceleration factor.
+
+Actual generated Prefect flow ran `test-01` on a real temporary local server:
+five nodes Completed, output and full-state assertions passed. Generated source
+SHA: `a10bfac7ad3a2566ba5cb2541587c275212df945c97f09431d72c56427cd2278`.
+The command is reproduced in `examples/customer-support-agent/live-v1/SOURCE.md`.
+
+This is **recorded model orchestration in synthetic business state** with
+deterministic classification/recommendation, AI-declared binding contracts and
+one attempt per task. It is not real-customer evidence, a general success-rate
+estimate, automatic workflow policy discovery or self-evolution. Public hashes
+and operator confirmation do not attest provider authenticity or access control.
+Without private raw records, others can reproduce workflow/state verification,
+not verify historical provider requests. These tasks are now known regression
+fixtures; future tuning requires a newly declared untouched holdout.
+
+### Actual validation
+
+```text
+$ .venv/bin/python -m unittest discover -s tests -p test_agent_report.py -v
+Ran 8 tests in 0.482s; OK (before final freeze)
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 119 tests in 16.831s; OK (before test model collection)
+Ran 122 tests in 17.312s; OK (final, no skips)
+
+$ .venv/bin/python -m unittest discover -s tests -p test_agent_live_artifacts.py -v
+Ran 3 tests in 0.035s; OK
+
+$ .venv/bin/python -m trace2flow validate examples/customer-support-agent/live-v1/artifacts/compile.json
+valid=true, partition=compile, runs=9, steps=45
+
+$ .venv/bin/python -m trace2flow.agent_report examples/customer-support-agent/corpus-plan.json data-private/agent-corpus-v1/test --partition test --unlock-test --manifest examples/customer-support-agent/live-v1/final-freeze.json --workflow examples/customer-support-agent/live-v1/artifacts/workflow.json --compile examples/customer-support-agent/live-v1/artifacts/compile.json --output examples/customer-support-agent/live-v1/test-report.json
+planned=12, evaluated=12, correct=12, score_final=true
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py examples/customer-support-agent/live-v1/artifacts/prefect_flow.py
+exit 0
+
+$ uv lock --check --offline
+Resolved 202 packages
+
+$ uv build --out-dir /tmp/trace2flow-m11b-build.AiiDYT
+Successfully built sdist and wheel including the three new M11b modules
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0
+```
+
+Collection used the case CLI in `docs/AGENT_EXPERIMENT.md` with every exact
+predeclared ID, original baseline manifest for compile/development and final
+`report-freeze.json` for test. There was no hidden retry or dropped directory.
+Validation in the automated suite is offline, not another paid evaluation.
+Streamlit bare-mode warnings/temporary Prefect server logs are expected.
+
+### Next milestone
+
+No human intervention is needed for the completed simulated experiment. Unknown
+future business policy/lineage/effects still require declarations or approval;
+these results do not authorize guessing. M12 should expose this actual recorded
+evidence, review labels, DAG/bindings and complete-state result in the existing
+lightweight demo with a Chinese walkthrough. Do not introduce a new frontend,
+real customer integration or self-evolution loop. Publication still requires
+explicit user direction.
 
 ## M11b pre-test source checkpoint
 
