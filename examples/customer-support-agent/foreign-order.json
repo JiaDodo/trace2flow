@@ -1,0 +1,8 @@
+{
+  "task_id": "agent-development-foreign-order-001",
+  "ticket_id": "T-AGENT-002",
+  "customer_id": "C-001",
+  "order_id": "O-002",
+  "ticket_text": "请查询这笔订单并处理重复扣款问题。",
+  "policy_version": "v1"
+}

@@ -26,6 +26,12 @@ is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
 The conservative tau3-bench retail importer and its evidence language are
 documented in [the recorded-data guide](docs/RECORDED_DATA.md).
 
+An optional DeepSeek customer-support Agent now produces actual model/tool
+recordings in the existing synthetic local simulator. It is a trace producer,
+not a new compiler: raw evidence is saved locally, normalized output requires
+dependency review, and live calls need an explicit paid-call flag. See
+[the Agent collector guide](docs/AGENT_COLLECTOR.md).
+
 A small checked-in recorded corpus demonstrates the non-synthetic data path:
 
 ```bash

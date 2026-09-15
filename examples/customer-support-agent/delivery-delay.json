@@ -1,0 +1,8 @@
+{
+  "task_id": "agent-development-delivery-001",
+  "ticket_id": "T-AGENT-001",
+  "customer_id": "C-001",
+  "order_id": "O-001",
+  "ticket_text": "我的订单还没有收到，请核实情况并在工单里记录处理建议。",
+  "policy_version": "v1"
+}

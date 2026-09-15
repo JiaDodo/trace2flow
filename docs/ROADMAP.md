@@ -157,7 +157,34 @@ intentional output/state corruptions fail; the UI clearly distinguishes
 synthetic end-to-end verification, recorded structural coverage, and any new
 independent execution result.
 
-## Post-MVP release handoff (next, requires repository publication authority)
+## M10 — DeepSeek trace producer (extension)
+
+Add a single-purpose LangChain `create_agent` producer using DeepSeek and the
+existing five local simulated customer-support tools. Capture calls, typed
+arguments/results, model messages/usage, failure endings, and full local state.
+Do not impose a fixed business tool sequence. Guard task identity, observed
+order facts, policy recommendations, and writes; keep the collector separate
+from the upstream compiler. Live recordings use an explicit paid-call flag,
+bounded calls, no automatic retries, and ignored local output directories.
+
+Acceptance: offline scripted-model tests exercise the actual framework loop,
+normal output/state, failed calls, strict types, repeated occurrences, budgets,
+and partial recording. Unreviewed normalized output cannot enter mining. Run a
+small explicitly authorized DeepSeek development pilot; report actual results
+without treating the pilot as a holdout score or claiming automatic lineage.
+
+## M11 — Reviewed agent corpus and independent evaluation (next)
+
+Freeze task partitions before collecting a larger corpus. Add a checked,
+source-pinned review intake for collector recordings, preserving original raw
+evidence and explicit dependency/binding declarations. Keep all failures and
+unsupported structures in the evaluation inventory. Repeated trials and task
+paraphrases remain within one task group. Evaluate Agent and workflow against
+independently specified expected output/state on untouched test tasks, with
+separate coverage, accepted-case correctness, unsafe acceptance, and review
+effort. Recorded local model runs remain synthetic-business evidence.
+
+## Post-MVP release handoff (requires repository publication authority)
 
 - Review the final branch history and choose merge/squash policy.
 - Push the development branch and observe the first GitHub Actions clean

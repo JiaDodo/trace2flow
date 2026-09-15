@@ -21,6 +21,13 @@ dependencies = [
 [dependency-groups]
 dev = ["ruff==0.16.7"]
 
+[project.optional-dependencies]
+agent = [
+    "langchain>=1.0,<2",
+    "langchain-core>=1.0,<2",
+    "langchain-deepseek>=1.0,<2",
+]
+
 [project.scripts]
 trace2flow = "trace2flow.cli:main"
 

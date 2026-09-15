@@ -210,3 +210,15 @@ Trace2Flow M0 adds only:
 
 M0 does not add typed JSON ingestion, Workflow IR, evidence-bearing DAGs,
 binding inference, Prefect export, a simulator, or a Streamlit UI.
+
+## M10 producer boundary
+
+M10 adds an optional LangChain/DeepSeek trace producer and a fixed development
+pilot checker under `src/trace2flow/`. It reuses the existing Trace2Flow local
+customer-support simulator, not upstream experiment Agents. DeepSeek chooses
+tool calls; classification and recommendations remain existing deterministic
+rules. Raw recordings retain failures and model batch structure. Normalized
+output is quarantined and contains no automatically inferred dependencies.
+This pilot is not evidence of upstream automatic JSON ingestion or generalized
+business workflow synthesis. The four audited upstream core paths remain
+unchanged against the baseline commit.

@@ -1,10 +1,123 @@
 # Trace2Flow Status
 
-Last updated: 2026-09-14
+Last updated: 2026-09-15
 
-Current milestone: M9 complete — scoped MVP implementation complete
+Current milestone: M10 complete — optional DeepSeek trace producer and development pilot
 
-Working branch: `feat/m9-recorded-execution`
+Working branch: `feat/m10-deepseek-collector`
+
+## M10 update
+
+The user selected DeepSeek and authorized model spend for the small producer
+extension. Only presence of `DEEPSEEK_API_KEY` was checked; its value was never
+printed. No `.env` or credential file was read. No push/PR/merge was performed.
+
+- Added optional locked `agent` dependencies: LangChain 1.4.0, core 1.6.3,
+  DeepSeek integration 1.1.0. Installed a fresh isolated `.venv`; upstream
+  dependencies and compiler sources remain preserved.
+- Added `agent_collect`: actual `create_agent` loop with five fixed local
+  simulator tools, task/ownership/fact/policy/write guards, strict local JSON
+  parameter types, bounded calls, sanitized errors and no automatic retries.
+- Default DeepSeek V4 Pro uses non-thinking mode and the standard official
+  endpoint, not beta native strict mode. The model alias is explicitly unpinned.
+  LangSmith cloud tracing is disabled, including inherited tracing settings.
+- Save raw task/prompt/producer hash/model events/call IDs/typed arguments and
+  results/usage/ending/full state to new ignored local directories. Capture
+  failures and partial runs. Zero-call runs are raw-only, never fabricated.
+- Preserve read-batch requests while serially dispatching only audited
+  independent customer/order queries. Compute/write/unknown batches stop.
+  Keep repeated occurrences distinct and do not infer dependencies from order.
+- Normalized traces are quarantined until explicit review. Added a fixed
+  development-pilot checker, content/state corruption tests and two committed
+  synthetic input tasks without Agent-visible expected answers.
+- Added 18 offline tests and collector documentation. CI installs the optional
+  Agent dependencies, but no paid call is part of the automated suite. Hosted
+  M10 CI has not run because this branch has not been pushed.
+
+### Actual DeepSeek development pilot
+
+Five recordings remain under ignored `data-private/agent-pilot/`:
+
+| Recording | Observed ending | Model requests | Dispatched tool calls |
+|---|---|---:|---:|
+| m10-delivery-001 (prompt v1.0) | stopped read batch | 1 | 0 |
+| m10-delivery-002 (prompt v1.1) | stopped read batch | 1 | 0 |
+| m10-foreign-001 (prompt v1.1) | stopped read batch | 1 | 0 |
+| m10-delivery-003 (prompt v1.2) | model finished, correct ticket update | 5 | 5 |
+| m10-foreign-002 (prompt v1.2) | model finished, failed foreign-order lookup, no write | 3 | 3 |
+
+Initial attempts exposed the overly restrictive single-call interface. Adding
+only a prompt instruction did not fix it. The minimal code extension allows
+audited independent read batches, preserves their original grouping, and does
+not invent data edges. Tests retain strict-mode batch rejection and additionally
+verify allowed read batches and rejected mixed write batches.
+
+The final delivery output exactly matches `carrier_investigation` and
+`pending_carrier`; the complete customer/order/ticket state matches independently
+fixed expectations, including an unchanged unrelated ticket. The final
+foreign-order run has no successful update and its entire state is unchanged.
+Its normalized run is partial, not business-successful. All three initial
+stops have no tool dispatch and unchanged state. Checker assertions passing for
+stops are safety observations, not successful task executions.
+
+Available usage across all five attempts: 11 model requests, 12,680 input
+tokens and 1,271 output tokens. No paid run was discarded. This is development
+evidence, not a holdout rate, cost-savings measurement, customer-data claim or
+general automatic workflow discovery. Model final-chat claim correctness is
+not scored. Business classification and recommendations remain deterministic
+existing simulator rules; raw recordings still require dependency/binding
+review. Frozen corpus collection and independent evaluation are M11.
+
+Raw SHA-256 inventory (no raw recordings are committed):
+
+```text
+m10-delivery-001 215b14d5c3db8db62d1bd9d6db628e20d8a6674fcdb480e14fdfd782ef6f992e
+m10-delivery-002 ec29324984968a5c350b3d84521e6bdf983aa4342aa463a2cd69150e14c610ac
+m10-foreign-001  7ed565a09fb6cab283a3498b06e3e7cef0ab509abb7be375c6195617db220df0
+m10-delivery-003 2410f71630f111a2b53bf1fcb74e43a99383bbb9965ccfc073a251291e7a25c0
+m10-foreign-002  eb71a4fb9128ca0f1bcc166f25e088c7664799e85b10e5305266d01c1ac5436e
+```
+
+### Actual validation
+
+```text
+$ uv sync --locked --extra agent --group dev
+Resolved 202 packages; installed isolated locked environment
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 91 tests in 16.106s
+OK (no skips)
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py
+exit 0
+
+$ uv lock --check --offline
+Resolved 202 packages
+
+$ uv build --out-dir /tmp/trace2flow-m10-build.TCNp1Q
+Successfully built sdist and wheel, including both producer modules
+
+$ .venv/bin/python -m trace2flow.agent_pilot data-private/agent-pilot
+passed=true; scope=fixed_development_pilot_not_holdout
+
+$ .venv/bin/python -m trace2flow validate data-private/agent-pilot/m10-delivery-003/normalized.quarantine.json
+valid=true; runs=1; steps=5
+
+$ .venv/bin/python -m trace2flow mine data-private/agent-pilot/m10-delivery-003/normalized.quarantine.json --output /tmp/trace2flow-m10-quarantine-candidate.json
+exit 2 (expected): complete import review required
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0: audited upstream core and MIT license unchanged
+```
+
+`uv` was invoked at `/media/E/dodo/conda_envs/trace2flow-m0/bin/uv` because it
+was not on the current shell PATH. The shell's default Python was not used for
+tests. Live invocations used the command in `docs/AGENT_COLLECTOR.md` with the
+five new output directories listed above. Streamlit bare-mode warnings during
+tests are expected; all assertions passed.
 
 ## M9 update
 

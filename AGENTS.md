@@ -185,6 +185,28 @@ python src/codegen.py \
 The example benchmark above reuses the compilation population and is only a
 CLI smoke check. It must not be reported as held-out performance.
 
+## DeepSeek trace collection
+
+Install the optional producer with `uv sync --locked --extra agent --group dev`.
+Use `langchain.create_agent`, not a custom Agent framework. Model credentials
+come only from `DEEPSEEK_API_KEY`; never log them, headers, provider exception
+text, or read `.env` in diagnostic output. LangSmith cloud tracing stays off.
+Live requests require explicit user authorization and `--allow-paid-call`:
+
+```bash
+uv run --extra agent python -m trace2flow.agent_collect \
+  examples/customer-support-agent/delivery-delay.json \
+  --allow-paid-call --output data-private/agent-pilot/NEW_RUN
+```
+
+Never overwrite recording directories or select only successful runs after
+collection. Zero-tool runs have raw records only (the normalized schema needs
+one actual call); do not invent a step. Normalized collector output is
+quarantined until dependencies, alignment, effects, and bindings are reviewed.
+Guard requirements and list order are not data-dependency proof. Scripted
+responses prove collector mechanics, not model capability. Live development
+pilots are not held-out estimates; preserve full task-group partitions.
+
 ## Scope discipline
 
 - Implement one testable milestone per iteration.
