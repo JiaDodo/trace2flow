@@ -52,6 +52,9 @@ WRITE_TOOLS = frozenset(
         "transfer_to_human_agents",
     }
 )
+# Task 105 was used for the provider integration pilot before this split was
+# frozen.  Its complete entity-connected group is therefore development-only.
+PREEXPOSED_DEVELOPMENT_TASK_IDS = frozenset({"105"})
 
 
 class Tau3CorpusError(ValueError):
@@ -232,12 +235,19 @@ def _connected_groups(tasks: list[Mapping[str, Any]]) -> dict[str, list[str]]:
     return result
 
 
-def _assign_roles(groups: Mapping[str, list[str]], target_compile: int) -> dict[str, str]:
+def _assign_roles(
+    groups: Mapping[str, list[str]],
+    target_compile: int,
+    forced_development_task_ids: frozenset[str] = PREEXPOSED_DEVELOPMENT_TASK_IDS,
+) -> dict[str, str]:
     """Select complete hash-ordered groups up to the declared compile target."""
 
     roles: dict[str, str] = {}
     compile_count = 0
     for group_hash, task_ids in sorted(groups.items()):
+        if set(task_ids) & forced_development_task_ids:
+            roles[group_hash] = "development"
+            continue
         role = (
             "compile"
             if compile_count + len(task_ids) <= target_compile
@@ -363,7 +373,8 @@ def build_manifest(
         data_claim="public_simulated_benchmark_tasks_not_agent_traces",
         split_policy=(
             "official train/test; test oracle sealed; train entity-connected groups "
-            "assigned deterministically to compile/development"
+            "assigned deterministically to compile/development; pre-exposed pilot "
+            "task groups forced to development"
         ),
         task_count=len(tasks),
         official_train_count=len(train_ids),

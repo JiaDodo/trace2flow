@@ -56,9 +56,15 @@ def fixture_documents() -> tuple[list[dict], dict]:
     # Two train tasks share an entity and therefore must remain in one role.
     tasks[0] = task("0", "shared-order")
     tasks[1] = task("1", "shared-order")
+    tasks[2] = task("2", "pilot-shared-order")
+    tasks[105] = task("105", "pilot-shared-order")
+    train_ids = [str(index) for index in range(73)] + ["105"]
+    test_ids = [str(index) for index in range(73, 105)] + [
+        str(index) for index in range(106, 114)
+    ]
     return tasks, {
-        "train": [str(index) for index in range(74)],
-        "test": [str(index) for index in range(74, 114)],
+        "train": train_ids,
+        "test": test_ids,
         "base": [str(index) for index in range(114)],
     }
 
@@ -92,6 +98,11 @@ class Tau3CorpusTests(unittest.TestCase):
         for item in manifest.train_tasks:
             roles_by_group.setdefault(item.entity_group_sha256, set()).add(item.role)
         self.assertTrue(all(len(roles) == 1 for roles in roles_by_group.values()))
+
+    def test_preexposed_pilot_group_is_forced_to_development(self):
+        manifest = self.build()
+        by_id = {item.task_id: item for item in manifest.train_tasks}
+        self.assertEqual(by_id["2"].role, "development")
 
     def test_manifest_rejects_partition_overlap(self):
         tasks, split = fixture_documents()

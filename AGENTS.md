@@ -348,6 +348,20 @@ Run the offline inventory controls with:
 PYTHONPATH=src .venv/bin/python -m unittest tests.test_tau3_corpus -v
 ```
 
+The paid development runner is `trace2flow.tau3_runner`. Execute it only with
+the pinned τ³ checkout's virtual environment and the checked-in hash-bound
+plan. A run name is append-only; never resume, overwrite or silently retry a
+result batch:
+
+```bash
+PYTHONPATH=src data-private/tau2-bench-source/.venv/bin/python \
+  -m trace2flow.tau3_runner run \
+  examples/tau3-retail-v1/development-plan.json \
+  --manifest examples/tau3-retail-v1/manifest.json \
+  --source-root data-private/tau2-bench-source \
+  --save-to NEW_UNIQUE_NAME --allow-paid-call
+```
+
 ## Scope discipline
 
 M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the

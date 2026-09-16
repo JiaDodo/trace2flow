@@ -1,0 +1,70 @@
+{
+  "agent_implementation": "trace2flow_single_call",
+  "agent_model": "openai/deepseek-v4-pro",
+  "attempts_per_task": 1,
+  "dataset": "tau3-bench/retail",
+  "evaluator_model": "openai/deepseek-v4-pro",
+  "hallucination_retries": 0,
+  "limitations": [
+    "This is a development batch and must not be reported as held-out benchmark performance.",
+    "Every planned task is attempted once; failures and policy violations remain in the inventory.",
+    "The simulated user and local retail backend do not represent real customer traffic.",
+    "The batch measures an Agent baseline, not a Trace2Flow workflow benefit."
+  ],
+  "manifest_sha256": "8cfd3a89b87db8a0343a851e003491bfb945a18c3f52ec00785de7a428a4eb34",
+  "max_concurrency": 2,
+  "max_retries": 0,
+  "max_steps": 60,
+  "role": "development",
+  "schema_version": "tau3-development-plan/1.0",
+  "seed": 314159,
+  "source_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+  "tasks": [
+    {
+      "source_task_sha256": "b346afb863372ef9f28fa2062c575ae96b4df4d855cc535dec83a8e517e6d40d",
+      "task_id": "0",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "4cc4ab32e5869264d6451855c3a0a3af9693965edb5f17a2c1d77c489681d2c9",
+      "task_id": "10",
+      "workflow_families": [
+        "transfer_to_human_agents"
+      ]
+    },
+    {
+      "source_task_sha256": "968d73ce2d67f42ca10f1fd2b4368ac05db7bdf842bfcc26ca1afe1fec221b7f",
+      "task_id": "22",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_user_address"
+      ]
+    },
+    {
+      "source_task_sha256": "c3a9776570a1708599bd5132509f2cc27ac9cc791eec6d864a18885cf0668623",
+      "task_id": "63",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "638d5606ac3b8eed1b79095e4b9c4321563c52001055fb94a4acf3c92d54d9e3",
+      "task_id": "76",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "source_task_sha256": "333e977f2b5f8595ce52a293e8c5bb56a4b928953d1aac88554bbdb89adde34d",
+      "task_id": "103",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ]
+    }
+  ],
+  "user_model": "openai/deepseek-v4-pro"
+}

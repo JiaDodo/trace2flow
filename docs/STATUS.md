@@ -23,7 +23,9 @@ Agent traces.
   expected state or NL assertions.
 - The 74 official train tasks form 35 transitive shared-entity groups. Stable
   hash ordering assigns whole groups to 48 compile and 26 development tasks;
-  no such group crosses those roles.
+  no such group crosses those roles. Because pilot task 105 was already
+  observed, its complete 19-task entity group is explicitly forced to
+  development before assignment.
 - Added a checked-in manifest, source/license record, redacted pilot report,
   protocol documentation and seven regression tests. The manifest explicitly
   says task/action oracles are not execution traces.
@@ -81,9 +83,13 @@ $ .venv/bin/uv build --out-dir /tmp/trace2flow-m14-build.XXXXXX
 Successfully built sdist and wheel containing trace2flow.tau3_corpus
 ```
 
-Next is M14b: build and test a fail-closed provider/runner adapter, enforce one
-tool call per turn, predeclare a small family-stratified development batch, and
-retain/import every outcome. The 40 test oracles remain sealed. M13d's typed
+M14b's pre-result contract is now implemented and frozen locally: a six-task
+family-stratified plan, source/manifest/task hashes, one attempt each, zero
+retries, a local τ³ adapter that fails rather than truncates multiple tool
+calls, explicit DeepSeek models and separate evaluator-usage capture. Fifteen
+focused offline controls pass. The next action is the authorized paid
+development run; its outcome determines whether opening a newly frozen test
+evaluation is justified. The 40 test oracles remain sealed. M13d's typed
 user-facing outcome fix is still outstanding and M13c remains historical
 evidence; it is not rescored.
 

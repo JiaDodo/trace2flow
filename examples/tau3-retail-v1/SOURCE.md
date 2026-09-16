@@ -35,6 +35,11 @@ leakage; it is not evidence that an Agent actually followed the reference
 actions. The official train/test split itself reuses simulated entities, so
 entity isolation is explicitly not claimed across that upstream boundary.
 
+Task 105 was used for the provider pilot before the split was frozen. The
+builder therefore forces its entire 19-task entity-connected group into
+development. A pre-exposed task can never return to compile merely because a
+different deterministic hash assignment would otherwise place it there.
+
 ## DeepSeek development pilot
 
 `pilot-report.json` is a redacted summary of three local attempts on official
@@ -59,3 +64,8 @@ This single failed development task is useful integration evidence, not an
 accuracy estimate. It is not rerun, discarded, or moved into the sealed test
 set. Scaling to a paid batch is deferred until the one-call policy and provider
 evaluator configuration have deterministic regression coverage.
+
+`development-plan.json` freezes the next six-attempt development batch before
+result collection. It spans exchange, transfer, address, pending-item,
+cancellation and mixed return/update families. It uses one attempt per task,
+zero task retries, zero hallucination retries and two-way concurrency.

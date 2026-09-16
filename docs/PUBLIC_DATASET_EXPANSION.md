@@ -32,6 +32,11 @@ The 74 train tasks are separated into:
   admission design;
 - 35 entity-connected groups, none crossing compile/development.
 
+Because task 105 was already observed during provider integration, its complete
+19-task shared-entity group is forcibly development-only before the split is
+materialized. This explicit pre-exposure rule takes precedence over hash-based
+assignment and prevents the pilot from contaminating compile data.
+
 These are planning roles, not successful run counts. A future collection must
 retain every declared attempt, including infrastructure failures, tool
 failures, no-write results and zero-call conversations.
@@ -56,6 +61,15 @@ not yet suitable for a resume accuracy claim. Before paid expansion:
    existing conservative importer;
 5. only after fixing the experiment contract, freeze a new test evaluation and
    open the 40 official test tasks once.
+
+The M14b development contract is now frozen in
+`examples/tau3-retail-v1/development-plan.json`. The runner registers a local
+τ³ Agent adapter without changing upstream files, requests provider-side
+`parallel_tool_calls=false`, and independently fails a task if the model still
+proposes more than one assistant tool call. It never truncates a batch into a
+different trajectory. Paid execution needs `--allow-paid-call`, a new output
+name and the pinned source checkout. Agent, simulated-user and NL-evaluator
+token usage are collected separately where the provider returns metadata.
 
 ## Claims allowed now
 

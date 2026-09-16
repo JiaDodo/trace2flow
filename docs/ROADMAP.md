@@ -340,6 +340,12 @@ development attempt is accounted for; result-format import preserves repeated
 occurrences and types; metrics separate Agent, user-simulator and evaluator
 usage. Scale to the frozen test only if the development result justifies it.
 
+Contract frozen before collection: six family-stratified development tasks,
+one attempt each, no task or hallucination retries, two-way concurrency, a
+fail-closed single-tool-call Agent adapter and separate provider-usage capture.
+The source manifest now explicitly forces the pre-exposed task-105 entity group
+to development. Results have not yet been accessed at this freeze point.
+
 ## Post-MVP release handoff (requires repository publication authority)
 
 - Review the final branch history and choose merge/squash policy.

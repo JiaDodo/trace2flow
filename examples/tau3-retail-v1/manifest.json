@@ -83,7 +83,7 @@
   ],
   "source_license": "MIT",
   "source_repository": "https://github.com/sierra-research/tau2-bench",
-  "split_policy": "official train/test; test oracle sealed; train entity-connected groups assigned deterministically to compile/development",
+  "split_policy": "official train/test; test oracle sealed; train entity-connected groups assigned deterministically to compile/development; pre-exposed pilot task groups forced to development",
   "task_count": 114,
   "train_tasks": [
     {
@@ -100,7 +100,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "b346afb863372ef9f28fa2062c575ae96b4df4d855cc535dec83a8e517e6d40d",
       "task_id": "0",
       "workflow_families": [
@@ -121,7 +121,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "49a399d0221aad8b22d7ceccbdb9851cc3384094b3af43d5f633564154d111f5",
       "task_id": "1",
       "workflow_families": [
@@ -148,7 +148,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "0264691c75c55cc3631b682b81106ed036288b4987633c91aa177b838a2bd62c",
       "task_id": "2",
       "workflow_families": [
@@ -176,7 +176,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "6d8eee60a1e6651239059ce23117d0e8d3901e033e95a3125a3d80a72103b792",
       "task_id": "3",
       "workflow_families": [
@@ -205,7 +205,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "80b63bd75e18987d06f84b38ae5924805c30f1d648504997900633afc9e84d5f",
       "task_id": "4",
       "workflow_families": [
@@ -227,7 +227,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "3a782890bd2a493e0ab4bb98667b9cd07260c9992529720b19d8764803aeba5f",
       "task_id": "6",
       "workflow_families": [
@@ -249,7 +249,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "16212f22056312671fe6a867bb41008f5c676bd9f08f58994d870f327966312a",
       "task_id": "7",
       "workflow_families": [
@@ -271,7 +271,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "4ab4db4a47a8aed7aa5798ea22a34f7e1ad2d091f6eca33db62ac467c1675c7a",
       "task_id": "8",
       "workflow_families": [
@@ -292,7 +292,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "4cc4ab32e5869264d6451855c3a0a3af9693965edb5f17a2c1d77c489681d2c9",
       "task_id": "10",
       "workflow_families": [
@@ -314,7 +314,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "0f798ae5c20218638f2aa28597ffab94dc2143a8e97459e973aaa9ad5e5be5b5",
       "task_id": "11",
       "workflow_families": [
@@ -335,7 +335,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "7daed0d37a0014362b6cb00e1a256466316fd30edac1cb3cc6d7eb042a91b645",
       "task_id": "13",
       "workflow_families": [
@@ -357,7 +357,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "eeed476512f184c5f1edb3f92d49a6c959bcf4e2d270942fe56acd140a611f7b",
       "task_id": "14",
       "workflow_families": [
@@ -429,7 +429,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "606aedb73174e73fcf340b00164f9e973918c46893d12902177f748b375abe88",
       "task_id": "19",
       "workflow_families": [
@@ -455,7 +455,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "528c8c35f405de9637cb2a96cd8579ca319d31ceb76f595ec821984772a0209f",
       "task_id": "20",
       "workflow_families": [
@@ -483,7 +483,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "90542dcd6b02feca9dc271c6095f9549eef47e3024a7d56e756f88857b6ebc6e",
       "task_id": "21",
       "workflow_families": [
@@ -506,7 +506,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "968d73ce2d67f42ca10f1fd2b4368ac05db7bdf842bfcc26ca1afe1fec221b7f",
       "task_id": "22",
       "workflow_families": [
@@ -535,7 +535,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "f0cfa7288170a523061e223752d744f3480a92dfb8ee22859f4b2aed977279a1",
       "task_id": "23",
       "workflow_families": [
@@ -551,7 +551,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "ce2a3c2855b166a49990d2f09a849cc37b0f7f849f3cb7338f209747972e4f97",
       "task_id": "24",
       "workflow_families": [
@@ -573,7 +573,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "d07189e320ad272fba179da906ae92256ecac3bbea30cdf2aa413c50c1bd295b",
       "task_id": "25",
       "workflow_families": [
@@ -600,7 +600,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "dc7ab24fb5ae261cbd6d6be4fbd348d8e58f246e02e6ac211e944992fa598991",
       "task_id": "28",
       "workflow_families": [
@@ -622,7 +622,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "c12c34a735c9ac2d54991ef3c0f90e85c301a16e4731511266712ccd88d9125d",
       "task_id": "29",
       "workflow_families": [
@@ -746,7 +746,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "b53308048e5c833bd881a714ac3b1f78d66ffb3a5fd46059065368b1eb190c08",
       "task_id": "37",
       "workflow_families": [
@@ -795,7 +795,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "d1f86f24327565fdc0056396430fdb7c02491214485e3ad3fb9d7db03c0faec7",
       "task_id": "43",
       "workflow_families": [
@@ -816,7 +816,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "317e18ad00f9b830d929c7d48a16442fa7bf54e00ca913ab7011f511aa7d2756",
       "task_id": "44",
       "workflow_families": [
@@ -839,7 +839,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "a6a53c94172d850ecd429b5b10865b980d6263d17fcd38ce9816c11352aaa736",
       "task_id": "46",
       "workflow_families": [
@@ -862,7 +862,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "b6a8d84bc69b58096b9723e31f5dcdd9c16228351ba5d29fe43f201eef719909",
       "task_id": "47",
       "workflow_families": [
@@ -884,7 +884,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "963e54ba0c63fc1e8183b59d461836d228ef6b8436be0450192eec0b5bd64fc8",
       "task_id": "48",
       "workflow_families": [
@@ -922,7 +922,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "06bf80b755acbdedde2a6c963fa9e722316c1f2a18a24bfdfb513d00baff8e4f",
       "task_id": "52",
       "workflow_families": [
@@ -966,7 +966,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "4c4ff215426c188639d3e35cab504cf2e83f4b1985e49c90d02706209f2447eb",
       "task_id": "57",
       "workflow_families": [
@@ -1131,7 +1131,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "4e0ddaf28df78e409757e29bb645f64565c9f31ac21c6058dd3b7d7b99b4c555",
       "task_id": "73",
       "workflow_families": [
@@ -1148,7 +1148,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "fec0bb8709edc1b786ec58d1d84a4818c399302dfbf9965157826167d4647a0d",
       "task_id": "75",
       "workflow_families": [
@@ -1222,7 +1222,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "1fa3c506c90d2350403d1b586ede8aec484c049e4f8bcb561e15ea174c1f6a76",
       "task_id": "81",
       "workflow_families": [
@@ -1328,7 +1328,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "613bd83dc956025a6a1c2e24e340e3655a02218ecdc271f2ee1f5db1824e80fa",
       "task_id": "88",
       "workflow_families": [
@@ -1345,7 +1345,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "7f5983a2470cc75395f43941d942fc6ea7d0b2228b1374460293b57f5659f57f",
       "task_id": "89",
       "workflow_families": [
@@ -1455,7 +1455,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "8fd96aea7a6c4c07f5e5da62d7460b4e8e7520377188cace62b3fd6d1646daf2",
       "task_id": "98",
       "workflow_families": [
@@ -1474,7 +1474,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "7e8fd84bbfbfc47b04ab9fc44597139dcf98d2b44f8a7eda072e05d453e6c77b",
       "task_id": "99",
       "workflow_families": [
@@ -1536,7 +1536,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "compile",
+      "role": "development",
       "source_task_sha256": "90cf6b590da08e72c9ff269ca947302598b94b99d46bce34bf35223fbe238d98",
       "task_id": "105",
       "workflow_families": [
@@ -1553,7 +1553,7 @@
         "DB",
         "NL_ASSERTION"
       ],
-      "role": "development",
+      "role": "compile",
       "source_task_sha256": "77bfe9f5115aca9a466a397ad0dcf55dfdcbca94e7ac9aea5dc9bdbbddbfb1e8",
       "task_id": "106",
       "workflow_families": [
