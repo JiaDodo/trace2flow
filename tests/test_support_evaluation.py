@@ -28,6 +28,8 @@ from trace2flow.support_router import WorkflowRegistry
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAN = ROOT / "examples/customer-support-agent/m13c/plan.json"
+FREEZE = ROOT / "examples/customer-support-agent/m13c/freeze.json"
+REPORT = ROOT / "examples/customer-support-agent/m13c/report.json"
 
 
 class ExplodingModel(BaseChatModel):
@@ -45,6 +47,23 @@ class ExplodingModel(BaseChatModel):
 
 
 class SupportEvaluationTests(unittest.TestCase):
+    def test_committed_report_is_complete_hash_bound_and_public_only(self):
+        report = json.loads(REPORT.read_text(encoding="utf-8"))
+        self.assertEqual(report["freeze_sha256"], _sha(FREEZE))
+        self.assertEqual(report["plan_sha256"], _sha(PLAN))
+        attempts = report["attempts"]
+        self.assertEqual(len(attempts), 12)
+        self.assertEqual(
+            len({(row["case_id"], row["arm"]) for row in attempts}), 12
+        )
+        self.assertEqual(report["arms"]["agent"]["outcome_correct"], 4)
+        self.assertEqual(report["arms"]["adaptive"]["outcome_correct"], 4)
+        self.assertEqual(report["arms"]["agent"]["state_correct"], 6)
+        self.assertEqual(report["arms"]["adaptive"]["state_correct"], 6)
+        serialized = json.dumps(report, ensure_ascii=False)
+        for private_field in ('"turn"', '"state_before"', '"state_after"', '"answer"'):
+            self.assertNotIn(private_field, serialized)
+
     def test_plan_is_disjoint_and_model_input_has_no_oracle(self):
         plan = load_plan(PLAN)
         self.assertFalse(

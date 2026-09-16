@@ -2,11 +2,11 @@
 
 Last updated: 2026-09-16
 
-Current milestone: M13c contract frozen — paired result collection pending
+Current milestone: M13c complete — frozen paired Agent/router evaluation
 
 Working branch: `feat/m13c-paired-evaluation`
 
-## M13c paired evaluation contract
+## M13c paired evaluation
 
 Implemented and froze the comparison contract before collecting results. The
 plan contains six synthetic task cases and two arms with one attempt per
@@ -25,13 +25,43 @@ customer/ticket identity and start from an independent fresh backend.
 - The exact-oracle approval policy approves only a predeclared correct local
   status/category pair. Incorrect proposals are rejected and counted; no real
   message, refund, carrier call or customer-system write exists.
-- Added nine evaluation-control tests covering task-group separation, oracle
+- Added ten evaluation-control tests covering public-result integrity,
+  task-group separation, oracle
   isolation, registry validation, complete-state/output scoring, tamper
   detection, paid-call gates, failure retention and safe publication.
 
-Actual result collection has not run at this checkpoint. The next operation is
-the explicitly unlocked 12-attempt DeepSeek comparison, with no automatic
-retry. See `docs/PAIRED_AGENT_EVALUATION.md`.
+The contract was committed as `dd36900` before result access. The explicitly
+unlocked DeepSeek run then completed all 12 attempts exactly once. The public
+report SHA-256 is
+`1fd797a49ddbca69691bb298d83fe25703f631e880347edabe3af8d314278748`;
+the 12 full attempts plus private report remain in the ignored
+`data-private/support-m13c-v1/` directory.
+
+| Metric | Agent | Adaptive |
+|---|---:|---:|
+| Overall correct | 4/6 | 4/6 |
+| Complete-state correct | 6/6 | 6/6 |
+| Output-semantic correct | 4/6 | 4/6 |
+| Unsafe proposals / writes | 0 / 0 | 0 / 0 |
+| Model calls | 23 | 15 |
+| Tool calls / failures | 27 / 1 | 27 / 1 |
+| Reported input + output tokens | 37,321 | 24,223 |
+| Elapsed seconds | 66.49 | 46.47 |
+| Workflow coverage | 0/6 | 2/6 |
+
+The result demonstrates no accuracy gain. At 33.3% workflow coverage, the
+adaptive arm used 8 fewer model calls and 13,098 fewer reported tokens, while
+tool calls were unchanged. Two damage/billing responses mutated the exact
+correct local state but exposed only internal English status values instead of
+the predeclared user-facing semantic terms; both arms therefore failed output
+and overall scoring on those cases. This is a shared product wording defect,
+not a reason to rescore or retry. Each arm's one tool failure was the expected
+safe lookup failure for the nonexistent-order case, which finished without a
+write. The six synthetic cases are integration evidence only.
+
+See `docs/PAIRED_AGENT_EVALUATION.md`. M13d should implement a typed
+user-facing outcome contract and freeze a new broader holdout; it must not tune
+or rerun M13c.
 
 ```text
 $ PYTHONPATH=src .venv/bin/python -m unittest \
@@ -41,6 +71,26 @@ Ran 35 tests in 3.676s; OK
 $ .venv/bin/ruff check src/trace2flow/support_evaluation.py \
     src/trace2flow/support_reference.py tests/test_support_evaluation.py
 All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m trace2flow.support_evaluation evaluate ... \
+    --allow-paid-call --unlock-evaluation
+12/12 attempts retained; exit 0; no retry
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true \
+    .venv/bin/python -m unittest discover -s tests -v
+Ran 177 tests in 23.469s; OK; no skips
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+All checks passed!
+
+$ .venv/bin/uv lock --check --offline
+Resolved 202 packages; lock unchanged
+
+$ .venv/bin/uv build --out-dir /tmp/trace2flow-m13c-build-final-v3
+Successfully built sdist and wheel containing the M13c modules
+
+$ git diff --exit-code dd36900 -- <five frozen M13c source files>
+exit 0
 ```
 
 ## M13b adaptive router and trace adapter

@@ -269,7 +269,7 @@ tests build the workflow through the real upstream/compiler/IR path from two
 reviewed scripted runs and compare complete state against the Agent baseline.
 No default production workflow is installed and no performance claim is made.
 
-### M13c — Predeclared paired evaluation (in progress)
+### M13c — Predeclared paired evaluation (complete)
 
 Freeze a new task-group split and scorer before unlocking results. Compare the
 standard Agent baseline with the Agent-plus-Trace2Flow router on identical fresh
@@ -284,9 +284,26 @@ reproducible from a hash-pinned manifest and scorer.
 
 The six-case synthetic paired plan, reviewed reference registration, complete
 state/output scorer, fail-closed CLI, private attempt inventory and source/plan
-freeze are implemented. Offline contract tests pass. The freeze must be
-committed before the single authorized result collection is unlocked; results
-are not yet claimed here.
+freeze were committed before the single authorized result collection. All 12
+attempts were retained without retry. Both arms scored 4/6 overall and 6/6 on
+complete state; adaptive routing covered 2/6 and reduced model calls from 23 to
+15 and reported tokens from 37,321 to 24,223, without reducing tool calls or
+improving accuracy. The two output failures expose a shared user-facing status
+wording gap. These are tiny synthetic integration results, not production
+claims.
+
+### M13d — User-facing outcome contract and broader holdout (next)
+
+Replace internal English ticket-state wording with a typed, category-aware
+user outcome contract shared by Agent and workflow completion. Add regression
+tests first, then freeze a new and broader paraphrase/negative holdout before
+any second comparison. Do not reuse M13c attempts, tune the old scorer, or call
+the wording fix an accuracy improvement without new frozen evidence.
+
+Acceptance: responses state the verified user-facing outcome while preserving
+the no-refund/no-contact boundary; every ticket category and no-write path has
+deterministic tests; a new task-group-disjoint paired freeze measures semantic
+output and complete state without post-hoc retries.
 
 ## Post-MVP release handoff (requires repository publication authority)
 
