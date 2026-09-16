@@ -2,9 +2,99 @@
 
 Last updated: 2026-09-16
 
-Current milestone: M13a complete — standard conversational support Agent
+Current milestone: M13b complete — conservative Agent/workflow router
 
-Working branch: `feat/m13-standard-agent`
+Working branch: `feat/m13b-adaptive-router`
+
+## M13b adaptive router and trace adapter
+
+Connected new standard-Agent recordings to the existing Trace2Flow pipeline
+without modifying the frozen M11 experiment or automatically promoting any
+observed pattern. No DeepSeek request, credential access, push, PR, merge or
+external write was used in this milestone.
+
+- Added `support_trace.py` with strict models for the saved session, turn,
+  recording and individual calls. The adapter preserves raw JSON value types,
+  repeated occurrences, final output and complete state. It rejects prompt hash
+  tampering and duplicate call IDs.
+- Unreviewed input is explicitly quarantined with
+  `import_review_status=required`; dependencies and effects remain empty. A
+  complete `SupportRecordingReview` is bound to the recording hash and must
+  inventory dependencies, effects and alignment for every call. Reviewer kind
+  is explicit. State-changing calls require a declared write, and only fully
+  successful reviewed runs can enter the promotion merge helper.
+- Added an append-only versioned registry. Workflow content, development
+  verification and promotion review must share the recomputed SHA-256. The
+  Workflow IR must have no blockers and match the exact five-tool delivery
+  contract, reviewed bindings, evidence edges and ticket-update output. A
+  duplicate version is rejected; multiple matching versions fall back rather
+  than choosing silently.
+- Added a conservative lexical route contract requiring exactly one explicit
+  order ID plus clear delivery and delay language and no conflicting intent.
+  Missing/multiple IDs, refund/billing/damage conflicts, unknown/foreign orders,
+  preflight failure and unsupported work fall back to the standard Agent.
+- Matched workflows first execute against a cloned backend. Live state remains
+  unchanged until human approval. Approval reruns ownership, recent-order,
+  shipping-date and policy evidence on current live state before the idempotent
+  write; stale facts fail safely. Rejection does not mutate. Agent-fallback
+  approvals resume through the same router API, and customer/ticket identity is
+  immutable for each thread.
+- Increased the internal LangGraph recursion allowance from 30 to 100 after a
+  regression exposed that four sequential read calls plus middleware/checkpoint
+  nodes could exhaust graph steps before approval. The actual safety budgets
+  remain 8 model calls, 12 tools and one write attempt. No call budget was
+  loosened.
+- Added `docs/ADAPTIVE_ROUTER.md`, README/roadmap/development guidance and 12
+  integration tests. The framework design continues to use the LangChain
+  `create_agent`, middleware, checkpointer and `Command` resume boundaries from
+  the selected ecosystem skills.
+
+The offline integration fixture creates two fresh scripted LangChain Agent
+runs (10 tool-call occurrences), reviews them explicitly, invokes the real
+pinned upstream compiler and occurrence-aware candidate builder, and resolves a
+five-node/four-edge Workflow IR. Its seven bindings are four declared constants
+and three declared runtime-contract inputs; it has zero execution blockers.
+On the paired accepted development case, the workflow used zero model calls,
+paused for approval and produced a complete backend snapshot exactly equal to
+the standard Agent baseline. This proves integration mechanics for one known
+synthetic case, not accuracy, token reduction or generalization.
+
+### Actual M13b verification
+
+```text
+$ .venv/bin/python -m unittest tests.test_support_router -v
+Ran 12 tests in 2.267s; OK
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 167 tests in 23.270s; OK; no skips
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py scripts
+exit 0
+
+$ .venv/bin/uv lock --check --offline
+Resolved 202 packages; lock unchanged
+
+$ .venv/bin/uv build --out-dir /tmp/trace2flow-m13b-build-final-v2
+Successfully built sdist and wheel containing both M13b modules
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0
+
+$ git diff --exit-code de2f1d7 -- <M11 frozen code and artifacts>
+exit 0
+```
+
+### Next milestone
+
+M13c is next. Before any result is collected, freeze a new task-group inventory,
+baseline/router configurations, route contracts, workflow registrations,
+complete-state scorer and metrics. Then run the standard Agent and adaptive
+router on identical fresh states, retaining every attempt. Human intervention
+is required before any new paid DeepSeek corpus collection; it is not required
+for drafting and validating the offline evaluation contract.
 
 ## M13a standard Agent baseline
 

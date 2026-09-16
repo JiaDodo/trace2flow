@@ -510,7 +510,9 @@ class CustomerSupportAgent:
         )
         config = {
             "configurable": {"thread_id": request.thread_id},
-            "recursion_limit": 30,
+            # Middleware/checkpoint graph steps outnumber model/tool calls. The
+            # explicit model/tool budgets remain the safety boundary.
+            "recursion_limit": 100,
         }
         try:
             with tracing_context(enabled=False):
@@ -558,7 +560,7 @@ class CustomerSupportAgent:
         decisions: list[dict[str, str]] = [{"type": decision}]
         if decision == "reject":
             decisions[0]["message"] = feedback
-        config = {"configurable": {"thread_id": thread_id}, "recursion_limit": 30}
+        config = {"configurable": {"thread_id": thread_id}, "recursion_limit": 100}
         try:
             with tracing_context(enabled=False):
                 result = self._agent.invoke(

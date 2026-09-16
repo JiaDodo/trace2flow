@@ -39,6 +39,12 @@ only local write for human approval. Its passive recordings are intended as
 future Trace2Flow input; it does not yet claim self-evolution or measured
 improvement. See [the standard Agent guide](docs/STANDARD_AGENT.md).
 
+M13b adds a conservative integration layer: saved Agent sessions can enter the
+typed Trace2Flow review pipeline, while a hash-bound append-only registry routes
+only narrow, explicitly promoted requests to a verified Workflow IR. Ambiguous
+or unsupported requests fall back to the Agent, and both paths retain human
+approval before local writes. See [the adaptive router guide](docs/ADAPTIVE_ROUTER.md).
+
 The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
 explicit review intake and independent Agent/workflow outcome scoring. All
 30 tasks were collected with DeepSeek. On the frozen twelve-task test set the

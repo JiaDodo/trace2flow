@@ -279,6 +279,29 @@ must fall back to the Agent on ambiguity and require explicit reviewed workflow
 promotion. Freeze a new disjoint evaluation before comparing accuracy, unsafe
 writes, failures, calls, tokens or latency; no metric improvement is presumed.
 
+M13b modules are `trace2flow.support_trace` and
+`trace2flow.support_router`; read `docs/ADAPTIVE_ROUTER.md` before modifying
+them. Unreviewed standard-Agent recordings must retain
+`import_review_status=required`, empty dependencies and empty effects. Review
+inventory is exhaustive and hash-bound; do not infer it from call order, equal
+values or state change alone. Failed/partial runs remain evidence but cannot be
+merged by the promotion helper.
+
+The registry is append-only and has no implicit default. Keep workflow,
+verification and promotion hashes identical; never replace a version in place.
+The narrow delivery contract requires one explicit order ID and unambiguous
+language. All mismatch, conflict, ownership, preflight and multiple-registration
+cases fall back to the Agent. Workflow preview runs only on a clone. Approval
+must rerun reads and evidence checks against live state before the idempotent
+local write. Preserve the same router `resume` API for workflow and Agent
+fallback approvals.
+
+Run the focused M13 integration tests with:
+
+```bash
+.venv/bin/python -m unittest tests.test_support_router tests.test_support_agent -v
+```
+
 ## Scope discipline
 
 M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the

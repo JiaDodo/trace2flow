@@ -230,7 +230,7 @@ locked dependency check, package build, browser interaction/rendering checks
 and unchanged upstream/frozen-pipeline diffs. Historical test results remain
 M11 evidence, not newly measured holdout performance.
 
-## M13 — Agent-integrated Trace2Flow (in progress)
+## M13 — Agent-integrated Trace2Flow (in progress; M13a–b complete)
 
 ### M13a — Standard conversational Agent baseline (complete)
 
@@ -248,7 +248,7 @@ one explicitly authorized DeepSeek development run uses the final source and
 records state and usage locally. This is integration evidence, not an accuracy
 score or production claim.
 
-### M13b — Conservative adaptive router and trace adapter (next)
+### M13b — Conservative adaptive router and trace adapter (complete)
 
 Normalize eligible Agent recordings without changing the frozen M11 evidence.
 Introduce a versioned workflow registry and a conservative router: known,
@@ -261,7 +261,15 @@ Acceptance: offline paired cases prove route selection, safe fallback, trace
 provenance, no hidden answer fields and behavioral equivalence for accepted
 workflow cases. Any candidate promotion remains an explicit review action.
 
-### M13c — Predeclared paired evaluation
+Completed with a strict saved-session adapter, hash-bound exhaustive semantic
+review, successful-run promotion filter, append-only versioned registry,
+Workflow IR structural gate, cloned-state preflight, current-state revalidation,
+shared approval API and conservative explicit-order delivery contract. Offline
+tests build the workflow through the real upstream/compiler/IR path from two
+reviewed scripted runs and compare complete state against the Agent baseline.
+No default production workflow is installed and no performance claim is made.
+
+### M13c — Predeclared paired evaluation (next)
 
 Freeze a new task-group split and scorer before unlocking results. Compare the
 standard Agent baseline with the Agent-plus-Trace2Flow router on identical fresh
