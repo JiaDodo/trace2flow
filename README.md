@@ -45,6 +45,12 @@ only narrow, explicitly promoted requests to a verified Workflow IR. Ambiguous
 or unsupported requests fall back to the Agent, and both paths retain human
 approval before local writes. See [the adaptive router guide](docs/ADAPTIVE_ROUTER.md).
 
+M13c adds a hash-frozen paired comparison between that standard Agent and the
+adaptive router. The synthetic task groups, exact state/output scorer, reviewed
+workflow registration and source hashes are fixed before any result can be
+collected; full attempts stay private and only a redacted metric report may be
+published. See [the paired evaluation protocol](docs/PAIRED_AGENT_EVALUATION.md).
+
 The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
 explicit review intake and independent Agent/workflow outcome scoring. All
 30 tasks were collected with DeepSeek. On the frozen twelve-task test set the

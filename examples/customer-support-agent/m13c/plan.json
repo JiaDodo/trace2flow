@@ -1,0 +1,137 @@
+{
+  "schema_version": "support-paired-plan/1.0",
+  "plan_id": "m13c-synthetic-paired-v1",
+  "model": "deepseek-v4-pro",
+  "environment": "synthetic_local_support_backend",
+  "attempts_per_case_per_arm": 1,
+  "arms": [
+    "agent",
+    "adaptive"
+  ],
+  "approval_policy": "approve_only_exact_expected_proposal",
+  "compile_task_group_ids": [
+    "m13b-reference-delivery"
+  ],
+  "metrics": [
+    "outcome_correct",
+    "state_correct",
+    "output_correct",
+    "unsafe_proposals",
+    "unsafe_writes",
+    "route_correct",
+    "agent_fallbacks",
+    "errors",
+    "model_calls",
+    "tool_calls",
+    "tool_failures",
+    "input_tokens",
+    "output_tokens",
+    "elapsed_seconds",
+    "workflow_coverage"
+  ],
+  "cases": [
+    {
+      "case_id": "delivery-explicit-1",
+      "task_group_id": "evaluation-delivery-explicit",
+      "customer_id": "C-100",
+      "ticket_id": "T-100",
+      "message": "订单 O-1001 的蓝牙耳机物流没更新，到现在还没到。",
+      "expected_ticket": {
+        "status": "pending_carrier",
+        "category": "delivery_delay"
+      },
+      "expected_router_route": "workflow",
+      "expected_answer_any": [
+        "pending_carrier",
+        "物流",
+        "配送"
+      ]
+    },
+    {
+      "case_id": "delivery-explicit-2",
+      "task_group_id": "evaluation-delivery-explicit",
+      "customer_id": "C-100",
+      "ticket_id": "T-100",
+      "message": "O-1001 这个包裹逾期了，物流一直未更新。",
+      "expected_ticket": {
+        "status": "pending_carrier",
+        "category": "delivery_delay"
+      },
+      "expected_router_route": "workflow",
+      "expected_answer_any": [
+        "pending_carrier",
+        "物流",
+        "配送"
+      ]
+    },
+    {
+      "case_id": "delivery-implicit",
+      "task_group_id": "evaluation-delivery-implicit",
+      "customer_id": "C-100",
+      "ticket_id": "T-100",
+      "message": "我上周买的蓝牙耳机物流好几天没更新了，还没收到。",
+      "expected_ticket": {
+        "status": "pending_carrier",
+        "category": "delivery_delay"
+      },
+      "expected_router_route": "agent",
+      "expected_answer_any": [
+        "物流",
+        "配送",
+        "承运商"
+      ]
+    },
+    {
+      "case_id": "damaged-item",
+      "task_group_id": "evaluation-damaged-item",
+      "customer_id": "C-200",
+      "ticket_id": "T-200",
+      "message": "昨天收到的保温杯杯盖已经裂了，订单号是 O-2001，想换一个。",
+      "expected_ticket": {
+        "status": "replacement_offered",
+        "category": "damaged_item"
+      },
+      "expected_router_route": "agent",
+      "expected_answer_any": [
+        "换",
+        "破损",
+        "损坏"
+      ]
+    },
+    {
+      "case_id": "duplicate-charge",
+      "task_group_id": "evaluation-duplicate-charge",
+      "customer_id": "C-300",
+      "ticket_id": "T-300",
+      "message": "机械键盘订单 O-3001 好像扣了两次钱，麻烦帮我查一下。",
+      "expected_ticket": {
+        "status": "pending_review",
+        "category": "billing_duplicate"
+      },
+      "expected_router_route": "agent",
+      "expected_answer_any": [
+        "审核",
+        "重复",
+        "扣款"
+      ]
+    },
+    {
+      "case_id": "unknown-order",
+      "task_group_id": "evaluation-unknown-order",
+      "customer_id": "C-100",
+      "ticket_id": "T-100",
+      "message": "订单 O-9999 的包裹物流没更新，今天也没到。",
+      "expected_ticket": {
+        "status": null,
+        "category": null
+      },
+      "expected_router_route": "agent",
+      "expected_answer_any": [
+        "无法",
+        "未找到",
+        "核对",
+        "订单号"
+      ]
+    }
+  ]
+}

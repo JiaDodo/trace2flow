@@ -269,7 +269,7 @@ tests build the workflow through the real upstream/compiler/IR path from two
 reviewed scripted runs and compare complete state against the Agent baseline.
 No default production workflow is installed and no performance claim is made.
 
-### M13c — Predeclared paired evaluation (next)
+### M13c — Predeclared paired evaluation (in progress)
 
 Freeze a new task-group split and scorer before unlocking results. Compare the
 standard Agent baseline with the Agent-plus-Trace2Flow router on identical fresh
@@ -281,6 +281,12 @@ report missing provider usage and statistical uncertainty honestly.
 Acceptance: no compile/evaluation task-group overlap, no post-hoc retry or task
 selection, raw attempt inventory retained locally, and every public metric is
 reproducible from a hash-pinned manifest and scorer.
+
+The six-case synthetic paired plan, reviewed reference registration, complete
+state/output scorer, fail-closed CLI, private attempt inventory and source/plan
+freeze are implemented. Offline contract tests pass. The freeze must be
+committed before the single authorized result collection is unlocked; results
+are not yet claimed here.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

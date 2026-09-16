@@ -1,0 +1,513 @@
+{
+  "schema_version": "support-paired-freeze/1.0",
+  "plan_id": "m13c-synthetic-paired-v1",
+  "plan_sha256": "32f705687395d05f0ea5bc40d3fcef9263b8eba20bf3d9b945892b04760d76f4",
+  "source_sha256": {
+    "src/trace2flow/support_agent.py": "72b62f060ffdae9dd8ceae3fcaad2694f11b7ebdabc56608f292a694f1ffb09d",
+    "src/trace2flow/support_backend.py": "e018bbd366624e34f46cac32ec620f6857e308a05daefa8a75d959dc7bed396a",
+    "src/trace2flow/support_router.py": "7679cd37688af92b9c880c66931bc8f83bb95f9c5012014e187ef24d75d73b99",
+    "src/trace2flow/support_reference.py": "3d0d5738f4db02b717a509809c2b4e8b5542a943dc1bdac315f92523deabd6d1",
+    "src/trace2flow/support_evaluation.py": "461da579bbb7f55a8675ca545010e6b9c78e0975dff6c0f650bd810b3e01c117"
+  },
+  "workflow_sha256": "1e4e72a83c379b581b029183fe3cc201bfceac91bc73f0b931fae2200e470c87",
+  "registration": {
+    "schema_version": "support-workflow-registration/1.0",
+    "workflow_name": "delivery_delay",
+    "version": "1.0.0",
+    "workflow": {
+      "schema_version": "workflow-ir/1.0",
+      "workflow_id": "m13b-reviewed-delivery-v1",
+      "source_dataset_id": "m13b-scripted-reviewed-development",
+      "source_sha256": "4ad15c8c5801a9f0871084503fa3c4e4731867f67c3e41e9f3ead9d60677c79c",
+      "candidate_schema_version": "candidate-dag/1.0",
+      "nodes": [
+        {
+          "id": "context",
+          "tool": "get_support_context",
+          "occurrences": [
+            {
+              "run_id": "m13b-reference-a",
+              "step_id": "get_support_context-a",
+              "qualified_id": "m13b-reference-a:get_support_context-a"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "step_id": "get_support_context-b",
+              "qualified_id": "m13b-reference-b:get_support_context-b"
+            }
+          ],
+          "parameters": {},
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.support_context",
+              "reversible": null
+            }
+          ],
+          "alignment_status": "aligned",
+          "branch_resolution": "resolved",
+          "branch_reason": null,
+          "side_effect_resolution": "resolved",
+          "side_effect_reason": null
+        },
+        {
+          "id": "recent",
+          "tool": "list_recent_orders",
+          "occurrences": [
+            {
+              "run_id": "m13b-reference-a",
+              "step_id": "list_recent_orders-a",
+              "qualified_id": "m13b-reference-a:list_recent_orders-a"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "step_id": "list_recent_orders-b",
+              "qualified_id": "m13b-reference-b:list_recent_orders-b"
+            }
+          ],
+          "parameters": {
+            "limit": {
+              "kind": "constant",
+              "value": 5,
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:list_recent_orders-a",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": 5,
+                  "validation": "observed_value_match"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:list_recent_orders-b",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": 5,
+                  "validation": "observed_value_match"
+                }
+              ]
+            }
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.orders",
+              "reversible": null
+            }
+          ],
+          "alignment_status": "aligned",
+          "branch_resolution": "resolved",
+          "branch_reason": null,
+          "side_effect_resolution": "resolved",
+          "side_effect_reason": null
+        },
+        {
+          "id": "shipping",
+          "tool": "get_shipping_status",
+          "occurrences": [
+            {
+              "run_id": "m13b-reference-a",
+              "step_id": "get_shipping_status-a",
+              "qualified_id": "m13b-reference-a:get_shipping_status-a"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "step_id": "get_shipping_status-b",
+              "qualified_id": "m13b-reference-b:get_shipping_status-b"
+            }
+          ],
+          "parameters": {
+            "order_id": {
+              "kind": "task_input",
+              "path": [
+                "order_id"
+              ],
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence_mode": "declared_runtime_contract",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:get_shipping_status-a",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "order_id"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "O-1001",
+                  "validation": "declared_runtime_contract"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:get_shipping_status-b",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "order_id"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "O-1001",
+                  "validation": "declared_runtime_contract"
+                }
+              ]
+            }
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.shipping",
+              "reversible": null
+            }
+          ],
+          "alignment_status": "aligned",
+          "branch_resolution": "resolved",
+          "branch_reason": null,
+          "side_effect_resolution": "resolved",
+          "side_effect_reason": null
+        },
+        {
+          "id": "policy",
+          "tool": "search_support_policy",
+          "occurrences": [
+            {
+              "run_id": "m13b-reference-a",
+              "step_id": "search_support_policy-a",
+              "qualified_id": "m13b-reference-a:search_support_policy-a"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "step_id": "search_support_policy-b",
+              "qualified_id": "m13b-reference-b:search_support_policy-b"
+            }
+          ],
+          "parameters": {
+            "topic": {
+              "kind": "constant",
+              "value": "delivery_delay",
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:search_support_policy-a",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "delivery_delay",
+                  "validation": "observed_value_match"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:search_support_policy-b",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "delivery_delay",
+                  "validation": "observed_value_match"
+                }
+              ]
+            }
+          },
+          "side_effects": [
+            {
+              "kind": "read",
+              "target": "mock.policies",
+              "reversible": null
+            }
+          ],
+          "alignment_status": "aligned",
+          "branch_resolution": "resolved",
+          "branch_reason": null,
+          "side_effect_resolution": "resolved",
+          "side_effect_reason": null
+        },
+        {
+          "id": "update",
+          "tool": "update_ticket",
+          "occurrences": [
+            {
+              "run_id": "m13b-reference-a",
+              "step_id": "update_ticket-a",
+              "qualified_id": "m13b-reference-a:update_ticket-a"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "step_id": "update_ticket-b",
+              "qualified_id": "m13b-reference-b:update_ticket-b"
+            }
+          ],
+          "parameters": {
+            "status": {
+              "kind": "constant",
+              "value": "pending_carrier",
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "pending_carrier",
+                  "validation": "observed_value_match"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "pending_carrier",
+                  "validation": "observed_value_match"
+                }
+              ]
+            },
+            "category": {
+              "kind": "constant",
+              "value": "delivery_delay",
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "delivery_delay",
+                  "validation": "observed_value_match"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+                  "source_kind": "constant",
+                  "source_path": [],
+                  "source_occurrence_id": null,
+                  "observed_value": "delivery_delay",
+                  "validation": "observed_value_match"
+                }
+              ]
+            },
+            "summary": {
+              "kind": "task_input",
+              "path": [
+                "summary"
+              ],
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence_mode": "declared_runtime_contract",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "summary"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "reviewed runtime summary",
+                  "validation": "declared_runtime_contract"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "summary"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "reviewed runtime summary",
+                  "validation": "declared_runtime_contract"
+                }
+              ]
+            },
+            "idempotency_key": {
+              "kind": "task_input",
+              "path": [
+                "idempotency_key"
+              ],
+              "declared": true,
+              "rationale": "explicit_declaration",
+              "evidence_mode": "declared_runtime_contract",
+              "evidence": [
+                {
+                  "run_id": "m13b-reference-a",
+                  "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "idempotency_key"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "T-100:delivery:O-1001",
+                  "validation": "declared_runtime_contract"
+                },
+                {
+                  "run_id": "m13b-reference-b",
+                  "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+                  "source_kind": "task_input",
+                  "source_path": [
+                    "idempotency_key"
+                  ],
+                  "source_occurrence_id": null,
+                  "observed_value": "T-100:delivery:O-1001",
+                  "validation": "declared_runtime_contract"
+                }
+              ]
+            }
+          },
+          "side_effects": [
+            {
+              "kind": "write",
+              "target": "mock.tickets",
+              "reversible": true
+            }
+          ],
+          "alignment_status": "aligned",
+          "branch_resolution": "resolved",
+          "branch_reason": null,
+          "side_effect_resolution": "resolved",
+          "side_effect_reason": null
+        }
+      ],
+      "edges": [
+        {
+          "id": "context-recent",
+          "source_node_id": "context",
+          "target_node_id": "recent",
+          "evidence": [
+            {
+              "run_id": "m13b-reference-a",
+              "source_occurrence_id": "m13b-reference-a:get_support_context-a",
+              "target_occurrence_id": "m13b-reference-a:list_recent_orders-a",
+              "declaration": "depends_on"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "source_occurrence_id": "m13b-reference-b:get_support_context-b",
+              "target_occurrence_id": "m13b-reference-b:list_recent_orders-b",
+              "declaration": "depends_on"
+            }
+          ],
+          "rationale": "explicit_depends_on"
+        },
+        {
+          "id": "recent-shipping",
+          "source_node_id": "recent",
+          "target_node_id": "shipping",
+          "evidence": [
+            {
+              "run_id": "m13b-reference-a",
+              "source_occurrence_id": "m13b-reference-a:list_recent_orders-a",
+              "target_occurrence_id": "m13b-reference-a:get_shipping_status-a",
+              "declaration": "depends_on"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "source_occurrence_id": "m13b-reference-b:list_recent_orders-b",
+              "target_occurrence_id": "m13b-reference-b:get_shipping_status-b",
+              "declaration": "depends_on"
+            }
+          ],
+          "rationale": "explicit_depends_on"
+        },
+        {
+          "id": "shipping-update",
+          "source_node_id": "shipping",
+          "target_node_id": "update",
+          "evidence": [
+            {
+              "run_id": "m13b-reference-a",
+              "source_occurrence_id": "m13b-reference-a:get_shipping_status-a",
+              "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+              "declaration": "depends_on"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "source_occurrence_id": "m13b-reference-b:get_shipping_status-b",
+              "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+              "declaration": "depends_on"
+            }
+          ],
+          "rationale": "explicit_depends_on"
+        },
+        {
+          "id": "policy-update",
+          "source_node_id": "policy",
+          "target_node_id": "update",
+          "evidence": [
+            {
+              "run_id": "m13b-reference-a",
+              "source_occurrence_id": "m13b-reference-a:search_support_policy-a",
+              "target_occurrence_id": "m13b-reference-a:update_ticket-a",
+              "declaration": "depends_on"
+            },
+            {
+              "run_id": "m13b-reference-b",
+              "source_occurrence_id": "m13b-reference-b:search_support_policy-b",
+              "target_occurrence_id": "m13b-reference-b:update_ticket-b",
+              "declaration": "depends_on"
+            }
+          ],
+          "rationale": "explicit_depends_on"
+        }
+      ],
+      "unresolved_dependencies": 0,
+      "output_node_ids": [
+        "update"
+      ]
+    },
+    "workflow_sha256": "1e4e72a83c379b581b029183fe3cc201bfceac91bc73f0b931fae2200e470c87",
+    "contract": {
+      "schema_version": "support-route-contract/1.0",
+      "contract_id": "delivery-delay-explicit-order-v1",
+      "intent": "delivery_delay",
+      "requires_explicit_order_id": true,
+      "delivery_terms": [
+        "物流",
+        "快递",
+        "包裹",
+        "送到"
+      ],
+      "delay_terms": [
+        "没更新",
+        "未更新",
+        "没到",
+        "未到",
+        "延迟",
+        "逾期"
+      ],
+      "conflicting_terms": [
+        "退款",
+        "重复扣款",
+        "破损",
+        "坏了",
+        "换货",
+        "取消"
+      ]
+    },
+    "verification": {
+      "schema_version": "support-workflow-verification/1.0",
+      "workflow_sha256": "1e4e72a83c379b581b029183fe3cc201bfceac91bc73f0b931fae2200e470c87",
+      "verifier": "m13b-offline-paired-development",
+      "population_role": "development",
+      "cases_verified": 2,
+      "output_checked": true,
+      "full_state_checked": true,
+      "result": "passed"
+    },
+    "promotion": {
+      "schema_version": "support-workflow-promotion/1.0",
+      "workflow_sha256": "1e4e72a83c379b581b029183fe3cc201bfceac91bc73f0b931fae2200e470c87",
+      "reviewer": "m13b-ai-engineering-review",
+      "reviewer_kind": "ai",
+      "approved": true,
+      "rationale": "Narrow delivery workflow explicitly promoted for M13c comparison."
+    }
+  },
+  "frozen_before_results": true
+}

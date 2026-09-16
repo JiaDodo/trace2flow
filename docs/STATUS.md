@@ -2,9 +2,46 @@
 
 Last updated: 2026-09-16
 
-Current milestone: M13b complete — conservative Agent/workflow router
+Current milestone: M13c contract frozen — paired result collection pending
 
-Working branch: `feat/m13b-adaptive-router`
+Working branch: `feat/m13c-paired-evaluation`
+
+## M13c paired evaluation contract
+
+Implemented and froze the comparison contract before collecting results. The
+plan contains six synthetic task cases and two arms with one attempt per
+case/arm. Compile group `m13b-reference-delivery` is disjoint from every
+evaluation group. Both arms receive only the natural message plus trusted
+customer/ticket identity and start from an independent fresh backend.
+
+- Plan SHA-256:
+  `32f705687395d05f0ea5bc40d3fcef9263b8eba20bf3d9b945892b04760d76f4`.
+- Reviewed reference workflow SHA-256:
+  `1e4e72a83c379b581b029183fe3cc201bfceac91bc73f0b931fae2200e470c87`.
+- The freeze binds five implementation files, the complete registration and
+  scorer. Any later source or plan change fails verification.
+- Full attempt turns and state snapshots are confined to ignored
+  `data-private/`; public export rejects private fields and is freeze-bound.
+- The exact-oracle approval policy approves only a predeclared correct local
+  status/category pair. Incorrect proposals are rejected and counted; no real
+  message, refund, carrier call or customer-system write exists.
+- Added nine evaluation-control tests covering task-group separation, oracle
+  isolation, registry validation, complete-state/output scoring, tamper
+  detection, paid-call gates, failure retention and safe publication.
+
+Actual result collection has not run at this checkpoint. The next operation is
+the explicitly unlocked 12-attempt DeepSeek comparison, with no automatic
+retry. See `docs/PAIRED_AGENT_EVALUATION.md`.
+
+```text
+$ PYTHONPATH=src .venv/bin/python -m unittest \
+    tests.test_support_evaluation tests.test_support_router tests.test_support_agent -v
+Ran 35 tests in 3.676s; OK
+
+$ .venv/bin/ruff check src/trace2flow/support_evaluation.py \
+    src/trace2flow/support_reference.py tests/test_support_evaluation.py
+All checks passed!
+```
 
 ## M13b adaptive router and trace adapter
 

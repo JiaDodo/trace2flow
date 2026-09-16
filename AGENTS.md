@@ -302,6 +302,22 @@ Run the focused M13 integration tests with:
 .venv/bin/python -m unittest tests.test_support_router tests.test_support_agent -v
 ```
 
+M13c evaluation is implemented in `trace2flow.support_evaluation`; read
+`docs/PAIRED_AGENT_EVALUATION.md` before changing it. The checked-in plan and
+freeze must be committed before any result call. Never modify a frozen source
+or task and continue with the old freeze. Run each case/arm once, retain errors,
+use a fresh backend for every attempt, and keep full turns/states under the
+ignored `data-private/` directory. Oracle fields belong only to scoring and the
+exact-match approval policy; never pass them to the model. Public reports must
+be produced through the hash-bound `publish` command and must not include
+messages, answers, turns or state snapshots.
+
+Run the focused M13c controls with:
+
+```bash
+.venv/bin/python -m unittest tests.test_support_evaluation -v
+```
+
 ## Scope discipline
 
 M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the
