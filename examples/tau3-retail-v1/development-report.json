@@ -1,0 +1,251 @@
+{
+  "cost_claim": "not_computed",
+  "dataset": "tau3-bench/retail",
+  "evaluated_results": 4,
+  "evaluation_role": "development_not_holdout",
+  "limitations": [
+    "Development results are not a held-out benchmark estimate.",
+    "The batch uses a simulated user and simulated retail backend, not real customers.",
+    "Token fields report provider metadata where available; money cost is not estimated.",
+    "No Trace2Flow workflow is evaluated by this Agent-baseline batch."
+  ],
+  "manifest_sha256": "8cfd3a89b87db8a0343a851e003491bfb945a18c3f52ec00785de7a428a4eb34",
+  "mean_reward": 0.0,
+  "plan_sha256": "fd0a0a658314b1133a62be5216e12e74502560abc6ff68214d55e7da03736cba",
+  "planned_tasks": 6,
+  "policy_violations": 6,
+  "private_metadata_sha256": "eddfeecd8da577d8324ff3fef8c415295b7393c093a4ac71d7c5a48274e709bb",
+  "reported_usage": {
+    "agent": {
+      "completion_tokens": 1440,
+      "prompt_tokens": 71091
+    },
+    "nl_evaluator": {
+      "calls": 0,
+      "completion_tokens": 0,
+      "prompt_tokens": 0
+    },
+    "user_simulator": {
+      "completion_tokens": 1356,
+      "prompt_tokens": 4995
+    }
+  },
+  "results": [
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 387,
+        "reported_prompt_tokens": 15273,
+        "reported_usage_messages": 3,
+        "trajectory_messages": 4
+      },
+      "db_reward": null,
+      "duration_seconds": 18.179933781037107,
+      "error_type": null,
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 1,
+      "mixed_content_tool_messages": 1,
+      "nl_assertion_reward": null,
+      "reward": 0.0,
+      "single_tool_call_guard_failure": false,
+      "task_id": "0",
+      "termination_reason": "agent_error",
+      "tool_call_count": 1,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 460,
+        "reported_prompt_tokens": 1135,
+        "reported_usage_messages": 2,
+        "trajectory_messages": 2
+      },
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 233,
+        "reported_prompt_tokens": 14928,
+        "reported_usage_messages": 3,
+        "trajectory_messages": 4
+      },
+      "db_reward": null,
+      "duration_seconds": 13.654190259054303,
+      "error_type": null,
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 1,
+      "mixed_content_tool_messages": 1,
+      "nl_assertion_reward": null,
+      "reward": 0.0,
+      "single_tool_call_guard_failure": false,
+      "task_id": "10",
+      "termination_reason": "agent_error",
+      "tool_call_count": 1,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 246,
+        "reported_prompt_tokens": 1036,
+        "reported_usage_messages": 2,
+        "trajectory_messages": 2
+      },
+      "workflow_families": [
+        "transfer_to_human_agents"
+      ]
+    },
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 341,
+        "reported_prompt_tokens": 20039,
+        "reported_usage_messages": 4,
+        "trajectory_messages": 5
+      },
+      "db_reward": null,
+      "duration_seconds": 17.667640052037314,
+      "error_type": null,
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 1,
+      "mixed_content_tool_messages": 1,
+      "nl_assertion_reward": null,
+      "reward": 0.0,
+      "single_tool_call_guard_failure": false,
+      "task_id": "22",
+      "termination_reason": "agent_error",
+      "tool_call_count": 1,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 322,
+        "reported_prompt_tokens": 1613,
+        "reported_usage_messages": 3,
+        "trajectory_messages": 3
+      },
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_user_address"
+      ]
+    },
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 0,
+        "reported_prompt_tokens": 0,
+        "reported_usage_messages": 0,
+        "trajectory_messages": 0
+      },
+      "db_reward": null,
+      "duration_seconds": 0.0,
+      "error_type": "Tau3RunError",
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 0,
+      "mixed_content_tool_messages": 0,
+      "nl_assertion_reward": null,
+      "reward": null,
+      "single_tool_call_guard_failure": true,
+      "task_id": "63",
+      "termination_reason": "infrastructure_error",
+      "tool_call_count": 0,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 0,
+        "reported_prompt_tokens": 0,
+        "reported_usage_messages": 0,
+        "trajectory_messages": 0
+      },
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 479,
+        "reported_prompt_tokens": 20851,
+        "reported_usage_messages": 4,
+        "trajectory_messages": 5
+      },
+      "db_reward": null,
+      "duration_seconds": 16.841785951983184,
+      "error_type": null,
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 1,
+      "mixed_content_tool_messages": 1,
+      "nl_assertion_reward": null,
+      "reward": 0.0,
+      "single_tool_call_guard_failure": false,
+      "task_id": "76",
+      "termination_reason": "agent_error",
+      "tool_call_count": 2,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 328,
+        "reported_prompt_tokens": 1211,
+        "reported_usage_messages": 2,
+        "trajectory_messages": 2
+      },
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "agent_usage": {
+        "reported_completion_tokens": 0,
+        "reported_prompt_tokens": 0,
+        "reported_usage_messages": 0,
+        "trajectory_messages": 0
+      },
+      "db_reward": null,
+      "duration_seconds": 0.0,
+      "error_type": "Tau3RunError",
+      "evaluator_usage": {
+        "calls": 0,
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+      },
+      "max_tool_calls_in_one_assistant_message": 0,
+      "mixed_content_tool_messages": 0,
+      "nl_assertion_reward": null,
+      "reward": null,
+      "single_tool_call_guard_failure": true,
+      "task_id": "103",
+      "termination_reason": "infrastructure_error",
+      "tool_call_count": 0,
+      "tool_error_count": 0,
+      "user_usage": {
+        "reported_completion_tokens": 0,
+        "reported_prompt_tokens": 0,
+        "reported_usage_messages": 0,
+        "trajectory_messages": 0
+      },
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ]
+    }
+  ],
+  "results_sha256": "4efa92b5ff4e9be37db4b723f4c90c8be3b33099af8733ffd436b47914029c4e",
+  "retained_results": 6,
+  "schema_version": "tau3-development-report/1.0",
+  "source_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+  "successful_results": 0,
+  "termination_counts": {
+    "agent_error": 4,
+    "infrastructure_error": 2
+  }
+}

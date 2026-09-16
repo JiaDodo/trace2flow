@@ -326,7 +326,7 @@ group crosses compile/development; checked-in test metadata contains no task
 content or oracle; source/result summaries are public-safe; offline regression
 tests reject split and manifest tampering.
 
-### M14b — Policy-correct development batch (next)
+### M14b — Policy-correct development batch (complete; failed gate)
 
 Add a tested τ³ runner adapter that makes provider and NL-evaluator models
 explicit, enforces at most one tool call per assistant turn, and fails closed on
@@ -343,8 +343,23 @@ usage. Scale to the frozen test only if the development result justifies it.
 Contract frozen before collection: six family-stratified development tasks,
 one attempt each, no task or hallucination retries, two-way concurrency, a
 fail-closed single-tool-call Agent adapter and separate provider-usage capture.
-The source manifest now explicitly forces the pre-exposed task-105 entity group
-to development. Results have not yet been accessed at this freeze point.
+The source manifest explicitly forces the pre-exposed task-105 entity group to
+development. All six planned results were retained with no retry: four mixed
+text/tool protocol errors and two multi-tool guard failures, zero successes.
+The official test therefore remains sealed.
+
+### M14c — Provider protocol compatibility (next)
+
+Freeze a new runner-source hash and a new set of untouched development tasks.
+Strengthen the system contract so tool-call responses contain no user-facing
+text and still contain at most one call. Predeclare the minimum development
+success/policy gate before execution. Never reuse M14b tasks or weaken the
+official protocol after seeing their outcomes.
+
+Acceptance: all results are retained once; the source hash proves the prompt
+adapter was frozen first; opening official test requires the predeclared gate,
+not subjective inspection. If the gate fails, close the public-dataset
+experiment with the negative result instead of spending the sealed test.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

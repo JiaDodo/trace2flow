@@ -20,9 +20,31 @@ ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "examples" / "tau3-retail-v1"
 MANIFEST = EXAMPLE / "manifest.json"
 PLAN = EXAMPLE / "development-plan.json"
+PUBLIC_REPORT = EXAMPLE / "development-report.json"
 
 
 class Tau3RunnerTests(unittest.TestCase):
+    def test_checked_in_development_report_is_complete_and_public_only(self):
+        report_text = PUBLIC_REPORT.read_text(encoding="utf-8")
+        report = json.loads(report_text)
+        self.assertEqual(report["planned_tasks"], 6)
+        self.assertEqual(report["retained_results"], 6)
+        self.assertEqual(report["successful_results"], 0)
+        self.assertEqual(report["policy_violations"], 6)
+        self.assertEqual(
+            report["termination_counts"],
+            {"agent_error": 4, "infrastructure_error": 2},
+        )
+        for forbidden in (
+            "error_traceback",
+            "reason_for_call",
+            "api_key",
+            "order_id",
+            "private customer content",
+            "secret-call-id",
+        ):
+            self.assertNotIn(forbidden, report_text.lower())
+
     def test_checked_in_plan_is_hash_bound_and_development_only(self):
         plan = load_plan(PLAN)
         manifest = load_manifest(MANIFEST)
@@ -144,6 +166,9 @@ class Tau3RunnerTests(unittest.TestCase):
             self.assertEqual(report["successful_results"], 1)
             self.assertEqual(report["results"][0]["tool_call_count"], 1)
             self.assertEqual(report["results"][0]["evaluator_usage"]["calls"], 1)
+            self.assertEqual(
+                report["reported_usage"]["agent"]["prompt_tokens"], 60
+            )
             serialized = json.dumps(report)
             for forbidden in (
                 "private customer content",

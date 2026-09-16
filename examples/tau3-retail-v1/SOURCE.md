@@ -69,3 +69,10 @@ evaluator configuration have deterministic regression coverage.
 result collection. It spans exchange, transfer, address, pending-item,
 cancellation and mixed return/update families. It uses one attempt per task,
 zero task retries, zero hallucination retries and two-way concurrency.
+
+That batch is now complete and its redacted result is
+`development-report.json`. All six results were retained: four terminated with
+the official communication-protocol `agent_error` because a response mixed
+text with one tool call, and two were stopped by Trace2Flow's multiple-tool
+guard. No task succeeded and no task reached the NL evaluator. Consequently,
+the official test set remains sealed and these tasks are never rerun.

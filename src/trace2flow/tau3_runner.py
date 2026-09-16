@@ -14,6 +14,7 @@ import json
 import os
 import re
 import threading
+from collections import Counter
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Literal
@@ -295,11 +296,12 @@ def _usage(messages: list[Mapping[str, Any]], role: str) -> dict[str, Any]:
     role_messages = [message for message in messages if message.get("role") == role]
     measured = [message.get("usage") for message in role_messages if message.get("usage")]
     return {
-        "model_messages": len(role_messages),
-        "usage_messages": len(measured),
-        "prompt_tokens": sum(item.get("prompt_tokens", 0) for item in measured),
-        "completion_tokens": sum(item.get("completion_tokens", 0) for item in measured),
-        "usage_complete": len(measured) == len(role_messages),
+        "trajectory_messages": len(role_messages),
+        "reported_usage_messages": len(measured),
+        "reported_prompt_tokens": sum(item.get("prompt_tokens", 0) for item in measured),
+        "reported_completion_tokens": sum(
+            item.get("completion_tokens", 0) for item in measured
+        ),
     }
 
 
@@ -363,6 +365,11 @@ def build_public_report(
             for message in messages
             if isinstance(message, dict) and message.get("role") == "tool"
         ]
+        mixed_content_tool_messages = sum(
+            bool(message.get("content")) and bool(message.get("tool_calls"))
+            for message in messages
+            if isinstance(message, dict) and message.get("role") == "assistant"
+        )
         error_type = None
         info = simulation.get("info")
         if isinstance(info, dict):
@@ -384,9 +391,28 @@ def build_public_report(
                 "tool_call_count": len(tool_messages),
                 "tool_error_count": sum(bool(item.get("error")) for item in tool_messages),
                 "max_tool_calls_in_one_assistant_message": max(tool_batches or [0]),
+                "mixed_content_tool_messages": mixed_content_tool_messages,
+                "single_tool_call_guard_failure": (
+                    simulation.get("termination_reason") == "infrastructure_error"
+                    and error_type == "Tau3RunError"
+                ),
             }
         )
     rewards = [row["reward"] for row in rows if row["reward"] is not None]
+    agent_prompt = sum(
+        row["agent_usage"]["reported_prompt_tokens"] for row in rows
+    )
+    agent_completion = sum(
+        row["agent_usage"]["reported_completion_tokens"] for row in rows
+    )
+    user_prompt = sum(row["user_usage"]["reported_prompt_tokens"] for row in rows)
+    user_completion = sum(
+        row["user_usage"]["reported_completion_tokens"] for row in rows
+    )
+    evaluator_prompt = sum(row["evaluator_usage"]["prompt_tokens"] for row in rows)
+    evaluator_completion = sum(
+        row["evaluator_usage"]["completion_tokens"] for row in rows
+    )
     return {
         "schema_version": REPORT_SCHEMA,
         "dataset": plan.dataset,
@@ -402,8 +428,28 @@ def build_public_report(
         "successful_results": sum(reward == 1 for reward in rewards),
         "mean_reward": sum(rewards) / len(rewards) if rewards else None,
         "policy_violations": sum(
-            row["max_tool_calls_in_one_assistant_message"] > 1 for row in rows
+            row["single_tool_call_guard_failure"]
+            or row["mixed_content_tool_messages"] > 0
+            for row in rows
         ),
+        "termination_counts": dict(
+            sorted(Counter(str(row["termination_reason"]) for row in rows).items())
+        ),
+        "reported_usage": {
+            "agent": {
+                "prompt_tokens": agent_prompt,
+                "completion_tokens": agent_completion,
+            },
+            "user_simulator": {
+                "prompt_tokens": user_prompt,
+                "completion_tokens": user_completion,
+            },
+            "nl_evaluator": {
+                "prompt_tokens": evaluator_prompt,
+                "completion_tokens": evaluator_completion,
+                "calls": sum(row["evaluator_usage"]["calls"] for row in rows),
+            },
+        },
         "cost_claim": "not_computed",
         "results": rows,
         "limitations": [

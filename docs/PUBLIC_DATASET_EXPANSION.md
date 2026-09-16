@@ -71,6 +71,28 @@ different trajectory. Paid execution needs `--allow-paid-call`, a new output
 name and the pinned source checkout. Agent, simulated-user and NL-evaluator
 token usage are collected separately where the provider returns metadata.
 
+## M14b result
+
+The six planned attempts completed exactly once and were all retained. Four
+ended as official `agent_error` results after DeepSeek returned both text and a
+single tool call in one assistant message. Two ended at the Trace2Flow
+single-call guard after proposing multiple tools. Therefore:
+
+- retained: 6/6;
+- evaluated by τ³'s premature-termination reward path: 4;
+- successful: 0;
+- mean available reward: 0.0;
+- protocol/policy violations: 6/6;
+- NL-evaluator calls: 0;
+- reported Agent usage: 71,091 prompt + 1,440 completion tokens;
+- reported user-simulator usage: 4,995 prompt + 1,356 completion tokens.
+
+The upstream cost display showed zero only because LiteLLM lacks the model
+price mapping; `development-report.json` correctly labels monetary cost as not
+computed. This batch fails the gate for opening the official test. A second
+development contract may tune only the provider/protocol adapter and must use
+previously untouched development tasks; these six outcomes cannot be retried.
+
 ## Claims allowed now
 
 It is accurate to say the project audits and partitions all 114 public τ³

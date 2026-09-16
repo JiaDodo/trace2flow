@@ -83,13 +83,23 @@ $ .venv/bin/uv build --out-dir /tmp/trace2flow-m14-build.XXXXXX
 Successfully built sdist and wheel containing trace2flow.tau3_corpus
 ```
 
-M14b's pre-result contract is now implemented and frozen locally: a six-task
+M14b's pre-result contract was implemented and frozen locally: a six-task
 family-stratified plan, source/manifest/task hashes, one attempt each, zero
 retries, a local τ³ adapter that fails rather than truncates multiple tool
-calls, explicit DeepSeek models and separate evaluator-usage capture. Fifteen
-focused offline controls pass. The next action is the authorized paid
-development run; its outcome determines whether opening a newly frozen test
-evaluation is justified. The 40 test oracles remain sealed. M13d's typed
+calls, explicit DeepSeek models and separate evaluator-usage capture.
+
+The paid batch retained all six results once with no retry. Four terminated as
+`agent_error` because DeepSeek mixed response text with one tool call; two
+terminated as guarded `infrastructure_error` results after proposing multiple
+tool calls. Available reward is 0/4 and successes are 0/6. All six are policy
+violations. Reported usage was 71,091 Agent prompt + 1,440 completion tokens,
+and 4,995 user-simulator prompt + 1,356 completion tokens. No trajectory
+reached the NL evaluator. Monetary cost remains unavailable, not zero.
+
+The development gate failed, so the 40 test oracles remain sealed. M14c will
+freeze a source-hashed strict tool-only response contract and untouched
+development tasks before one final compatibility batch. If that declared gate
+fails, this external benchmark line closes as a negative result. M13d's typed
 user-facing outcome fix is still outstanding and M13c remains historical
 evidence; it is not rescored.
 
