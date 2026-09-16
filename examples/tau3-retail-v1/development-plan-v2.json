@@ -1,0 +1,82 @@
+{
+  "agent_implementation": "trace2flow_single_call",
+  "agent_model": "openai/deepseek-v4-pro",
+  "agent_prompt_contract": "strict_tool_only_response_v2",
+  "attempts_per_task": 1,
+  "dataset": "tau3-bench/retail",
+  "evaluator_model": "openai/deepseek-v4-pro",
+  "hallucination_retries": 0,
+  "limitations": [
+    "This is a provider-compatibility development batch, not held-out performance.",
+    "The six M14b tasks and pilot task 105 are excluded and may not be retried.",
+    "Every planned task is retained exactly once with zero task and hallucination retries.",
+    "Opening the official test requires at least four successes and zero protocol violations."
+  ],
+  "manifest_sha256": "8cfd3a89b87db8a0343a851e003491bfb945a18c3f52ec00785de7a428a4eb34",
+  "max_concurrency": 2,
+  "max_retries": 0,
+  "max_steps": 60,
+  "predecessor_report_sha256": "873ed23fd30bb97484f116daf73ab5ce9ec24e7ee98b335c62138566be63e053",
+  "previously_attempted_task_ids": [
+    "0",
+    "10",
+    "22",
+    "63",
+    "76",
+    "103",
+    "105"
+  ],
+  "role": "development",
+  "runner_source_sha256": "bf9acdd3d942bd80023eaa56157088115700c66d69c79d3db4d46b0dbd210b43",
+  "schema_version": "tau3-development-plan/1.1",
+  "seed": 271828,
+  "source_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+  "tasks": [
+    {
+      "source_task_sha256": "49a399d0221aad8b22d7ceccbdb9851cc3384094b3af43d5f633564154d111f5",
+      "task_id": "1",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "0264691c75c55cc3631b682b81106ed036288b4987633c91aa177b838a2bd62c",
+      "task_id": "2",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "6d8eee60a1e6651239059ce23117d0e8d3901e033e95a3125a3d80a72103b792",
+      "task_id": "3",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "317e18ad00f9b830d929c7d48a16442fa7bf54e00ca913ab7011f511aa7d2756",
+      "task_id": "44",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "0dbfd3f247d39402a473c124420d428a027178c830d8a1a673149a587390ac25",
+      "task_id": "96",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "source_task_sha256": "b99f88d7068b70e913aba09e9e4200b38bfa8a64c8c05ffb2d46262834b19ed9",
+      "task_id": "113",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    }
+  ],
+  "test_gate_max_policy_violations": 0,
+  "test_gate_min_successful_results": 4,
+  "user_model": "openai/deepseek-v4-pro"
+}

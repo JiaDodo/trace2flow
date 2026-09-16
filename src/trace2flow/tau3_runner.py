@@ -28,7 +28,6 @@ from .tau3_corpus import (
     audit_source,
 )
 
-PLAN_SCHEMA = "tau3-development-plan/1.0"
 REPORT_SCHEMA = "tau3-development-report/1.0"
 AGENT_NAME = "trace2flow_single_call"
 SAFE_RUN_NAME = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}\Z")
@@ -38,6 +37,10 @@ class Tau3RunError(ValueError):
     """The plan, runtime, or result inventory is unsafe or inconsistent."""
 
 
+class Tau3SingleCallViolation(Tau3RunError):
+    """The model proposed more than one assistant tool call in one turn."""
+
+
 class PlannedTask(StrictModel):
     task_id: Identifier
     source_task_sha256: Identifier
@@ -45,7 +48,9 @@ class PlannedTask(StrictModel):
 
 
 class Tau3DevelopmentPlan(StrictModel):
-    schema_version: Literal["tau3-development-plan/1.0"]
+    schema_version: Literal[
+        "tau3-development-plan/1.0", "tau3-development-plan/1.1"
+    ]
     dataset: Literal["tau3-bench/retail"]
     source_commit: Identifier
     manifest_sha256: Identifier
@@ -61,6 +66,14 @@ class Tau3DevelopmentPlan(StrictModel):
     max_retries: Literal[0]
     hallucination_retries: Literal[0]
     seed: int = Field(ge=0)
+    agent_prompt_contract: Literal["baseline", "strict_tool_only_response_v2"] = (
+        "baseline"
+    )
+    runner_source_sha256: Identifier | None = None
+    previously_attempted_task_ids: list[Identifier] = Field(default_factory=list)
+    predecessor_report_sha256: Identifier | None = None
+    test_gate_min_successful_results: int | None = Field(default=None, ge=1)
+    test_gate_max_policy_violations: int | None = Field(default=None, ge=0)
     limitations: list[Identifier]
 
     @model_validator(mode="after")
@@ -68,6 +81,19 @@ class Tau3DevelopmentPlan(StrictModel):
         ids = [task.task_id for task in self.tasks]
         if len(ids) != len(set(ids)):
             raise ValueError("development plan task ids must be unique")
+        if set(ids) & set(self.previously_attempted_task_ids):
+            raise ValueError("development tasks overlap previously attempted tasks")
+        if self.schema_version == "tau3-development-plan/1.1":
+            required = (
+                self.runner_source_sha256,
+                self.predecessor_report_sha256,
+                self.test_gate_min_successful_results,
+                self.test_gate_max_policy_violations,
+            )
+            if any(value is None for value in required):
+                raise ValueError("version 1.1 requires source, predecessor, and test gate")
+            if self.agent_prompt_contract != "strict_tool_only_response_v2":
+                raise ValueError("version 1.1 requires the strict tool-only prompt")
         return self
 
 
@@ -100,6 +126,11 @@ def verify_plan(
         raise Tau3RunError("development plan and manifest source commits differ")
     if plan.manifest_sha256 != file_sha256(manifest_path):
         raise Tau3RunError("development plan manifest hash mismatch")
+    if (
+        plan.runner_source_sha256 is not None
+        and plan.runner_source_sha256 != file_sha256(Path(__file__))
+    ):
+        raise Tau3RunError("development plan runner source hash mismatch")
     by_id = {task.task_id: task for task in manifest.train_tasks}
     for planned in plan.tasks:
         source = by_id.get(planned.task_id)
@@ -128,7 +159,9 @@ def enforce_single_tool_call(message: Any) -> Any:
         call for call in calls if getattr(call, "requestor", "assistant") == "assistant"
     ]
     if len(assistant_calls) > 1:
-        raise Tau3RunError("assistant proposed multiple tool calls in one turn")
+        raise Tau3SingleCallViolation(
+            "assistant proposed multiple tool calls in one turn"
+        )
     return message
 
 
@@ -145,11 +178,19 @@ def _install_tau3_adapter(plan: Tau3DevelopmentPlan, source_root: Path):
     class SingleCallAgent(LLMAgent):
         @property
         def system_prompt(self) -> str:
-            return (
+            prompt = (
                 super().system_prompt
                 + "\n\nYou must request at most one tool call in each assistant turn. "
                 "Never batch or parallelize tool calls."
             )
+            if plan.agent_prompt_contract == "strict_tool_only_response_v2":
+                prompt += (
+                    " When requesting a tool, return exactly one tool call and no "
+                    "natural-language content: the assistant content field must be "
+                    "null or empty. Do not explain the call. Wait for its result before "
+                    "deciding the next action."
+                )
+            return prompt
 
         def _generate_next_message(self, message, state):
             return enforce_single_tool_call(super()._generate_next_message(message, state))
@@ -394,7 +435,7 @@ def build_public_report(
                 "mixed_content_tool_messages": mixed_content_tool_messages,
                 "single_tool_call_guard_failure": (
                     simulation.get("termination_reason") == "infrastructure_error"
-                    and error_type == "Tau3RunError"
+                    and error_type in {"Tau3RunError", "Tau3SingleCallViolation"}
                 ),
             }
         )
@@ -413,6 +454,16 @@ def build_public_report(
     evaluator_completion = sum(
         row["evaluator_usage"]["completion_tokens"] for row in rows
     )
+    successful_results = sum(reward == 1 for reward in rewards)
+    policy_violations = sum(
+        row["single_tool_call_guard_failure"]
+        or row["mixed_content_tool_messages"] > 0
+        for row in rows
+    )
+    gate_configured = (
+        plan.test_gate_min_successful_results is not None
+        and plan.test_gate_max_policy_violations is not None
+    )
     return {
         "schema_version": REPORT_SCHEMA,
         "dataset": plan.dataset,
@@ -425,13 +476,20 @@ def build_public_report(
         "planned_tasks": len(plan.tasks),
         "retained_results": len(rows),
         "evaluated_results": len(rewards),
-        "successful_results": sum(reward == 1 for reward in rewards),
+        "successful_results": successful_results,
         "mean_reward": sum(rewards) / len(rewards) if rewards else None,
-        "policy_violations": sum(
-            row["single_tool_call_guard_failure"]
-            or row["mixed_content_tool_messages"] > 0
-            for row in rows
-        ),
+        "policy_violations": policy_violations,
+        "test_open_gate": {
+            "configured": gate_configured,
+            "min_successful_results": plan.test_gate_min_successful_results,
+            "max_policy_violations": plan.test_gate_max_policy_violations,
+            "passed": (
+                successful_results >= plan.test_gate_min_successful_results
+                and policy_violations <= plan.test_gate_max_policy_violations
+            )
+            if gate_configured
+            else None,
+        },
         "termination_counts": dict(
             sorted(Counter(str(row["termination_reason"]) for row in rows).items())
         ),

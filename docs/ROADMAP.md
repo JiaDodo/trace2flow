@@ -361,6 +361,10 @@ adapter was frozen first; opening official test requires the predeclared gate,
 not subjective inspection. If the gate fails, close the public-dataset
 experiment with the negative result instead of spending the sealed test.
 
+Contract frozen before result access: six untouched development tasks; exact
+runner and predecessor-report hashes; strict empty-content tool-call prompt;
+one attempt, zero retries; test gate ≥4 successes and zero policy violations.
+
 ## Post-MVP release handoff (requires repository publication authority)
 
 - Review the final branch history and choose merge/squash policy.

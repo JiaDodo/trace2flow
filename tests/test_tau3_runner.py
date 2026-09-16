@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "examples" / "tau3-retail-v1"
 MANIFEST = EXAMPLE / "manifest.json"
 PLAN = EXAMPLE / "development-plan.json"
+PLAN_V2 = EXAMPLE / "development-plan-v2.json"
 PUBLIC_REPORT = EXAMPLE / "development-report.json"
 
 
@@ -53,6 +54,25 @@ class Tau3RunnerTests(unittest.TestCase):
         self.assertEqual(plan.max_retries, 0)
         self.assertEqual(plan.hallucination_retries, 0)
         self.assertNotIn("105", {task.task_id for task in plan.tasks})
+
+    def test_v2_plan_binds_runner_prior_results_and_objective_gate(self):
+        plan = load_plan(PLAN_V2)
+        manifest = load_manifest(MANIFEST)
+        verify_plan(plan, manifest, MANIFEST)
+        self.assertEqual(plan.schema_version, "tau3-development-plan/1.1")
+        self.assertEqual(plan.test_gate_min_successful_results, 4)
+        self.assertEqual(plan.test_gate_max_policy_violations, 0)
+        self.assertTrue(
+            {task.task_id for task in plan.tasks}.isdisjoint(
+                plan.previously_attempted_task_ids
+            )
+        )
+
+    def test_v2_plan_rejects_previously_attempted_task(self):
+        payload = load_plan(PLAN_V2).model_dump(mode="json")
+        payload["tasks"][0]["task_id"] = "105"
+        with self.assertRaisesRegex(ValueError, "previously attempted"):
+            Tau3DevelopmentPlan.model_validate(payload)
 
     def test_plan_rejects_compile_task_and_manifest_tamper(self):
         plan = load_plan(PLAN)

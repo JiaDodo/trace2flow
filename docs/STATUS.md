@@ -97,11 +97,13 @@ and 4,995 user-simulator prompt + 1,356 completion tokens. No trajectory
 reached the NL evaluator. Monetary cost remains unavailable, not zero.
 
 The development gate failed, so the 40 test oracles remain sealed. M14c will
-freeze a source-hashed strict tool-only response contract and untouched
-development tasks before one final compatibility batch. If that declared gate
-fails, this external benchmark line closes as a negative result. M13d's typed
-user-facing outcome fix is still outstanding and M13c remains historical
-evidence; it is not rescored.
+use the now-frozen source-hashed strict tool-only response contract and six
+untouched development tasks for one final compatibility batch. Its predeclared
+test-open gate is at least four successes and zero policy violations. The plan
+also binds the M14b report and excludes its six tasks plus pilot task 105. If
+that declared gate fails, this external benchmark line closes as a negative
+result. M13d's typed user-facing outcome fix is still outstanding and M13c
+remains historical evidence; it is not rescored.
 
 ## M13c paired evaluation
 

@@ -93,6 +93,13 @@ computed. This batch fails the gate for opening the official test. A second
 development contract may tune only the provider/protocol adapter and must use
 previously untouched development tasks; these six outcomes cannot be retried.
 
+The final compatibility plan is `development-plan-v2.json`. Its six tasks are
+disjoint from all seven previously attempted task IDs. The plan binds the exact
+runner source hash and predecessor report hash, so changing the prompt or
+publication logic after seeing results fails verification. The official test
+may be opened only if at least four of six tasks succeed with zero mixed-message
+or multi-tool policy violations.
+
 ## Claims allowed now
 
 It is accurate to say the project audits and partitions all 114 public τ³

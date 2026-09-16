@@ -76,3 +76,10 @@ the official communication-protocol `agent_error` because a response mixed
 text with one tool call, and two were stopped by Trace2Flow's multiple-tool
 guard. No task succeeded and no task reached the NL evaluator. Consequently,
 the official test set remains sealed and these tasks are never rerun.
+
+`development-plan-v2.json` is the final provider-compatibility development
+contract. It excludes task 105 and all six M14b tasks, binds the exact runner
+source and M14b report hashes, and strengthens the prompt requirement: a tool
+response must contain exactly one tool call with an empty content field. The
+test-open gate is fixed before execution at at least four successful tasks and
+zero protocol violations.
