@@ -100,10 +100,39 @@ publication logic after seeing results fails verification. The official test
 may be opened only if at least four of six tasks succeed with zero mixed-message
 or multi-tool policy violations.
 
+## Final compatibility result
+
+The second six-task batch also retained every attempt exactly once:
+
+- successful: 1/6;
+- evaluated: 5/6;
+- mean available reward: 0.2;
+- protocol/policy violations: 5/6;
+- termination: one normal user stop, four Agent errors, one guarded
+  infrastructure error;
+- reported Agent usage: 158,235 prompt + 4,913 completion tokens;
+- reported user-simulator usage: 7,310 prompt + 1,892 completion tokens;
+- reported NL-evaluator usage: one call, 4,456 prompt + 205 completion tokens.
+
+The successful run completed the expected local write and received DB=1 and
+NL=1. It is still only one development case. The test-open gate required at
+least four successes and zero policy violations, so it failed decisively. No
+official test task was executed. M14 is therefore complete as a reproducible
+negative compatibility result, not as a benchmark improvement claim.
+
+Across both frozen six-task batches, tasks were never retried or selected by
+outcome. The existing importer accepted the five M14c results containing calls
+as 18 distinct occurrences (one completed and four failed runs), all still
+quarantined with review required and empty inferred dependencies. The no-call
+guard failure remains represented in the public inventory rather than being
+converted into a fake trace.
+
 ## Claims allowed now
 
 It is accurate to say the project audits and partitions all 114 public τ³
-retail tasks, seals 40 test oracles, and has run one valid DeepSeek development
-simulation through the official environment. It is not accurate to claim a
-τ³ success rate, cost saving, production generalization, or benefit from
-Trace2Flow on this dataset yet.
+retail tasks, seals 40 test oracles, retains all 15 provider-integration and
+development attempts, and records one successful official development task.
+It is also accurate to say a predeclared compatibility gate failed and the
+official test was deliberately not opened. It is not accurate to claim a τ³
+test success rate, cost saving, production generalization, or benefit from
+Trace2Flow on this dataset.

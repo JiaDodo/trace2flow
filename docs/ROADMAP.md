@@ -305,7 +305,7 @@ the no-refund/no-contact boundary; every ticket category and no-write path has
 deterministic tests; a new task-group-disjoint paired freeze measures semantic
 output and complete state without post-hoc retries.
 
-## M14 — Public τ³ retail expansion (in progress; M14a complete)
+## M14 — Public τ³ retail expansion (complete; test remained sealed)
 
 ### M14a — Audited task inventory and provider pilot (complete)
 
@@ -348,7 +348,7 @@ development. All six planned results were retained with no retry: four mixed
 text/tool protocol errors and two multi-tool guard failures, zero successes.
 The official test therefore remains sealed.
 
-### M14c — Provider protocol compatibility (next)
+### M14c — Provider protocol compatibility (complete; failed gate)
 
 Freeze a new runner-source hash and a new set of untouched development tasks.
 Strengthen the system contract so tool-call responses contain no user-facing
@@ -364,6 +364,13 @@ experiment with the negative result instead of spending the sealed test.
 Contract frozen before result access: six untouched development tasks; exact
 runner and predecessor-report hashes; strict empty-content tool-call prompt;
 one attempt, zero retries; test gate ≥4 successes and zero policy violations.
+
+All six results were retained. One succeeded, four violated the mixed
+text/tool response protocol and one hit the multi-tool guard. Available mean
+reward was 0.2, with five policy violations. The predeclared gate failed, so
+the 40 official test tasks were not opened. M14 closes with a tested ingestion
+and evaluation protocol plus an honest negative DeepSeek/τ³ compatibility
+result; it makes no accuracy, cost or Trace2Flow-benefit claim.
 
 ## Post-MVP release handoff (requires repository publication authority)
 

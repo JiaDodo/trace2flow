@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-16
 
-Current milestone: M14a complete — audited public τ³ retail inventory
+Current milestone: M14 complete — public τ³ test remained sealed
 
 Working branch: `feat/m14-public-dataset`
 
@@ -60,7 +60,7 @@ Actual focused checks at this point:
 
 ```text
 $ PYTHONPATH=src .venv/bin/python -m unittest tests.test_tau3_corpus -v
-Ran 7 tests; OK
+Ran 8 tests; OK
 
 $ PYTHONPATH=src .venv/bin/python -m trace2flow.tau3_corpus \
     data-private/tau2-bench-source --output /tmp/.../manifest.json
@@ -71,7 +71,7 @@ Data directory exists; You can now run tau2 commands.
 
 $ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true \
     .venv/bin/python -m unittest discover -s tests -v
-Ran 184 tests in 23.639s; OK; no skips
+Ran 196 tests in 23.705s; OK; no skips
 
 $ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
 All checks passed!
@@ -80,7 +80,7 @@ $ .venv/bin/uv lock --check --offline
 Resolved 202 packages; lock unchanged
 
 $ .venv/bin/uv build --out-dir /tmp/trace2flow-m14-build.XXXXXX
-Successfully built sdist and wheel containing trace2flow.tau3_corpus
+Successfully built sdist and wheel containing the corpus and runner modules
 ```
 
 M14b's pre-result contract was implemented and frozen locally: a six-task
@@ -96,14 +96,23 @@ violations. Reported usage was 71,091 Agent prompt + 1,440 completion tokens,
 and 4,995 user-simulator prompt + 1,356 completion tokens. No trajectory
 reached the NL evaluator. Monetary cost remains unavailable, not zero.
 
-The development gate failed, so the 40 test oracles remain sealed. M14c will
-use the now-frozen source-hashed strict tool-only response contract and six
-untouched development tasks for one final compatibility batch. Its predeclared
-test-open gate is at least four successes and zero policy violations. The plan
-also binds the M14b report and excludes its six tasks plus pilot task 105. If
-that declared gate fails, this external benchmark line closes as a negative
-result. M13d's typed user-facing outcome fix is still outstanding and M13c
-remains historical evidence; it is not rescored.
+The development gate failed, so the 40 test oracles remain sealed. M14c then
+used the frozen source-hashed strict tool-only response contract and six
+untouched development tasks for the final compatibility batch. All six results
+were retained once. One task completed successfully with DB=1 and NL=1; four
+mixed response text with a tool call and one proposed multiple tools. Available
+reward was 1/5 (mean 0.2), with five policy violations. Reported usage was
+158,235 Agent prompt + 4,913 completion tokens, 7,310 user-simulator prompt +
+1,892 completion tokens, and one NL-evaluator call using 4,456 prompt + 205
+completion tokens.
+
+The gate required at least four successes and zero policy violations, so it
+failed. The 40 official test tasks remain sealed and were not executed. Five
+call-bearing results imported as 18 distinct, unreviewed/quarantined call
+occurrences (one completed and four failed); the no-call guard failure remains
+in the report without a fabricated trace. M14 is complete as a negative
+provider-compatibility result. M13d's typed user-facing outcome fix is still
+outstanding and M13c remains historical evidence; it is not rescored.
 
 ## M13c paired evaluation
 

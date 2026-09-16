@@ -64,6 +64,13 @@ accuracy or Trace2Flow benefit is claimed yet. See the
 [dataset expansion protocol](docs/PUBLIC_DATASET_EXPANSION.md) and
 [pinned source record](examples/tau3-retail-v1/SOURCE.md).
 
+Two frozen six-task development batches then tested the current DeepSeek/τ³
+protocol without retries or result selection. The first produced 0/6 successes;
+the final strict-prompt batch produced 1/6, with five protocol violations. A
+predeclared gate required at least 4/6 and zero violations, so the 40-task
+official test remained sealed. This is a reproducible negative compatibility
+result, not a public benchmark score or a Trace2Flow improvement claim.
+
 The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
 explicit review intake and independent Agent/workflow outcome scoring. All
 30 tasks were collected with DeepSeek. On the frozen twelve-task test set the

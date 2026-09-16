@@ -22,6 +22,7 @@ MANIFEST = EXAMPLE / "manifest.json"
 PLAN = EXAMPLE / "development-plan.json"
 PLAN_V2 = EXAMPLE / "development-plan-v2.json"
 PUBLIC_REPORT = EXAMPLE / "development-report.json"
+PUBLIC_REPORT_V2 = EXAMPLE / "development-report-v2.json"
 
 
 class Tau3RunnerTests(unittest.TestCase):
@@ -43,6 +44,24 @@ class Tau3RunnerTests(unittest.TestCase):
             "order_id",
             "private customer content",
             "secret-call-id",
+        ):
+            self.assertNotIn(forbidden, report_text.lower())
+
+    def test_final_development_report_fails_predeclared_test_gate(self):
+        report_text = PUBLIC_REPORT_V2.read_text(encoding="utf-8")
+        report = json.loads(report_text)
+        self.assertEqual(report["retained_results"], 6)
+        self.assertEqual(report["successful_results"], 1)
+        self.assertEqual(report["policy_violations"], 5)
+        self.assertEqual(report["mean_reward"], 0.2)
+        self.assertFalse(report["test_open_gate"]["passed"])
+        self.assertEqual(report["reported_usage"]["nl_evaluator"]["calls"], 1)
+        for forbidden in (
+            "error_traceback",
+            "reason_for_call",
+            "api_key",
+            "order_id",
+            "private customer content",
         ):
             self.assertNotIn(forbidden, report_text.lower())
 

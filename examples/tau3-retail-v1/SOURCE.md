@@ -83,3 +83,10 @@ source and M14b report hashes, and strengthens the prompt requirement: a tool
 response must contain exactly one tool call with an empty content field. The
 test-open gate is fixed before execution at at least four successful tasks and
 zero protocol violations.
+
+The final report is `development-report-v2.json`. It retains all six attempts:
+one successful task, four mixed text/tool protocol failures and one multiple
+tool-call guard failure. Available mean reward is 0.2 over five evaluated
+results. With only one success and five policy violations, the predeclared
+test-open gate failed. The 40 official test tasks were not executed or used for
+tuning.
