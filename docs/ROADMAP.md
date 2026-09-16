@@ -230,7 +230,7 @@ locked dependency check, package build, browser interaction/rendering checks
 and unchanged upstream/frozen-pipeline diffs. Historical test results remain
 M11 evidence, not newly measured holdout performance.
 
-## M13 — Agent-integrated Trace2Flow (in progress; M13a–b complete)
+## M13 — Agent-integrated Trace2Flow (in progress; M13a–c complete)
 
 ### M13a — Standard conversational Agent baseline (complete)
 
@@ -305,6 +305,41 @@ the no-refund/no-contact boundary; every ticket category and no-write path has
 deterministic tests; a new task-group-disjoint paired freeze measures semantic
 output and complete state without post-hoc retries.
 
+## M14 — Public τ³ retail expansion (in progress; M14a complete)
+
+### M14a — Audited task inventory and provider pilot (complete)
+
+Pin the current public τ³ source revision and retail data hashes. Inventory all
+114 public simulated tasks while keeping the 40 official test oracles sealed.
+Partition the 74 official train tasks by entity-connected group into compile
+and development roles. Prove the provider/simulator path with a retained
+DeepSeek development attempt, including failures, without calling task
+specifications recorded traces or reporting a success rate from one task.
+
+Completed with 48 compile, 26 development and 40 sealed-test task IDs. The
+first evaluable train-side DeepSeek run scored 0.0 and exposed both a missing
+write and a five-tool-call batch; two earlier infrastructure failures are also
+retained. This is honest integration evidence, not a positive benchmark result.
+
+Acceptance: exact source commit and file hashes are checked; no entity-connected
+group crosses compile/development; checked-in test metadata contains no task
+content or oracle; source/result summaries are public-safe; offline regression
+tests reject split and manifest tampering.
+
+### M14b — Policy-correct development batch (next)
+
+Add a tested τ³ runner adapter that makes provider and NL-evaluator models
+explicit, enforces at most one tool call per assistant turn, and fails closed on
+missing paid-call authorization. Predeclare a small family-stratified batch
+from the 26 development tasks, retain every result, then import observed calls
+through the existing review boundary. Do not open the 40 test oracles and do
+not select only successful traces.
+
+Acceptance: provider setup and one-call policy have offline tests; every planned
+development attempt is accounted for; result-format import preserves repeated
+occurrences and types; metrics separate Agent, user-simulator and evaluator
+usage. Scale to the frozen test only if the development result justifies it.
+
 ## Post-MVP release handoff (requires repository publication authority)
 
 - Review the final branch history and choose merge/squash policy.
@@ -314,7 +349,7 @@ output and complete state without post-hoc retries.
   checks pass.
 
 M0–M9 cover the original scoped MVP. M10–M12 add controlled Agent evidence and
-its offline presentation. M13 is an explicit post-MVP extension; production
+its offline presentation. M13–M14 are explicit post-MVP extensions; production
 integrations, arbitrary intent planning and generalized branch synthesis remain
 out of scope.
 

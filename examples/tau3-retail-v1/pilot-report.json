@@ -1,0 +1,58 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "error_type": "AuthenticationError",
+      "evaluated": false,
+      "result_sha256": "b2957700ad80083023b43749bf255db3ad20cac461aff2b6d9ceb0060cea7fb5",
+      "termination_reason": "infrastructure_error"
+    },
+    {
+      "attempt": 2,
+      "error_type": "BadRequestError",
+      "evaluated": false,
+      "result_sha256": "401a05712a56a6bad63c3cc1cd9acc982d20cc156e54eafe60c6cab0d0a590e8",
+      "termination_reason": "infrastructure_error"
+    },
+    {
+      "agent_model_calls_with_usage": 10,
+      "agent_reported_completion_tokens": 6049,
+      "agent_reported_prompt_tokens": 68422,
+      "attempt": 3,
+      "db_reward": 1.0,
+      "duration_seconds": 177.97959061292931,
+      "error_type": null,
+      "evaluated": true,
+      "expected_write_observed": false,
+      "max_tool_calls_in_one_assistant_message": 5,
+      "nl_assertion_reward": 0.0,
+      "result_sha256": "1c2715dd55310730529ebacb79cfb604d0265dafdd993a6fb9a231145d17dfa5",
+      "reward": 0.0,
+      "termination_reason": "user_stop",
+      "tool_call_count": 8,
+      "tool_error_count": 0,
+      "tool_sequence": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details"
+      ],
+      "user_model_calls_with_usage": 7,
+      "user_reported_completion_tokens": 3688,
+      "user_reported_prompt_tokens": 7277
+    }
+  ],
+  "cost_claim": "unavailable_model_price_mapping; zero cost is not claimed",
+  "dataset": "tau3-bench/retail",
+  "evaluation_role": "development_pilot_not_holdout",
+  "model": "openai/deepseek-v4-pro",
+  "raw_results_committed": false,
+  "schema_version": "tau3-deepseek-pilot-report/1.0",
+  "source_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+  "task_id": "105",
+  "usage_scope": "trajectory_message_usage_only"
+}

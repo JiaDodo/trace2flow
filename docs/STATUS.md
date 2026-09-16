@@ -2,9 +2,90 @@
 
 Last updated: 2026-09-16
 
-Current milestone: M13c complete — frozen paired Agent/router evaluation
+Current milestone: M14a complete — audited public τ³ retail inventory
 
-Working branch: `feat/m13c-paired-evaluation`
+Working branch: `feat/m14-public-dataset`
+
+## M14a public τ³ retail expansion
+
+Pinned the official `sierra-research/tau2-bench` checkout at commit
+`2174a603f6d014ef94473ffa95957f6ce27100db` and audited the current retail
+source. It contains 114 simulated tasks: 74 official train and 40 official
+test. This is public benchmark data, not real customer data and not observed
+Agent traces.
+
+- Added `trace2flow.tau3_corpus`, which verifies the Git revision, MIT license,
+  and exact hashes of the license, retail tasks, split, policy and DB before
+  building a manifest. It rejects unexpected task counts, overlapping or
+  incomplete official splits, duplicate IDs, and output overwrite.
+- The official 40-task test oracle is sealed. The checked-in manifest exposes
+  only test IDs/count; it includes no test instructions, reference actions,
+  expected state or NL assertions.
+- The 74 official train tasks form 35 transitive shared-entity groups. Stable
+  hash ordering assigns whole groups to 48 compile and 26 development tasks;
+  no such group crosses those roles.
+- Added a checked-in manifest, source/license record, redacted pilot report,
+  protocol documentation and seven regression tests. The manifest explicitly
+  says task/action oracles are not execution traces.
+- The existing conservative τ³ result importer accepts the current upstream
+  result structure: the valid pilot imports as one completed, unreviewed,
+  quarantined run with eight distinct call occurrences. No dependency is
+  inferred from order and it is not eligible for mining without review.
+
+The isolated upstream checkout needed `websockets==17.1` after its locked
+core-only install because `tau2 check-data` eagerly imports a voice module. No
+upstream file was modified. After that integration-only dependency addition,
+`tau2 check-data` passed.
+
+Three DeepSeek attempts on official **train** task 105 were retained locally:
+
+| Attempt | Result | Evidence |
+|---|---|---|
+| 1 | infrastructure failure | provider did not consume `DEEPSEEK_API_KEY` directly (`AuthenticationError`) |
+| 2 | infrastructure failure | conversation ran, hard-coded NL evaluator model was incompatible (`BadRequestError`) |
+| 3 | evaluated failure | reward 0.0; DB 1.0, NL assertion 0.0; expected exchange not executed |
+
+Attempt 3 took 177.98 seconds. Its trajectory contains 10 Agent messages with
+reported usage, 8 tool calls and no tool error. Reported Agent usage is 68,422
+prompt plus 6,049 completion tokens; the user simulator consumed another 7,277
+prompt plus 3,688 completion tokens. Evaluator usage is not available. The
+Agent batched five order lookups in one message, violating the domain policy's
+one-call-at-a-time rule. LiteLLM lacked a price mapping, so cost is reported as
+unavailable, not zero. This one development failure proves integration only;
+it is not a holdout estimate and was not retried into a success.
+
+Actual focused checks at this point:
+
+```text
+$ PYTHONPATH=src .venv/bin/python -m unittest tests.test_tau3_corpus -v
+Ran 7 tests; OK
+
+$ PYTHONPATH=src .venv/bin/python -m trace2flow.tau3_corpus \
+    data-private/tau2-bench-source --output /tmp/.../manifest.json
+{"compile": 48, "development": 26, "sealed_test": 40, "tasks": 114, ...}
+
+$ data-private/tau2-bench-source/.venv/bin/tau2 check-data
+Data directory exists; You can now run tau2 commands.
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true \
+    .venv/bin/python -m unittest discover -s tests -v
+Ran 184 tests in 23.639s; OK; no skips
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+All checks passed!
+
+$ .venv/bin/uv lock --check --offline
+Resolved 202 packages; lock unchanged
+
+$ .venv/bin/uv build --out-dir /tmp/trace2flow-m14-build.XXXXXX
+Successfully built sdist and wheel containing trace2flow.tau3_corpus
+```
+
+Next is M14b: build and test a fail-closed provider/runner adapter, enforce one
+tool call per turn, predeclare a small family-stratified development batch, and
+retain/import every outcome. The 40 test oracles remain sealed. M13d's typed
+user-facing outcome fix is still outstanding and M13c remains historical
+evidence; it is not rescored.
 
 ## M13c paired evaluation
 

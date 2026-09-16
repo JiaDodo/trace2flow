@@ -1,0 +1,1662 @@
+{
+  "compile_count": 48,
+  "data_claim": "public_simulated_benchmark_tasks_not_agent_traces",
+  "dataset": "tau3-bench/retail",
+  "development_count": 26,
+  "limitations": [
+    "Task specifications and action oracles are not observed Agent trajectories.",
+    "Official train and test partitions reuse simulated entities; the test oracle remains sealed but entity isolation is not claimed.",
+    "Compile/development roles prevent shared-entity groups from crossing those train-side roles.",
+    "No model accuracy, token reduction, latency, cost, or workflow benefit follows from this inventory alone."
+  ],
+  "official_train_count": 74,
+  "schema_version": "tau3-retail-corpus-manifest/1.0",
+  "sealed_test": {
+    "oracle_fields_exported": false,
+    "role": "sealed_test",
+    "task_count": 40,
+    "task_ids": [
+      "5",
+      "9",
+      "12",
+      "17",
+      "18",
+      "26",
+      "27",
+      "32",
+      "33",
+      "36",
+      "38",
+      "39",
+      "40",
+      "42",
+      "45",
+      "49",
+      "51",
+      "53",
+      "55",
+      "56",
+      "60",
+      "61",
+      "62",
+      "64",
+      "65",
+      "68",
+      "70",
+      "71",
+      "74",
+      "77",
+      "79",
+      "86",
+      "90",
+      "94",
+      "97",
+      "100",
+      "101",
+      "102",
+      "108",
+      "111"
+    ]
+  },
+  "source_commit": "2174a603f6d014ef94473ffa95957f6ce27100db",
+  "source_files": [
+    {
+      "path": "LICENSE",
+      "sha256": "e67c5aa0074dfcaefd3c3a1aedb94cb539234aecd15d5a972574e3200e6252fe"
+    },
+    {
+      "path": "data/tau2/domains/retail/db.json",
+      "sha256": "413a65160adbdb5fde0ffc0015c49b6d70250b10c18128de169b597af7766765"
+    },
+    {
+      "path": "data/tau2/domains/retail/policy.md",
+      "sha256": "2c9652afbce57d6e087768d37cda64d31c53d50b3e3225cfdb791bac66466467"
+    },
+    {
+      "path": "data/tau2/domains/retail/split_tasks.json",
+      "sha256": "ed0580ec52575b63fbf76568af42490da6ee7783ecb4aa81af46961291358f20"
+    },
+    {
+      "path": "data/tau2/domains/retail/tasks.json",
+      "sha256": "8e03ebce7901bd6218e7a7dc3105faa9324091a68058f7fe61c65262868812e8"
+    }
+  ],
+  "source_license": "MIT",
+  "source_repository": "https://github.com/sierra-research/tau2-bench",
+  "split_policy": "official train/test; test oracle sealed; train entity-connected groups assigned deterministically to compile/development",
+  "task_count": 114,
+  "train_tasks": [
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "b346afb863372ef9f28fa2062c575ae96b4df4d855cc535dec83a8e517e6d40d",
+      "task_id": "0",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "49a399d0221aad8b22d7ceccbdb9851cc3384094b3af43d5f633564154d111f5",
+      "task_id": "1",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 11,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_product_details",
+        "get_product_details",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "0264691c75c55cc3631b682b81106ed036288b4987633c91aa177b838a2bd62c",
+      "task_id": "2",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 12,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_product_details",
+        "get_product_details",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "get_user_details",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "6d8eee60a1e6651239059ce23117d0e8d3901e033e95a3125a3d80a72103b792",
+      "task_id": "3",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 13,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_product_details",
+        "get_product_details",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "get_user_details",
+        "modify_pending_order_items",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "80b63bd75e18987d06f84b38ae5924805c30f1d648504997900633afc9e84d5f",
+      "task_id": "4",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "3a782890bd2a493e0ab4bb98667b9cd07260c9992529720b19d8764803aeba5f",
+      "task_id": "6",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "16212f22056312671fe6a867bb41008f5c676bd9f08f58994d870f327966312a",
+      "task_id": "7",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "4ab4db4a47a8aed7aa5798ea22a34f7e1ad2d091f6eca33db62ac467c1675c7a",
+      "task_id": "8",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "transfer_to_human_agents"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "4cc4ab32e5869264d6451855c3a0a3af9693965edb5f17a2c1d77c489681d2c9",
+      "task_id": "10",
+      "workflow_families": [
+        "transfer_to_human_agents"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "0f798ae5c20218638f2aa28597ffab94dc2143a8e97459e973aaa9ad5e5be5b5",
+      "task_id": "11",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "7daed0d37a0014362b6cb00e1a256466316fd30edac1cb3cc6d7eb042a91b645",
+      "task_id": "13",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "eeed476512f184c5f1edb3f92d49a6c959bcf4e2d270942fe56acd140a611f7b",
+      "task_id": "14",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "4c00a4604e4af54c140a379dad89c395c5d9366992235833e9ab00c5f5d0f33d",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "a607caadc94a6e058d3b0467c55c1661aa0adc7caf1bf985e64fa113e6aae830",
+      "task_id": "15",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 9,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "calculate",
+        "cancel_pending_order",
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "4c00a4604e4af54c140a379dad89c395c5d9366992235833e9ab00c5f5d0f33d",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "a46a7848d29777c7d6bb3beadea6d3cafa0da12158830a6a0c685f90fb08ca55",
+      "task_id": "16",
+      "workflow_families": [
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "606aedb73174e73fcf340b00164f9e973918c46893d12902177f748b375abe88",
+      "task_id": "19",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 10,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "get_product_details",
+        "get_product_details",
+        "modify_pending_order_items",
+        "get_order_details"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "528c8c35f405de9637cb2a96cd8579ca319d31ceb76f595ec821984772a0209f",
+      "task_id": "20",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 12,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_item_details",
+        "get_item_details",
+        "get_product_details",
+        "get_item_details",
+        "get_product_details",
+        "calculate",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "90542dcd6b02feca9dc271c6095f9549eef47e3024a7d56e756f88857b6ebc6e",
+      "task_id": "21",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "modify_user_address",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "modify_pending_order_address",
+        "modify_user_address"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "968d73ce2d67f42ca10f1fd2b4368ac05db7bdf842bfcc26ca1afe1fec221b7f",
+      "task_id": "22",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 12,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "exchange_delivered_order_items",
+        "get_product_details",
+        "exchange_delivered_order_items",
+        "get_product_details",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "8891bba055ef0215c990ed302056565e0499a65d35092a1af79000ed18783847",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "f0cfa7288170a523061e223752d744f3480a92dfb8ee22859f4b2aed977279a1",
+      "task_id": "23",
+      "workflow_families": [
+        "exchange_delivered_order_items",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 0,
+      "action_names": [],
+      "entity_group_sha256": "9303c4af226fc7f0cb2a98c77a61571ea1ca7cc2ed6bb6d1c70cd8072d6efa7c",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "ce2a3c2855b166a49990d2f09a849cc37b0f7f849f3cb7338f209747972e4f97",
+      "task_id": "24",
+      "workflow_families": [
+        "no_write"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details"
+      ],
+      "entity_group_sha256": "a80d49af6566ecf21c82b23d23db6c2cfba0f6a3ef47b954bed923e2e524ffee",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "d07189e320ad272fba179da906ae92256ecac3bbea30cdf2aa413c50c1bd295b",
+      "task_id": "25",
+      "workflow_families": [
+        "no_write"
+      ]
+    },
+    {
+      "action_count": 11,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items",
+        "return_delivered_order_items",
+        "return_delivered_order_items",
+        "get_order_details",
+        "calculate"
+      ],
+      "entity_group_sha256": "a80d49af6566ecf21c82b23d23db6c2cfba0f6a3ef47b954bed923e2e524ffee",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "dc7ab24fb5ae261cbd6d6be4fbd348d8e58f246e02e6ac211e944992fa598991",
+      "task_id": "28",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "exchange_delivered_order_items",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "a80d49af6566ecf21c82b23d23db6c2cfba0f6a3ef47b954bed923e2e524ffee",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "c12c34a735c9ac2d54991ef3c0f90e85c301a16e4731511266712ccd88d9125d",
+      "task_id": "29",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 13,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "return_delivered_order_items",
+        "get_order_details",
+        "cancel_pending_order",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "264238cfcae3977ec23757806393a43860e164f44b65eed081a9ae7ea08b10b3",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "a09d4edf72cacd78ae08dabf5e29b2a173a4d664b85e4d66760f1daa6f1a765d",
+      "task_id": "30",
+      "workflow_families": [
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 12,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "cancel_pending_order",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "264238cfcae3977ec23757806393a43860e164f44b65eed081a9ae7ea08b10b3",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "66d805aaa09d2d0b0427a66d9a9757bd1d0ba1d7071dfbb11807f91fa49bbb86",
+      "task_id": "31",
+      "workflow_families": [
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "modify_pending_order_address"
+      ],
+      "entity_group_sha256": "68faa008b89f9175c14cd94effe6436fe5e9d4ada39ebcfa5c139df6489b13aa",
+      "reward_basis": [
+        "DB"
+      ],
+      "role": "compile",
+      "source_task_sha256": "5439ec8bf3cb5a65a04bae20e7fac84d2e57083e4cf37226529c78f70da12b83",
+      "task_id": "34",
+      "workflow_families": [
+        "modify_pending_order_address"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_email",
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "return_delivered_order_items",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "3277f71bb9e1afa27c9d731707170cfdc4a2236f8677a11d72739ce548ab051f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "fb218ead70c72fc09b6f0f56ed75f821ab3a0d955b7c9852eab16694413f1a9a",
+      "task_id": "35",
+      "workflow_families": [
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 4,
+      "action_names": [
+        "find_user_id_by_email",
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "b53308048e5c833bd881a714ac3b1f78d66ffb3a5fd46059065368b1eb190c08",
+      "task_id": "37",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 10,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "modify_pending_order_address",
+        "modify_pending_order_address",
+        "modify_user_address",
+        "get_product_details",
+        "get_order_details",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "714b9f91790e21eb27ec8d94b8e5a3d55c6e5f0cff97387ec1690ea6c8093398",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "486e97c520b0aa96b7f8743a11043de3db685cf35f5386ce1045a39077c5ccb2",
+      "task_id": "41",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "modify_user_address"
+      ],
+      "entity_group_sha256": "a56171bdee18d0bc915e8baf469bf26a8377288a89786eed679db223b747bb35",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "d1f86f24327565fdc0056396430fdb7c02491214485e3ad3fb9d7db03c0faec7",
+      "task_id": "43",
+      "workflow_families": [
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_product_details",
+        "calculate",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "317e18ad00f9b830d929c7d48a16442fa7bf54e00ca913ab7011f511aa7d2756",
+      "task_id": "44",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "calculate",
+        "return_delivered_order_items",
+        "calculate"
+      ],
+      "entity_group_sha256": "9769eeb8d0f01ee25484d0bfe75573a3a8981071485c85f093d832d11c51bb59",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "a6a53c94172d850ecd429b5b10865b980d6263d17fcd38ce9816c11352aaa736",
+      "task_id": "46",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "calculate",
+        "return_delivered_order_items",
+        "calculate"
+      ],
+      "entity_group_sha256": "9769eeb8d0f01ee25484d0bfe75573a3a8981071485c85f093d832d11c51bb59",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "b6a8d84bc69b58096b9723e31f5dcdd9c16228351ba5d29fe43f201eef719909",
+      "task_id": "47",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "9769eeb8d0f01ee25484d0bfe75573a3a8981071485c85f093d832d11c51bb59",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "963e54ba0c63fc1e8183b59d461836d228ef6b8436be0450192eec0b5bd64fc8",
+      "task_id": "48",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "transfer_to_human_agents"
+      ],
+      "entity_group_sha256": "42869bd4763c5c25f9cb29eea2bbc3f5eb24797cd43c70bb071da79c823139cd",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "8436b10ee49285e7dca84a6b4930180698722884133ef04f0b7af22b3ed41da5",
+      "task_id": "50",
+      "workflow_families": [
+        "transfer_to_human_agents"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "cbfb3c29cbd20a959b7a6751926ee6bb744e91bb68d68b3cde2b1603e383a903",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "06bf80b755acbdedde2a6c963fa9e722316c1f2a18a24bfdfb513d00baff8e4f",
+      "task_id": "52",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 12,
+      "action_names": [
+        "find_user_id_by_email",
+        "find_user_id_by_email",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "get_order_details",
+        "cancel_pending_order",
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "48d6a2e7e69d4cd8e6cb122717ff8b6b426141a523ed8724794cfea0df69f324",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "411d88a557372a05d36a081af0f5a146cff5602365c24fb1c08f11df2ec9a790",
+      "task_id": "54",
+      "workflow_families": [
+        "cancel_pending_order",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 0,
+      "action_names": [],
+      "entity_group_sha256": "bf45233baf1af4b3d2fb3b337fd4100d10d744d707159eab449a071397990f6c",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "4c4ff215426c188639d3e35cab504cf2e83f4b1985e49c90d02706209f2447eb",
+      "task_id": "57",
+      "workflow_families": [
+        "no_write"
+      ]
+    },
+    {
+      "action_count": 6,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_product_details",
+        "get_product_details",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "3277f71bb9e1afa27c9d731707170cfdc4a2236f8677a11d72739ce548ab051f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "12386dd1e311cc65ba362cc8167e14cd92fdcdc48109098c760ff9fb76262066",
+      "task_id": "58",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_order_details",
+        "get_order_details",
+        "cancel_pending_order",
+        "modify_pending_order_address"
+      ],
+      "entity_group_sha256": "7ac21f074de063745c1afe7fc0287a513a7d94f82b6be036cd6bc3ccff701bf4",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "b7018a677b75e4abe4eb11cac59defab6020f6834bce4f2d76ff8fa7dba9c7bc",
+      "task_id": "59",
+      "workflow_families": [
+        "cancel_pending_order",
+        "modify_pending_order_address"
+      ]
+    },
+    {
+      "action_count": 7,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "get_product_details",
+        "calculate",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "d9ceee74dce9756e49ba1d3e69653217d1ff68e084037b16c682188990f8417e",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "c3a9776570a1708599bd5132509f2cc27ac9cc791eec6d864a18885cf0668623",
+      "task_id": "63",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "get_order_details",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "49b330bc2b55b9c0d72d84fc4af42a8ce46169e9714496dab9d06b6e9f3b10ca",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "1be6ad66ade3bbe46c86bc5a7e8a3b93c67fd9793a5baf3b7c36886000425bb8",
+      "task_id": "66",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "find_user_id_by_name_zip",
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details"
+      ],
+      "entity_group_sha256": "3444f4ddb1236840752a1714fc8fddad38a9eafe5403bd8fb0d48ab647db540f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "b145324f82e27f89946c31e2dd1a1a510a281e71bc988d34eedbaf4c955fe861",
+      "task_id": "67",
+      "workflow_families": [
+        "no_write"
+      ]
+    },
+    {
+      "action_count": 4,
+      "action_names": [
+        "find_user_id_by_name_zip",
+        "get_user_details",
+        "get_order_details",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "2de0eeeae070d24ee01f5c29ed5b633e827bd066018dac928b8e77f08dd69b1b",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "2febc257034c4c7d1010b67cff837d8da11ff4fb1d659b85b8784d4d4b16ea43",
+      "task_id": "69",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "0594235596f77c485ab836f9aa6ce26e1b9a58080278c1e0e91311ec6b3cb8e3",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "99e4758d08f8bdcf019a9b52fa0badd218e632181c78d7aa953994f8b001f554",
+      "task_id": "72",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "8ce49018899a6ce6adbe1aa1c2e2e6fd525a6cbd42464ed8c3586a0974b96e36",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "4e0ddaf28df78e409757e29bb645f64565c9f31ac21c6058dd3b7d7b99b4c555",
+      "task_id": "73",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "d0a07d3e0cd46b1a499582f000a70bcec13d2ff5c6510405bbc32fa4801c1d6a",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "fec0bb8709edc1b786ec58d1d84a4818c399302dfbf9965157826167d4647a0d",
+      "task_id": "75",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "cancel_pending_order",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "fd612d7fe522afba3e8bad491b17376f36f6f852cf727fddd830b62397c4c970",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "638d5606ac3b8eed1b79095e4b9c4321563c52001055fb94a4acf3c92d54d9e3",
+      "task_id": "76",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "action_count": 3,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "e2322d28594a1cc87f6dbb9f0913438d5a513682e795381548395d03c481630b",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "60d81c1582421ebca191d0e01d8ddc58ba382635bbfb3d1e4e66d212d74caa2e",
+      "task_id": "78",
+      "workflow_families": [
+        "cancel_pending_order",
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "12f40db825c164af9030276b84456aaa5ad97a42a29ceb543ed14a2515b45e8c",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "bd068e22e238c0a824a87ed29c8840c335ad7c382b6341c0dff8792c1a471586",
+      "task_id": "80",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "cancel_pending_order",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "ce931840418a9d63602b7600f1ef81861bdcc128634353d1d5e85445eb2d42f1",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "1fa3c506c90d2350403d1b586ede8aec484c049e4f8bcb561e15ea174c1f6a76",
+      "task_id": "81",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "2ad59da47d14553c2acc378016ceb3e5a669d2ccf3b909aaee9cd19e215f42e6",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "e5724c9ad6d19611da003d95aa6dd3406681305ee7ff7cd881bba8869fe82e54",
+      "task_id": "82",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "2ad59da47d14553c2acc378016ceb3e5a669d2ccf3b909aaee9cd19e215f42e6",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "8f4378cab7074081e3f5e653b05b90b496b3c28ff7ae9dc114ec3400dffffabb",
+      "task_id": "83",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "2ad59da47d14553c2acc378016ceb3e5a669d2ccf3b909aaee9cd19e215f42e6",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "006d32635d8da275ee35b00b56bdd5ee01ac535baa9b6b7d9b1611695a84b0ff",
+      "task_id": "84",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "4169b65730a16d8287d4a5d9317f995604a3de01d5f0656dc76225c9a18b2ddb",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "c326c9e633ced2affb00725b0d7cf3b17e198351bbee804ccee2b2d0b55b8ac8",
+      "task_id": "85",
+      "workflow_families": [
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 4,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_pending_order_address",
+        "modify_pending_order_address",
+        "modify_user_address"
+      ],
+      "entity_group_sha256": "4169b65730a16d8287d4a5d9317f995604a3de01d5f0656dc76225c9a18b2ddb",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "6c4dde45624a0efd40d93d2ce986a24380e640f4c09ee281fcbf0d275c270b62",
+      "task_id": "87",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "878bedefac5eafa9a1d3070509f838bd83dbeb5739d869d30c54f5639e0a69cb",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "613bd83dc956025a6a1c2e24e340e3655a02218ecdc271f2ee1f5db1824e80fa",
+      "task_id": "88",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "b5b933e97ea78ab7e7360c42e6d5f3e5d046f635fcc283d6abf185cd5b9dac13",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "7f5983a2470cc75395f43941d942fc6ea7d0b2228b1374460293b57f5659f57f",
+      "task_id": "89",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "return_delivered_order_items",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "54148016276a1ff10deaf3f47df38406ee46ce1a0719d191b8ee6631a04e2c10",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "51cbb6e409e00a83b6d978458d981fff510f6a66c886d9bd56aacb4b530fed84",
+      "task_id": "91",
+      "workflow_families": [
+        "exchange_delivered_order_items",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "return_delivered_order_items",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "54148016276a1ff10deaf3f47df38406ee46ce1a0719d191b8ee6631a04e2c10",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "74fff27aa7a24f33043c67c555407b432eed39079ebaffce18eddcad33bd9461",
+      "task_id": "92",
+      "workflow_families": [
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "3277f71bb9e1afa27c9d731707170cfdc4a2236f8677a11d72739ce548ab051f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "8a7f70df613bd10c2ef253f9c8d7861d6bbec808df14c2998e8d94911f321c49",
+      "task_id": "93",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "exchange_delivered_order_items",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "3277f71bb9e1afa27c9d731707170cfdc4a2236f8677a11d72739ce548ab051f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "0c364cfbee4d76573ce8ed4e001416ca3d3b431782c78934c006f5f79105e144",
+      "task_id": "95",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "d9ceee74dce9756e49ba1d3e69653217d1ff68e084037b16c682188990f8417e",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "0dbfd3f247d39402a473c124420d428a027178c830d8a1a673149a587390ac25",
+      "task_id": "96",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 3,
+      "action_names": [
+        "exchange_delivered_order_items",
+        "exchange_delivered_order_items",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "cbfb3c29cbd20a959b7a6751926ee6bb744e91bb68d68b3cde2b1603e383a903",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "8fd96aea7a6c4c07f5e5da62d7460b4e8e7520377188cace62b3fd6d1646daf2",
+      "task_id": "98",
+      "workflow_families": [
+        "cancel_pending_order",
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "exchange_delivered_order_items",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "cbfb3c29cbd20a959b7a6751926ee6bb744e91bb68d68b3cde2b1603e383a903",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "7e8fd84bbfbfc47b04ab9fc44597139dcf98d2b44f8a7eda072e05d453e6c77b",
+      "task_id": "99",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 4,
+      "action_names": [
+        "return_delivered_order_items",
+        "return_delivered_order_items",
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "e48015263e96f10c32c64bdd3bac258036320376ffa76223dfc906c5a2d69c41",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "333e977f2b5f8595ce52a293e8c5bb56a4b928953d1aac88554bbdb89adde34d",
+      "task_id": "103",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 5,
+      "action_names": [
+        "return_delivered_order_items",
+        "return_delivered_order_items",
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ],
+      "entity_group_sha256": "e48015263e96f10c32c64bdd3bac258036320376ffa76223dfc906c5a2d69c41",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "695ca20d68353398a9f2c0d7e9f941af01a0c1c289336980f32c9d9940e9a1cf",
+      "task_id": "104",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "return_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "762f1e8ce7fac976c7c6c86a739eaba2c0eb3d073147506fea0bc27243b6d977",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "90cf6b590da08e72c9ff269ca947302598b94b99d46bce34bf35223fbe238d98",
+      "task_id": "105",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 1,
+      "action_names": [
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "e8bbc1d76ee834f2522014e6b8e5f18b1aa2df0c67dfe36eb6e07ca4f4c5baf1",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "77bfe9f5115aca9a466a397ad0dcf55dfdcbca94e7ac9aea5dc9bdbbddbfb1e8",
+      "task_id": "106",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "exchange_delivered_order_items",
+        "exchange_delivered_order_items"
+      ],
+      "entity_group_sha256": "4c00a4604e4af54c140a379dad89c395c5d9366992235833e9ab00c5f5d0f33d",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "8dde71e10ac7b0d5da238843bb5baddec156558e1ab2fd84f2216612c1f9f0f8",
+      "task_id": "107",
+      "workflow_families": [
+        "exchange_delivered_order_items"
+      ]
+    },
+    {
+      "action_count": 3,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_user_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "398dfc9aee5ed7d0e9a07080c967126bb0f9cb1bcbdf13b18173b85c1b9cd8a8",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "50b8c06e8f500c53595240b72920f229dbd2199425db846fa12ca0d614bb2f81",
+      "task_id": "109",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 3,
+      "action_names": [
+        "modify_pending_order_address",
+        "modify_user_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "398dfc9aee5ed7d0e9a07080c967126bb0f9cb1bcbdf13b18173b85c1b9cd8a8",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "1f70b7e28ce6c4aade5f4c5f23152f77c7729dbe2ff60527d5c82f064855b997",
+      "task_id": "110",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items",
+        "modify_user_address"
+      ]
+    },
+    {
+      "action_count": 3,
+      "action_names": [
+        "modify_pending_order_items",
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ],
+      "entity_group_sha256": "3277f71bb9e1afa27c9d731707170cfdc4a2236f8677a11d72739ce548ab051f",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "compile",
+      "source_task_sha256": "04a28f2fdd15779db685d9c64990944ebb9b72e4b3acd95f231dc4a1b1ac6b90",
+      "task_id": "112",
+      "workflow_families": [
+        "modify_pending_order_address",
+        "modify_pending_order_items"
+      ]
+    },
+    {
+      "action_count": 2,
+      "action_names": [
+        "cancel_pending_order",
+        "cancel_pending_order"
+      ],
+      "entity_group_sha256": "e2322d28594a1cc87f6dbb9f0913438d5a513682e795381548395d03c481630b",
+      "reward_basis": [
+        "DB",
+        "NL_ASSERTION"
+      ],
+      "role": "development",
+      "source_task_sha256": "b99f88d7068b70e913aba09e9e4200b38bfa8a64c8c05ffb2d46262834b19ed9",
+      "task_id": "113",
+      "workflow_families": [
+        "cancel_pending_order"
+      ]
+    }
+  ]
+}

@@ -55,6 +55,15 @@ reducing model calls from 23 to 15 and reported tokens from 37,321 to 24,223;
 tool calls stayed at 27 and accuracy did not improve. See
 [the paired evaluation protocol](docs/PAIRED_AGENT_EVALUATION.md).
 
+The public-data expansion now audits all 114 simulated retail tasks in the
+current τ³ benchmark: 48 train-side compile tasks, 26 development tasks and 40
+sealed official-test tasks. Shared-entity variants cannot cross the two
+train-side roles, and the checked-in test inventory contains IDs only. One
+valid DeepSeek development simulation completed but scored 0.0, so no τ³
+accuracy or Trace2Flow benefit is claimed yet. See the
+[dataset expansion protocol](docs/PUBLIC_DATASET_EXPANSION.md) and
+[pinned source record](examples/tau3-retail-v1/SOURCE.md).
+
 The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
 explicit review intake and independent Agent/workflow outcome scoring. All
 30 tasks were collected with DeepSeek. On the frozen twelve-task test set the

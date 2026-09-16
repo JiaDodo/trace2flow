@@ -318,6 +318,36 @@ Run the focused M13c controls with:
 .venv/bin/python -m unittest tests.test_support_evaluation -v
 ```
 
+## Public τ³ retail expansion
+
+Read `docs/PUBLIC_DATASET_EXPANSION.md` before collecting more benchmark runs.
+The pinned checkout is `sierra-research/tau2-bench` commit
+`2174a603f6d014ef94473ffa95957f6ce27100db`. Keep the external checkout and raw
+results under ignored `data-private/`; do not modify upstream source to make a
+run pass. Regenerate the public manifest only through
+`trace2flow.tau3_corpus`, which verifies the source commit, license and data
+hashes and refuses to overwrite an existing output.
+
+The public task oracle is a task specification, not an observed trace. Keep all
+40 official test task contents/oracles sealed until a new runner, scorer and
+attempt inventory are committed. Train-side compile/development assignment is
+by transitive shared-entity group; never move a single task between roles after
+seeing an outcome. Preserve every paid attempt, including infrastructure
+errors. Provider, user-simulator and evaluator tokens must be reported
+separately; an unknown model price is not zero cost.
+
+τ³'s retail policy allows at most one tool call at a time. Treat batched calls
+as a policy failure even if the framework executes them. The NL assertion
+evaluator is also an LLM call and must use an explicitly configured compatible
+model; never silently fall back to another paid provider. Do not print or copy
+`DEEPSEEK_API_KEY`; cloud tracing stays disabled.
+
+Run the offline inventory controls with:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest tests.test_tau3_corpus -v
+```
+
 ## Scope discipline
 
 M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the
