@@ -4096,6 +4096,8 @@ agent = [
     { name = "langchain" },
     { name = "langchain-core" },
     { name = "langchain-deepseek" },
+    { name = "langgraph" },
+    { name = "langsmith" },
 ]
 
 [package.dev-dependencies]
@@ -4112,6 +4114,8 @@ requires-dist = [
     { name = "langchain", marker = "extra == 'agent'", specifier = ">=1.0,<2" },
     { name = "langchain-core", marker = "extra == 'agent'", specifier = ">=1.0,<2" },
     { name = "langchain-deepseek", marker = "extra == 'agent'", specifier = ">=1.0,<2" },
+    { name = "langgraph", marker = "extra == 'agent'", specifier = ">=1.0,<2" },
+    { name = "langsmith", marker = "extra == 'agent'", specifier = ">=0.3,<1" },
     { name = "numpy", specifier = ">=2.4.4" },
     { name = "pm4py", specifier = ">=2.7.22" },
     { name = "prefect", specifier = ">=3.8,<4" },

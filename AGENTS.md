@@ -245,6 +245,40 @@ comparison is required. Final-chat quality is currently unmeasured. Public
 test definitions and local hash manifests are logical seals, not access control
 or authenticity attestation. Never auto-push this evaluation branch.
 
+## Standard conversational Agent and M13
+
+The runnable baseline is `trace2flow.support_agent`, backed only by the local
+synthetic `trace2flow.support_backend`. Read `docs/STANDARD_AGENT.md` before
+changing it. A request contains natural user text plus host-authenticated
+customer/ticket identity; never add scenario names, oracle answers, expected
+actions, policy decisions or state snapshots to model-visible input.
+
+Keep identity in immutable runtime context and out of model tool schemas. Read
+tools must enforce ownership without distinguishing foreign from missing IDs.
+`update_ticket` is the only write: retain evidence validation, idempotency,
+one-attempt limit and human interrupt before mutation. Never expand the demo
+into messages, carrier contact, refunds, arbitrary code or a live customer
+backend. Keep provider tracing off and omit credentials, raw payloads,
+reasoning and provider exception text from recordings.
+
+Agent dependencies are optional but direct; update both `pyproject.toml` and
+`uv.lock`. Run the focused baseline with:
+
+```bash
+uv sync --locked --extra agent --group dev
+.venv/bin/python -m unittest tests.test_support_agent -v
+```
+
+Paid calls require existing user authorization, `DEEPSEEK_API_KEY` and the
+explicit CLI `--allow-paid-call`. Use a new ignored `data-private/` path for
+every attempt; never overwrite, retry-select or call a development attempt an
+evaluation. Human approval in the CLI is limited to the local mock write.
+
+M13 must not alter M11 frozen code or artifacts. The next trace adapter/router
+must fall back to the Agent on ambiguity and require explicit reviewed workflow
+promotion. Freeze a new disjoint evaluation before comparing accuracy, unsafe
+writes, failures, calls, tokens or latency; no metric improvement is presumed.
+
 ## Scope discipline
 
 M12 live-evidence helpers are `trace2flow.live_demo` and `live_demo_ui`; the

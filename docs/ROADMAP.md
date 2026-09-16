@@ -230,6 +230,50 @@ locked dependency check, package build, browser interaction/rendering checks
 and unchanged upstream/frozen-pipeline diffs. Historical test results remain
 M11 evidence, not newly measured holdout performance.
 
+## M13 — Agent-integrated Trace2Flow (in progress)
+
+### M13a — Standard conversational Agent baseline (complete)
+
+Build a normal single-purpose support Agent before attempting optimization.
+Accept natural customer language without scenario, oracle, expected action,
+order or policy fields. Use typed customer-scoped read tools, trusted runtime
+identity, in-process conversation memory, bounded calls, fact/policy gates,
+idempotent writes and human approval. Record local evidence passively without
+letting Trace2Flow prescribe the route.
+
+Acceptance: scripted tests exercise the actual LangChain loop, ambiguity and
+follow-up, tool contracts, ownership isolation, approval/rejection, evidence
+failure, state mutation, error redaction and fail-closed paid-call CLI. At least
+one explicitly authorized DeepSeek development run uses the final source and
+records state and usage locally. This is integration evidence, not an accuracy
+score or production claim.
+
+### M13b — Conservative adaptive router and trace adapter (next)
+
+Normalize eligible Agent recordings without changing the frozen M11 evidence.
+Introduce a versioned workflow registry and a conservative router: known,
+fully resolved requests may use a verified workflow; ambiguous, unsupported or
+failed cases fall back to the Agent. Never learn directly from test results or
+replace a reviewed workflow automatically. Preserve the same tool authorization,
+approval and full-state verification boundaries on both routes.
+
+Acceptance: offline paired cases prove route selection, safe fallback, trace
+provenance, no hidden answer fields and behavioral equivalence for accepted
+workflow cases. Any candidate promotion remains an explicit review action.
+
+### M13c — Predeclared paired evaluation
+
+Freeze a new task-group split and scorer before unlocking results. Compare the
+standard Agent baseline with the Agent-plus-Trace2Flow router on identical fresh
+states. Report task/output and complete-state accuracy, unsafe writes, safe
+refusals/fallbacks, model/tool call errors, model/tool call counts, reported
+input/output tokens, latency and workflow coverage. Do not assume improvements;
+report missing provider usage and statistical uncertainty honestly.
+
+Acceptance: no compile/evaluation task-group overlap, no post-hoc retry or task
+selection, raw attempt inventory retained locally, and every public metric is
+reproducible from a hash-pinned manifest and scorer.
+
 ## Post-MVP release handoff (requires repository publication authority)
 
 - Review the final branch history and choose merge/squash policy.
@@ -238,9 +282,10 @@ M11 evidence, not newly measured holdout performance.
 - Capture a short demo recording and create a release tag only after the hosted
   checks pass.
 
-M0–M9 now cover the scoped MVP. Production integrations, arbitrary intent
-planning, and generalized branch synthesis remain intentionally out of scope,
-not unfinished acceptance items.
+M0–M9 cover the original scoped MVP. M10–M12 add controlled Agent evidence and
+its offline presentation. M13 is an explicit post-MVP extension; production
+integrations, arbitrary intent planning and generalized branch synthesis remain
+out of scope.
 
 ## Out of scope for the MVP
 

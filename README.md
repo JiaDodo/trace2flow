@@ -32,6 +32,13 @@ not a new compiler: raw evidence is saved locally, normalized output requires
 dependency review, and live calls need an explicit paid-call flag. See
 [the Agent collector guide](docs/AGENT_COLLECTOR.md).
 
+A separate standard conversational Agent baseline accepts ordinary customer
+language rather than scenario/oracle fields, discovers facts through typed
+customer-scoped tools, remembers in-process follow-up turns, and pauses its
+only local write for human approval. Its passive recordings are intended as
+future Trace2Flow input; it does not yet claim self-evolution or measured
+improvement. See [the standard Agent guide](docs/STANDARD_AGENT.md).
+
 The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
 explicit review intake and independent Agent/workflow outcome scoring. All
 30 tasks were collected with DeepSeek. On the frozen twelve-task test set the

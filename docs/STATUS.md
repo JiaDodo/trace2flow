@@ -1,10 +1,117 @@
 # Trace2Flow Status
 
-Last updated: 2026-09-15
+Last updated: 2026-09-16
 
-Current milestone: M12 complete — offline live-evidence demo and Chinese handoff
+Current milestone: M13a complete — standard conversational support Agent
 
-Working branch: `feat/m12-live-evidence-demo`
+Working branch: `feat/m13-standard-agent`
+
+## M13a standard Agent baseline
+
+Implemented a runnable DeepSeek customer-support Agent alongside, not inside,
+the frozen Trace2Flow compiler/evaluation pipeline. It accepts ordinary user
+language and authenticated runtime identity; its input has no scenario, oracle,
+expected action, order ID or policy answer. Trace recording is passive and does
+not determine the Agent's tool route.
+
+- Added `support_backend.py`: fresh typed synthetic customers, orders, shipping,
+  payment events, policies and tickets; customer-scoped reads, indistinguishable
+  foreign/missing-order errors, typed/idempotent ticket writes and complete
+  before/after snapshots. It has no network, real customer data, messaging,
+  carrier or refund integration.
+- Added `support_agent.py` using LangChain `create_agent`, typed tools and
+  immutable runtime context. Seven allowlisted tools cover trusted context,
+  recent/one-order lookup, shipping, payment events, policy and the sole local
+  ticket write. `InMemorySaver` retains same-process follow-up turns.
+- Added model/tool call limits, one write attempt per run, current-policy and
+  fact gates, and human approve/reject interruption before state mutation.
+  Authenticated customer/ticket IDs never appear in model-controlled tool
+  schemas. Provider errors are reduced to exception types. A deterministic
+  post-write response guard reports only the proven local effect and prevents
+  model wording from promising nonexistent external follow-up.
+- Added a versioned local recorder with prompt and producer hashes, model/tool
+  events, typed arguments/results, provider-reported usage and complete state.
+  Credentials, headers, provider payloads, reasoning and provider exception
+  text are omitted; LangSmith cloud tracing is disabled.
+- Added a fail-closed CLI: live calls require `--allow-paid-call`, local writes
+  additionally require `--approve-local-write`, and trace paths are exclusive.
+  Added direct optional dependencies for LangGraph and LangSmith and refreshed
+  the lock file.
+- Added `docs/STANDARD_AGENT.md`, roadmap/README/development guidance, and 14
+  framework-level regression tests. The official LangChain agent, runtime,
+  memory and human-in-the-loop patterns informed this baseline.
+
+The paid development attempts exposed two real integration defects. Initially the model did
+not know the backend's current date and could not reliably decide whether the
+estimate was overdue. The fix added trusted current-date context and a backend
+evidence check requiring the estimate to precede that date. A later attempt
+still promised future follow-up that the local system cannot perform, despite a
+prompt prohibition. The fix added the deterministic response guard and
+regression assertions. Earlier attempts remain in ignored private storage;
+they were not deleted or presented as evaluation. The final-source
+`delivery-natural-v5` attempt:
+
+- paused before the write, then completed only after explicit local approval;
+- made 5 model requests and 5 successful tool calls: support context, recent
+  orders, shipping, policy and ticket update;
+- reported 8,027 input and 573 output tokens (8,600 total, including reported
+  cache-read input); no relative reduction is claimed;
+- changed only synthetic ticket `T-100` from revision 0/open to revision
+  1/pending_carrier; `T-200` and `T-300` remained at revision 0;
+- returned a guarded completion that explicitly says no external carrier was
+  contacted, no refund started and no automatic notification exists;
+- stored a producer hash exactly matching the final Agent source at run time.
+
+This is one development integration attempt, not a benchmark, accuracy result,
+generalization result or self-evolution claim. Final-chat quality is not yet
+scored, and the CLI's in-memory approval cannot survive process restart.
+
+### Actual M13a verification
+
+```text
+$ .venv/bin/python -m unittest tests.test_support_agent -v
+Ran 14 tests in 1.592s; OK
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true .venv/bin/python -m unittest discover -s tests -v
+Ran 155 tests in 23.523s; OK; no skips
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py scripts/capture_m12_demo.py
+All checks passed!
+
+$ PYTHONPATH=src .venv/bin/python -m compileall -q src tests streamlit_app.py scripts
+exit 0
+
+$ .venv/bin/uv lock --check --offline
+Resolved 202 packages; exit 0
+
+$ .venv/bin/uv build --out-dir /tmp/trace2flow-m13-build-final-v2
+Successfully built sdist and wheel containing both support modules
+
+$ git diff --exit-code b168d6760213b489e2fb2f5571f5d4e6d648dee8 -- src/compile.py src/benchmark.py src/codegen.py rules LICENSE
+exit 0
+
+$ git diff --exit-code de2f1d7 -- <M11 frozen code and artifacts>
+exit 0
+
+$ git diff --check
+exit 0
+```
+
+The final authorized call used the existing environment variable without
+reading or printing its value. Full recordings remain under ignored
+`data-private/standard-agent-dev/`; they are neither committed nor used as a
+test set. No push, PR, merge, hosted trace or real external write occurred.
+
+### Next milestone
+
+M13b will adapt eligible new recordings into Trace2Flow and add a conservative
+versioned router: only reviewed, fully resolved cases may choose a verified
+workflow, while ambiguity and unsupported cases fall back to this Agent. M13c
+will freeze a new disjoint paired evaluation before measuring accuracy, unsafe
+writes, failures, calls, provider-reported tokens, latency and workflow
+coverage. No human intervention is required to start the offline M13b
+implementation; explicit approval will be required before any new paid corpus
+collection or publication.
 
 ## M12 completed demo handoff
 
