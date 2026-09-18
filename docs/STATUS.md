@@ -1,10 +1,52 @@
 # Trace2Flow Status
 
-Last updated: 2026-09-16
+Last updated: 2026-09-18
 
 Current milestone: M14 complete — public τ³ test remained sealed
 
 Working branch: `feat/m14-public-dataset`
+
+## Chinese repository landing page
+
+Replaced the inherited/chronological README with a Chinese project landing
+page for both recruiting and technical review. It now leads with the problem,
+the Trace2Flow pipeline and real checked-in Streamlit screenshots, then records
+implemented capabilities, the frozen M11/M13c results, the negative M14 result,
+technology choices, reproducible offline setup/CLI commands, the optional paid
+DeepSeek path, repository structure, upstream attribution and safety limits.
+
+The README does not claim an accuracy improvement: the M13c table keeps the
+4/6 versus 4/6 result, distinguishes model calls from tool calls and labels the
+six cases synthetic. It also states that M14 failed its development gate and
+the official 40-task test remained sealed.
+
+Validation performed for this documentation change:
+
+```text
+$ PYTHONPATH=src .venv/bin/python -m trace2flow validate \
+    tests/fixtures/typed_customer_support.json
+valid=true; 3 runs; 18 steps
+
+$ PYTHONPATH=src .venv/bin/python -m trace2flow mine ... --rule-profile strict
+5 candidate nodes; 2 accepted edges; 2 unresolved dependencies
+
+$ PYTHONPATH=src .venv/bin/python -m trace2flow build-ir ...
+5 workflow nodes; 2 edges; 16 blockers retained
+
+$ PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true \
+    .venv/bin/python -m unittest discover -s tests -v
+Ran 196 tests in 27.395s; OK; no skips
+
+$ .venv/bin/ruff check src/trace2flow tests streamlit_app.py \
+    scripts/capture_m12_demo.py
+All checks passed!
+
+$ .venv/bin/uv lock --check --offline
+Resolved 202 packages; lock unchanged
+
+$ README local-link check
+20 local links/images checked; 0 missing
+```
 
 ## M14a public τ³ retail expansion
 

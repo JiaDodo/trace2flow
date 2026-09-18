@@ -1,366 +1,284 @@
-# Trace2Flow
+# Trace2Flow：把 Agent 执行轨迹编译成可验证工作流
 
-Trace2Flow is a safety- and evidence-focused evolution of the upstream
-[AutoCompile](https://github.com/mirkokiefer/autocompile) project. The current
-Trace2Flow contribution adds strict, typed JSON trace ingestion, complete-run
-dataset boundaries, a reversible adapter into the original ASP compiler, and
-an occurrence-aware candidate DAG with per-edge evidence and explicit
-ambiguity. Run it locally with:
+> 一个面向 Agent 工程化的实验项目：从多次工具调用轨迹中提取可复用结构，生成带证据、可审查、可安全执行的工作流，并在独立本地状态中验证结果与副作用。
 
-```bash
-PYTHONPATH=src python -m trace2flow mine \
-  tests/fixtures/typed_customer_support.json \
-  --output candidate.json
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/tests-196%20passed-brightgreen)](docs/STATUS.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Upstream](https://img.shields.io/badge/upstream-AutoCompile-8A2BE2)](https://github.com/mirkokiefer/autocompile)
 
-PYTHONPATH=src python -m trace2flow build-ir \
-  tests/fixtures/typed_customer_support.json \
-  --candidate candidate.json \
-  --output workflow.json
-```
+Trace2Flow 不是另一个 Agent 框架。它位于 Agent 的下游：观察 Agent 已经完成的同类任务，把其中有充分证据、经过审核的稳定路径固化为工作流；遇到歧义或未覆盖请求时，仍回退给 Agent。
 
-Resolved workflows can be exported to Prefect only with an explicit tool
-allowlist. See [the safe export guide](docs/PREFECT_EXPORT.md).
+## 为什么做这个项目
 
-The complete synthetic customer-support compile and held-out simulation path
-is documented in [the local verification guide](docs/LOCAL_VERIFICATION.md).
-The conservative tau3-bench retail importer and its evidence language are
-documented in [the recorded-data guide](docs/RECORDED_DATA.md).
+LLM Agent 能处理开放问题，但在客服查询、订单核验等重复任务中，每次都重新规划会带来几个工程问题：
 
-An optional DeepSeek customer-support Agent now produces actual model/tool
-recordings in the existing synthetic local simulator. It is a trace producer,
-not a new compiler: raw evidence is saved locally, normalized output requires
-dependency review, and live calls need an explicit paid-call flag. See
-[the Agent collector guide](docs/AGENT_COLLECTOR.md).
+- 相同业务被反复推理，模型调用和 token 消耗难以控制；
+- 工具调用顺序不等于真实数据依赖，直接“照抄轨迹”容易生成错误流程；
+- 历史参数看起来不变，不代表它就是业务常量；
+- 工作流能否正确更新状态，不能只靠回放历史响应证明；
+- 自动生成的流程一旦包含歧义、越权工具或未确认副作用，就不应该执行。
 
-A separate standard conversational Agent baseline accepts ordinary customer
-language rather than scenario/oracle fields, discovers facts through typed
-customer-scoped tools, remembers in-process follow-up turns, and pauses its
-only local write for human approval. Its passive recordings are intended as
-future Trace2Flow input; it does not yet claim self-evolution or measured
-improvement. See [the standard Agent guide](docs/STANDARD_AGENT.md).
-
-M13b adds a conservative integration layer: saved Agent sessions can enter the
-typed Trace2Flow review pipeline, while a hash-bound append-only registry routes
-only narrow, explicitly promoted requests to a verified Workflow IR. Ambiguous
-or unsupported requests fall back to the Agent, and both paths retain human
-approval before local writes. See [the adaptive router guide](docs/ADAPTIVE_ROUTER.md).
-
-M13c adds a hash-frozen paired comparison between that standard Agent and the
-adaptive router. The synthetic task groups, exact state/output scorer, reviewed
-workflow registration and source hashes are fixed before any result can be
-collected; full attempts stay private and only a redacted metric report may be
-published. On the one frozen six-case run, both arms scored 4/6 overall and
-6/6 on complete state. The adaptive arm routed 2/6 cases through the workflow,
-reducing model calls from 23 to 15 and reported tokens from 37,321 to 24,223;
-tool calls stayed at 27 and accuracy did not improve. See
-[the paired evaluation protocol](docs/PAIRED_AGENT_EVALUATION.md).
-
-The public-data expansion now audits all 114 simulated retail tasks in the
-current τ³ benchmark: 48 train-side compile tasks, 26 development tasks and 40
-sealed official-test tasks. Shared-entity variants cannot cross the two
-train-side roles, and the checked-in test inventory contains IDs only. One
-valid DeepSeek development simulation completed but scored 0.0, so no τ³
-accuracy or Trace2Flow benefit is claimed yet. See the
-[dataset expansion protocol](docs/PUBLIC_DATASET_EXPANSION.md) and
-[pinned source record](examples/tau3-retail-v1/SOURCE.md).
-
-Two frozen six-task development batches then tested the current DeepSeek/τ³
-protocol without retries or result selection. The first produced 0/6 successes;
-the final strict-prompt batch produced 1/6, with five protocol violations. A
-predeclared gate required at least 4/6 and zero violations, so the 40-task
-official test remained sealed. This is a reproducible negative compatibility
-result, not a public benchmark score or a Trace2Flow improvement claim.
-
-The evaluation stage has a predeclared 30-task synthetic plan, hash-bound
-explicit review intake and independent Agent/workflow outcome scoring. All
-30 tasks were collected with DeepSeek. On the frozen twelve-task test set the
-workflow correctly executed 8 accepted cases and safely refused 4; coverage
-is 8/12. This is controlled simulated-business evidence, not real-customer or
-general model reliability. See [the experiment record](docs/AGENT_EXPERIMENT.md)
-and [the evaluation guide](docs/AGENT_EVALUATION.md).
-
-A small checked-in recorded corpus demonstrates the non-synthetic data path:
-
-```bash
-PYTHONPATH=src python -m trace2flow evaluate-structure \
-  examples/tau-retail-recorded/candidate.json \
-  --compile examples/tau-retail-recorded/compile.json \
-  --test examples/tau-retail-recorded/holdout.json \
-  --output /tmp/trace2flow-structural-report.json
-```
-
-It contains three compile runs from tau task 44 and four held-out runs from
-task 60. All four held-out runs cover the mined four-node/three-edge structure.
-This is deliberately reported as structural evidence only, not execution
-equivalence or a general benchmark success rate. See the
-[corpus source record](examples/tau-retail-recorded/SOURCE.md).
-
-M9 turns that reviewed structure into a deliberately narrower executable
-contract. The caller supplies already-confirmed customer, order, current-item,
-and replacement-item fields; Trace2Flow does not pretend the recorded traces
-contain a general product-selection policy. Reproduce the fresh-state run:
-
-```bash
-PYTHONPATH=src python -m trace2flow build-ir \
-  examples/tau-retail-recorded/compile.json \
-  --candidate examples/tau-retail-recorded/candidate.json \
-  --resolution examples/tau-retail-recorded/resolution.json \
-  --output /tmp/trace2flow-retail-workflow.json
-
-PYTHONPATH=src python -m trace2flow verify-retail \
-  /tmp/trace2flow-retail-workflow.json \
-  --cases examples/tau-retail-recorded/execution-cases.json \
-  --output /tmp/trace2flow-retail-verification.json
-```
-
-The two execution cases use new local entities and state, not recorded
-responses. Both the business-result node and the complete mutable order map
-must match. See the [portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) for
-the evidence ladder and demo script.
-
-See [the roadmap](docs/ROADMAP.md), [current status](docs/STATUS.md), and the
-[upstream audit](docs/UPSTREAM_AUDIT.md) for the exact capability boundary.
-
-## What the MVP does
+Trace2Flow 的核心思路是：**高频模式只是候选证据，不是执行许可。** 系统保留每次工具调用的 occurrence ID、参数类型和依赖来源；无法确认的绑定保持 unresolved，并阻止导出可执行版本。
 
 ```text
-typed JSON traces
-    -> upstream tool-level mining + Trace2Flow occurrence alignment
-    -> candidate DAG with run/call evidence and unresolved items
-    -> declaration-gated Workflow IR
-    -> safe Prefect export + independent local simulation
+自然语言请求
+     │
+     ▼
+标准 LangChain Agent ──调用本地工具──► 原始执行轨迹
+     │                                  │
+     │                            规范化 / 审核
+     │                                  ▼
+     │                   AutoCompile ASP 模式挖掘（上游）
+     │                                  │
+     │                                  ▼
+     │                   occurrence-aware 候选 DAG
+     │                                  │
+     │                         参数绑定与副作用声明
+     │                                  ▼
+     └────不确定时回退◄──── 安全路由 ─── Workflow IR
+                                      │
+                              Prefect 导出 / 本地执行
+                                      │
+                                      ▼
+                            输出 + 完整状态独立验证
 ```
 
-The key idea is that a frequent pattern is evidence, not permission to execute.
-Trace2Flow keeps repeated calls distinct, refuses to infer lineage from array
-order or equal values, and requires declarations before constants, branches,
-or writes become executable.
+## 效果展示
 
-Run the complete local demo:
+下面截图来自仓库内真实的 Streamlit 离线演示，不是设计稿。默认页面展示归档的 DeepSeek 工具编排轨迹、冻结工作流和独立本地模拟执行；启动演示不需要 API Key，也不会发起模型请求。
+
+### 1. 从轨迹得到带证据的 DAG 与参数绑定
+
+每条边都能展开到支持它的运行 ID 和调用 ID。同一个工具被调用多次时不会仅按工具名合并；没有证据的数据依赖不会因为调用先后顺序被补出来。
+
+![候选 DAG、逐调用证据与参数绑定](docs/assets/m12/02-dag-bindings.png)
+
+### 2. 在全新模拟状态中验证输出与副作用
+
+验证阶段重新创建 customers、orders、tickets 状态，执行冻结工作流，同时比较业务输出和完整状态差异；它不回放历史工具响应。
+
+![独立本地执行、输出比较与状态差异](docs/assets/m12/03-fresh-state.png)
+
+### 3. 不确定时安全拒绝
+
+缺少客户身份或归属证据时，工作流不会猜测或写入，工具调用数为 0，完整状态保持不变。
+
+![缺少必要身份信息时安全拒绝](docs/assets/m12/04-safe-refusal.png)
+
+更多原始调用、重复失败和零调用截图见[中文演示手册](docs/LIVE_DEMO_WALKTHROUGH.md)。
+
+## 已实现能力
+
+| 模块 | 能力 |
+|---|---|
+| Trace 输入 | Pydantic 定义的版本化 JSON Schema；保留对象、数组、布尔、数字与 `null` 等原始类型 |
+| 数据集边界 | 按完整任务运行和来源任务组切分；检测 compile/test 泄漏 |
+| 结构挖掘 | 调用上游 Clingo/ASP 编译器，再按调用 occurrence 对齐候选节点 |
+| 证据 DAG | 每条依赖保存支持/冲突运行及调用证据；调用顺序不自动成为数据依赖 |
+| Workflow IR | 与 LangChain、Prefect 解耦的 Pydantic IR；支持任务输入、常量、前序工具输出和 unresolved 绑定 |
+| 安全导出 | 仅在关键项全部解决后导出 Prefect；运行时只允许调用显式注册工具 |
+| 独立验证 | 在新的本地模拟状态中比较最终输出、完整状态与状态 diff |
+| Agent 集成 | 标准 LangChain/LangGraph 客服 Agent、人工审批写入、保守路由与 Agent fallback |
+| 演示与评估 | Streamlit 证据界面、冻结评估计划、公开的脱敏报告与失败样本 |
+
+## 实际结果
+
+项目没有预设“加入工作流一定提高准确率”，以下数字均来自仓库内冻结的合成业务实验。
+
+### 冻结工作流验证（M11）
+
+| 指标 | 结果 |
+|---|---:|
+| 历史测试任务覆盖 | 8 / 12 |
+| 被接受任务的输出正确 | 8 / 8 |
+| 被接受任务的完整状态正确 | 8 / 8 |
+| 安全拒绝 | 4 |
+| 相同 8 个接受任务的模型编排请求 | 40 → 0 |
+| 相同 8 个接受任务的工具调用 | 40 → 40 |
+
+这里证明的是：在一个狭窄、已审核的合成客服流程中，在线模型编排可以被工作流替代；它不代表工具调用减少，也不是生产准确率或成本结论。
+
+### Agent 与 Agent + Trace2Flow 成对评估（M13c）
+
+| 指标 | 标准 Agent | Agent + Trace2Flow |
+|---|---:|---:|
+| 总体正确 | 4 / 6 | 4 / 6 |
+| 完整状态正确 | 6 / 6 | 6 / 6 |
+| 模型调用 | 23 | 15 |
+| 输入 + 输出 token | 37,321 | 24,223 |
+| 工具调用 | 27 | 27 |
+| 累计墙钟时间 | 66.49 s | 46.47 s |
+| 工作流覆盖 | 0 / 6 | 2 / 6 |
+
+本轮准确率没有提升。Trace2Flow 在 2 个明确的配送延迟请求上安全命中已审核工作流，因此总模型调用减少 8 次、供应商报告 token 减少 13,098；样本仅 6 个且全部为合成任务，不能外推到生产环境。完整协议和失败分析见[成对评估报告](docs/PAIRED_AGENT_EVALUATION.md)。
+
+### 公共数据集兼容性实验（M14）
+
+项目审计了 τ³ retail 的 114 个公开模拟任务，并按实体关联组固定为 48 个 compile、26 个 development 和 40 个封存 test。最终 DeepSeek 开发批次只有 1/6 成功且出现 5 次协议违规，未达到预先声明的开启门槛，因此 **40 个官方 test 保持封存，没有虚构公开榜单成绩**。详见[公共数据集扩展记录](docs/PUBLIC_DATASET_EXPANSION.md)。
+
+## 技术选型
+
+| 技术 | 在项目中的作用 | 选择原因 |
+|---|---|---|
+| Python 3.12 | 主开发语言 | 类型生态和 Agent/数据工具链成熟 |
+| Pydantic v2 | Trace Schema 与 Workflow IR | 严格类型、可序列化、错误信息清晰 |
+| Clingo / ASP | 模式挖掘与冲突优化 | 复用 AutoCompile 上游能力，显式表达约束与优化目标 |
+| LangChain + LangGraph | 标准 Agent、工具循环、状态与 HITL | 使用成熟框架，不自建 Agent runtime |
+| DeepSeek | 可选的真实模型轨迹生产者 | 通过 OpenAI-compatible 接口接入；离线演示不依赖模型 |
+| Prefect 3 | 工作流导出目标 | 提供清晰任务边界，同时由 Trace2Flow 注册表限制可调用工具 |
+| Streamlit | 招聘演示与证据检查界面 | 单仓库即可展示轨迹、DAG、绑定和状态 diff |
+| `unittest` + Ruff | 回归测试与静态检查 | 标准库测试可移植，CI 路径简单 |
+| uv | 锁定依赖与可复现环境 | `uv.lock` 固定完整依赖图 |
+
+## 快速运行
+
+### 环境要求
+
+- Python 3.12
+- [uv](https://docs.astral.sh/uv/)
+- Git
+
+### 1. 克隆并安装
 
 ```bash
-PYTHONPATH=src streamlit run streamlit_app.py
+git clone https://github.com/JiaDodo/trace2flow.git
+cd trace2flow
+uv sync --locked --group dev
 ```
 
-The default page now walks through archived DeepSeek task/tool projections,
-the frozen occurrence DAG and AI-declared bindings, fresh-state execution and
-complete-state differences, and failure/zero-call evidence. It makes no model
-requests and needs no key or private recordings. Coverage (8/12) is shown
-separately from accepted correctness (8/8). See the
-[Chinese live-evidence walkthrough and real screenshots](docs/LIVE_DEMO_WALKTHROUGH.md).
-
-Switch to the original synthetic/tau demo to compile three synthetic
-customer-support runs and verify two separate synthetic holdout runs, or inspect
-recorded retail structure coverage and fresh-state local execution. Both modes
-use only in-memory tool registries: no real customer system, messages,
-payments, or refunds. See the
-[release audit](docs/RELEASE_AUDIT.md) for tested scope and remaining limits.
-
-## Contribution boundary
-
-Upstream AutoCompile supplies the Clingo miner, ASP rules, original benchmark,
-and pseudo/Daslab generation. Trace2Flow adds the strict JSON schema and split
-guards, reversible typed adapter, occurrence/evidence DAG, Pydantic Workflow
-IR, declaration-based bindings, registered-tool Prefect export, independent
-simulator/verifier, and Streamlit inspection UI. The upstream Git history,
-license, and attribution are preserved.
-
-The original AutoCompile overview follows. Its broad product claims describe
-upstream intent; verified behavior and known gaps are recorded in the audit.
-
-## Upstream AutoCompile overview
-
-AI agents spend most of their compute re-deriving decisions that were already answered by the last hundred runs. autocompile watches processes run and discovers their structure from data. What's invariant becomes compiled code. What varies becomes a parameter. What conflicts gets resolved by optimization. The LLM isn't eliminated -- it's relocated to exactly the decisions that require judgment.
-
-The output is a program that separates the known from the unknown -- a map of where intelligence is actually needed, with empirical accuracy metrics for every compiled step.
-
-## The pipeline
-
-```
-1. Observe    Collect execution traces from repeated workflow runs
-2. Compile    Mine patterns using Answer Set Programming (Clingo)
-3. Benchmark  Validate compiled program against held-out traces
-4. Codegen    Emit an executable job spec for your runtime
-```
-
-## What the compiler discovers
-
-Given execution traces, autocompile automatically identifies:
-
-- **Core tools** -- which tools appear consistently across runs
-- **Parallel groups** -- which tools always run concurrently
-- **Dependency ordering** -- which tools must precede others
-- **Conflicting orderings** -- when evidence disagrees, the solver picks the optimal direction
-- **Conditional execution** -- "tool B only runs when tool A produced results"
-- **Fusion candidates** -- sequential steps that can be merged into one operation
-- **Mutually exclusive tools** -- branch alternatives that never co-occur
-- **Stable vs variable parameters** -- which inputs are constant vs runtime-dependent
-
-All patterns are discovered from data alone. The ASP rules are completely generic -- no workflow-specific knowledge needed.
-
-## Why ASP (Answer Set Programming)
-
-The simple patterns (frequency counting, parameter stability) don't need a logic solver. But real workflows have **conflicting evidence** -- tool A precedes B in 60% of runs, but B precedes A in 40%. autocompile uses Clingo's choice rules to model these conflicts and optimization to resolve them:
-
-```prolog
-% When orderings conflict, choose one direction
-{ chosen_order(A, B) ; chosen_order(B, A) } = 1 :- conflicting_order(A, B).
-
-% Minimize violations against observed evidence
-#minimize { N@2,T1,T2 : order_cost(T1, T2, N) }.
-```
-
-The solver explores all consistent combinations and returns the optimal compilation. As rules grow more complex (resource constraints, branching logic, cross-workflow optimization), the ASP program grows linearly while a hand-coded solver would grow combinatorially.
-
-## Examples
-
-### Travel updates (177 runs)
-
-27 real production traces + 150 synthetic traces modeled on observed patterns. The compiler discovers a 5-phase workflow with conditional branching:
-
-```
-Phase 0:  gmail_search x3 accounts (parallel)
-Phase 1:  sheets_read x2 spreadsheets
-            ↳ conditional on gmail_search (95% of runs)
-Phase 2:  gmail_list_threads x3 accounts
-            ↳ conditional on gmail_search (53% of runs)
-Phase 3:  gmail_get_thread x3 accounts
-            ↳ conditional on sheets_read (34% of runs)
-Phase 4:  sheets_update_values
-            ↳ conditional on gmail_get_thread (94% of runs)
-```
-
-4 conflicting orderings resolved by optimization. 2 fusion candidates identified (`gmail_search + gmail_get_thread`). Benchmark against held-out traces: **88% parameter accuracy, 96% of runs matched**.
-
-### Order updates (118 runs)
-
-118 real production traces. 6 conflicting orderings resolved. 4-phase compiled DAG. Benchmark: **73% parameter accuracy, 96% of runs matched**.
-
-### A note on data
-
-The travel example includes synthetic traces, clearly labeled in the `.lp` files. The order example is 100% real production data.
-
-## Quick start
+### 2. 启动离线演示（推荐）
 
 ```bash
-pip install clingo
-git clone https://github.com/mirkokiefer/autocompile
-cd autocompile
-
-# 1. Compile: mine patterns from traces
-python src/compile.py \
-  --traces examples/travel-updates/traces.lp \
-  --rules rules/mine_patterns_relaxed.lp \
-  --output result.json
-
-# 2. Benchmark: validate against traces
-python src/benchmark.py \
-  --compiled result.json \
-  --holdout examples/travel-updates/traces.json
-
-# 3. Codegen: emit executable pseudocode
-python src/codegen.py --compiled result.json --target pseudo
-
-# 4. Codegen: emit runnable job spec
-python src/codegen.py --compiled result.json --target daslab --output job.json
+PYTHONPATH=src uv run streamlit run streamlit_app.py \
+  --server.address 127.0.0.1 \
+  --server.port 8512 \
+  --browser.gatherUsageStats false
 ```
 
-## Compilation operations
+浏览器打开 <http://127.0.0.1:8512>。默认的“DeepSeek 实测证据”页面只读取仓库内公开归档，不读取 `DEEPSEEK_API_KEY`，也不会请求任何外部服务。
 
-autocompile applies compiler optimizations to observed workflows:
+### 3. 运行完整测试
 
-- **Constant folding** -- Steps that always produce the same output are replaced with the cached result
-- **Strength reduction** -- Expensive steps are downgraded to cheaper equivalents where benchmarks confirm equivalence
-- **Inlining / fusion** -- Sequential steps with deterministic data flow are fused into a single operation
-- **Parallelization** -- Independent steps are scheduled concurrently
-- **Dead code elimination** -- Steps whose outputs are never used downstream are removed
-- **Branch compilation** -- Conditional execution patterns are inferred from co-occurrence data
+```bash
+PYTHONPATH=src PREFECT_SERVER_ALLOW_EPHEMERAL_MODE=true \
+  uv run python -m unittest discover -s tests -v
 
-## Model compilation
-
-For steps that remain as `llm_invoke`, autocompile can test whether a cheaper model produces equivalent results. Using the inputs and outputs from existing traces as ground truth:
-
-```
-extract_booking_details:
-  claude-sonnet-4-5   25/25 correct (baseline)
-  qwen-3.5-35b        24/25 correct (96%)    downgrade candidate
-  regex extraction     18/25 correct (72%)    not ready
+uv run ruff check src/trace2flow tests streamlit_app.py \
+  scripts/capture_m12_demo.py
 ```
 
-*Status: WIP. The benchmarking framework supports this but model comparison is not yet implemented.*
+当前冻结基线为 **196 tests passed，0 skips**。实际命令与结果记录在 [`docs/STATUS.md`](docs/STATUS.md)。
 
-## Datalog backends
+## 从 Trace 到工作流：最小命令行示例
 
-The `datalog/` directory ports the monotonic fragment (~70% of the ASP rules) to three Datalog engines. All produce identical results to Clingo:
+下面路径完全离线，使用仓库内类型化测试数据：
 
-```
-Engine         Solve time    Notes
-─────────────────────────────────────────────
-Clingo (ASP)      52ms       Full pipeline (choice rules + optimization)
-Soufflé          175ms       Compiled Datalog (includes subprocess overhead)
-egglog            39ms       Datalog + equality saturation
-Python            15s        Reference implementation (pure Python, no deps)
-```
+```bash
+# 1. 校验规范化 JSON Trace，不执行其中任何内容
+PYTHONPATH=src uv run python -m trace2flow validate \
+  tests/fixtures/typed_customer_support.json
 
-The remaining ~30% (conflicting order resolution via choice rules and `#minimize`) stays in Clingo. See `datalog/` for details.
+# 2. 调用上游编译器并生成带逐调用证据的候选 DAG
+PYTHONPATH=src uv run python -m trace2flow mine \
+  tests/fixtures/typed_customer_support.json \
+  --output /tmp/trace2flow-candidate.json \
+  --rule-profile strict
 
-## Trace format
-
-autocompile takes execution traces as JSON or ASP facts:
-
-```json
-{
-  "runs": [
-    {
-      "id": "run_1",
-      "steps": [
-        {"id": "step_1", "tool": "gmail_search", "params": {"query": "flights"}, "status": "completed"},
-        {"id": "step_2", "tool": "sheets_read", "depends_on": ["step_1"], "status": "completed"}
-      ]
-    }
-  ]
-}
+# 3. 构建框架无关 Workflow IR
+PYTHONPATH=src uv run python -m trace2flow build-ir \
+  tests/fixtures/typed_customer_support.json \
+  --candidate /tmp/trace2flow-candidate.json \
+  --output /tmp/trace2flow-workflow.json
 ```
 
-See [spec/trace-format.md](spec/trace-format.md) for the full specification.
+如果关键参数、分支或副作用仍为 unresolved，第三步可以保留候选 IR，但 Prefect 可执行导出会被拒绝。完整本地验证流程见 [`docs/LOCAL_VERIFICATION.md`](docs/LOCAL_VERIFICATION.md)。
 
-## Project structure
+## 可选：运行 DeepSeek Agent
 
+Agent 是轨迹生产者，不是编译器本身。只有这一部分需要模型 Key：
+
+```bash
+uv sync --locked --extra agent --group dev
+export DEEPSEEK_API_KEY="你的 Key"
+
+PYTHONPATH=src uv run --extra agent python -m trace2flow.support_agent \
+  --customer-id C-100 \
+  --ticket-id T-100 \
+  --message "我上周买的蓝牙耳机咋还没到啊？物流好几天没动了" \
+  --thread-id demo-01 \
+  --approve-local-write \
+  --allow-paid-call \
+  --trace-output data-private/standard-agent-demo/delivery.json
 ```
-autocompile/
+
+实时调用必须显式传入 `--allow-paid-call`。程序不会把 Key、请求头或供应商异常原文写入录制；本地写操作仍需人工批准。详细说明见[标准客服 Agent](docs/STANDARD_AGENT.md)。
+
+## 项目结构
+
+```text
+trace2flow/
 ├── src/
-│   ├── compile.py            # Trace → compiled workflow (ASP strategy)
-│   ├── benchmark.py          # Validate compiled workflow against traces
-│   └── codegen.py            # Compiled workflow → executable program
-├── rules/
-│   ├── mine_patterns.lp      # ASP rules (50% threshold)
-│   └── mine_patterns_relaxed.lp  # ASP rules (25% threshold)
-├── datalog/
-│   ├── mine_patterns.dl      # Soufflé port of ASP rules
-│   ├── souffle_compile.py    # Soufflé runner
-│   ├── egglog_compile.py     # egglog runner
-│   ├── engine.py             # Pure Python Datalog evaluator
-│   └── compile.py            # Python engine runner
-├── examples/
-│   ├── travel-updates/       # 177 runs (27 real + 150 synthetic)
-│   └── order-updates/        # 118 runs (100% real)
-├── experiments/              # Cross-domain prototypes (robotics, lab, edge compute)
-└── spec/
-    └── trace-format.md       # Trace format specification
+│   ├── compile.py                 # 上游 AutoCompile / Clingo 编译入口
+│   └── trace2flow/
+│       ├── models.py              # 规范化 Trace 数据模型
+│       ├── candidate.py           # occurrence-aware 候选 DAG
+│       ├── ir.py                  # Pydantic Workflow IR
+│       ├── prefect_export.py      # 注册工具约束下的 Prefect 导出
+│       ├── simulation.py          # 客服本地模拟与状态验证
+│       ├── support_agent.py       # 标准 LangChain/LangGraph Agent
+│       └── support_router.py      # 工作流优先、歧义回退 Agent 的路由
+├── rules/                         # 上游 ASP 规则
+├── tests/                         # 离线回归与安全边界测试
+├── examples/                      # 合成、录制和冻结评估产物
+├── docs/                          # 审计、实验协议、路线图与演示手册
+├── streamlit_app.py               # 离线可视化入口
+├── pyproject.toml
+└── uv.lock
 ```
 
-## Prior art
+## 上游项目与新增内容的边界
 
-- **Compiler optimization** -- The operations are textbook. We apply them to workflows instead of instruction streams.
-- **Trace-based JIT** (V8, LuaJIT) -- Observe runtime behavior to decide what to optimize. autocompile infers the program itself from traces.
-- **Process mining** (Celonis) -- Discovers workflow models from event logs. autocompile compiles the discovered workflow into an executable program.
-- **Program synthesis** -- Generates programs from input/output examples. autocompile applies this at the workflow step level.
-- **Autonomous research** (autoresearch) -- LLM mutates code, keeps improvements. The LLM generates variations. autocompile discovers structure from observed variations instead.
+本仓库 fork 自 [mirkokiefer/autocompile](https://github.com/mirkokiefer/autocompile)，保留原始 Git 历史、MIT License 和署名。
 
-## Status
+| AutoCompile 上游原有能力 | Trace2Flow 新增能力 |
+|---|---|
+| Clingo/ASP 工具级模式挖掘 | 类型化 JSON Trace 与完整运行级数据边界 |
+| core tool、顺序/冲突、条件等统计模式 | 同名重复调用不合并的 occurrence 对齐 |
+| 原始 benchmark 与 pseudo/Daslab codegen | 每条 DAG 依赖的逐运行、逐调用证据 |
+| ASP 规则与实验性 Datalog 后端 | Pydantic Workflow IR 与显式 unresolved 状态 |
+| 上游示例数据 | 安全 Prefect 导出、注册工具运行时、独立状态验证 |
+| — | 标准客服 Agent、保守自适应路由、Streamlit 演示与冻结评估 |
 
-Early-stage. The core pipeline works on agent workflow traces today. The same ASP rules are domain-generic -- they work on any process that produces sequential action traces. The `experiments/` directory has prototypes for robotics (LeRobot), autonomous lab protocols, and edge compute pipelines.
+上游真实输入输出、已验证能力和实现限制见 [`docs/UPSTREAM_AUDIT.md`](docs/UPSTREAM_AUDIT.md)。Trace2Flow 没有未经核验重写上游编译核心。
 
-## License
+## 安全与正确性边界
 
-MIT
+- Trace 中携带的代码永远不会被执行；运行时只能调用预注册的本地工具。
+- 调用顺序和相同字段值都不能单独证明数据血缘。
+- 布尔值、空值和常见数字等弱匹配保持歧义，不静默猜测。
+- 历史参数不变不等于业务常量；常量和运行时输入需要显式声明。
+- 有 unresolved 参数、分支或副作用时拒绝可执行导出。
+- compile 与 test 按完整任务运行隔离；同一来源任务组不能跨分区。
+- 当前客服数据全部为合成业务数据；录制模型调用不等于真实客户数据。
+- 不连接真实客服系统，不发消息、不退款、不联系承运商，也不执行通用 Shell。
+
+## 当前状态与下一步
+
+M0–M12 已完成原 MVP、DeepSeek 轨迹采集、冻结评估与离线演示；M13 已完成标准 Agent、保守路由和首轮成对评估；M14 完成公共 τ³ 数据审计并诚实关闭未达门槛的兼容性实验。
+
+下一项明确工作是 **M13d**：修复 Agent 与工作流共享的用户可见结果协议，然后冻结一批更大、任务组互斥的改写/负例 holdout，重新评估语义准确率、完整状态、调用、token 和安全写入。详见[路线图](docs/ROADMAP.md)和[当前状态](docs/STATUS.md)。
+
+## 文档导航
+
+- [三分钟中文演示与截图复现](docs/LIVE_DEMO_WALKTHROUGH.md)
+- [项目证据链与面试讲解](docs/PORTFOLIO_WALKTHROUGH.md)
+- [Agent + Trace2Flow 成对评估](docs/PAIRED_AGENT_EVALUATION.md)
+- [自适应路由设计](docs/ADAPTIVE_ROUTER.md)
+- [Workflow IR 与 Prefect 安全导出](docs/PREFECT_EXPORT.md)
+- [公共数据集扩展与负结果](docs/PUBLIC_DATASET_EXPANSION.md)
+- [上游能力审计](docs/UPSTREAM_AUDIT.md)
+
+## License 与致谢
+
+本项目采用 [MIT License](LICENSE)。感谢 [Mirko Kiefer](https://github.com/mirkokiefer) 开源的 [AutoCompile](https://github.com/mirkokiefer/autocompile)；Trace2Flow 在保留其历史和署名的基础上进行工程化扩展。
